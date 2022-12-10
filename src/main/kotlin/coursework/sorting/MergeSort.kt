@@ -48,7 +48,9 @@ object MergeSort {
                     res[t] = leftSorted[l]
                     merge_rec_g(leftSorted, l + 1, rightSorted, r, res, t + 1)
                 } else {
-                    if (leftSorted[l].YEAR_OF_PUBLICATION < rightSorted[r].YEAR_OF_PUBLICATION) {
+                    val leftName = leftSorted[l].AUTHOR.split(" ")[1]
+                    val rightName = rightSorted[r].AUTHOR.split(" ")[1]
+                    if(leftName < rightName) {
                         res[t] = leftSorted[l]
                         merge_rec_g(leftSorted, l + 1, rightSorted, r, res, t + 1)
                     } else {
@@ -79,10 +81,11 @@ object MergeSort {
 //}
 
 //fun main() {
-//    val left = ArrayList(arrayListOf(-1, 20, 3))
+//    val left = ArrayList(arrayListOf("Liam", "Olivia","Bebe","Harpez", "Noah", "Emma", "Oliver", "Charlotte", "Elijah", "Amelia", "James", "Ava",
+//        "William", "Sophia", "Benjamin", "Isabella", "Lucas", "Mia", "Henry", "Evelyn", "Theodore", "Harper"))
 //    val (a,i) = MergeSort.sort(left)
 //    println(i)
 //    a.forEach({ println(it)}
 //    )
-//
+
 //}
