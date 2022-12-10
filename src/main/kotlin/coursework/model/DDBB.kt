@@ -3,7 +3,6 @@ package coursework.model
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.sqlite.driver.asJdbcDriver
 import com.zaxxer.hikari.HikariDataSource
-import coursework.controller.Controller
 import coursework.database.*
 
 
@@ -68,17 +67,17 @@ object DDBB {
 
 
 // this is for testing.
-//fun main() {
-//    val lectures = DDBB.getLecturers()
-//    for (lecture in lectures) {
-//        println(lecture)
-//    }
-//    println(lectures)
-//
-//    val faculties = DDBB.getFaculties()
-//    for (faculty in faculties) {
-//        println(faculty)
-//
-//    }
-//}
+fun main() {
+    val books = DDBB.getBooks()
+    for (book in books) {
+        println(book)
+    }
+    println(books)
+
+    val authors = DDBB.getAuthors()
+    for (author in authors) {
+        println(author)
+
+    }
+}
 

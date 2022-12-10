@@ -41,7 +41,7 @@ public class AuthorPanel extends JPanel {
             gc.gridx = 0;
             gc.gridy = 0;
             gc.anchor = GridBagConstraints.SOUTHEAST;
-            add(new JLabel("Name : ",SwingConstants.RIGHT),gc);
+            add(new JLabel("Fullname : ",SwingConstants.RIGHT),gc);
 
             gc.gridx = 1;
             gc.gridy = 0;
