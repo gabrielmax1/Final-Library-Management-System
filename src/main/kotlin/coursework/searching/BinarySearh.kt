@@ -23,8 +23,8 @@ object BinarySearh {
     // Driver method to test above
     @JvmStatic
     fun main(args: Array<String>) {
-        val arr = arrayOf<String?>("contribute", "geeks", "ide", "practice")
-        val x = "ide"
+        val arr = arrayOf<String?>("test", "module", "IntelliJ", "Practice")
+        val x = "module"
         val result = binarySearch(arr, x)
         if (result == -1) println("Element not present") else println(
             "Element found at "

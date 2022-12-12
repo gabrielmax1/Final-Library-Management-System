@@ -81,7 +81,7 @@ public class BookTableModel extends AbstractTableModel implements PropertyChange
         }
     }
 
-    @Override
+    @Override                            // LAMBDA
     public void propertyChange(PropertyChangeEvent evt) {
         System.out.println(this + ":" + evt.toString());
         if (evt.getPropertyName() == "bookList") {

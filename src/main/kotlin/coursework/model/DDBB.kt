@@ -36,7 +36,7 @@ object DDBB {
     fun getSearchBooks(word: String): List<BOOK> {
         val database = Database(getSqlDriver(path))
         val sqlQueries = database.cWQueries
-        return sqlQueries.Search_Book_by_Title(TITLE = word).executeAsList()
+        return sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
     }
 
     fun addBook(title: String, author: String, year_of_publication: Long, publisher: String, subject: String, author_id: Long?=null, publisher_id: Long?=null) {

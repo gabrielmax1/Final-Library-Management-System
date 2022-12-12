@@ -8,6 +8,7 @@ import coursework.database.PUBLISHER
 import coursework.model.DDBB
 import coursework.sorting.Bubble
 import coursework.sorting.QuickSort
+import coursework.sorting.MergeSort
 
 object Interpreter {
 
@@ -72,14 +73,14 @@ object Interpreter {
                                     println(book.toRow())
                                 }
                             }
-                                //TODO Finish MergeSort.
-//                            2 -> {
-//                                val pair = MergeSort.sort(scrambled)
-//                                n = pair.second
-//                                pair.first.forEach { lec ->
-//                                    println(lec.toRow())
-//                                }
-//                            }
+
+                            2 -> {
+                                val pair = MergeSort.sort_title(scrambled)
+                                n = pair.second
+                                pair.first.forEach { lec ->
+                                    println(lec.toRow())
+                                }
+                            }
 
                             3 -> {
                                 n = QuickSort.sort_author(scrambled)

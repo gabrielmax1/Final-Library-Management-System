@@ -88,7 +88,8 @@ public class BookPanel extends JPanel {
                 {
                     String searchWord = searchTextField.getText();
                     Controller.INSTANCE.getSearchBooks(searchWord);
-                    //System.out.println(Controller.INSTANCE.getSearchBooks("Barone"));
+                    System.out.println(Controller.INSTANCE.getSearchBooks(searchWord)); // Test prinitng in console
+//                    System.out.println(Controller.INSTANCE.getSearchBooks("Barone"));
 
                 }
             });
@@ -170,9 +171,13 @@ public class BookPanel extends JPanel {
             add(addButton,gc);
 
             gc.gridx = 2;
-            gc.gridy = 7 ;
+            gc.gridy = 8 ;
             gc.fill = GridBagConstraints.NONE;
             add(searchButton,gc);
+
+            gc.gridx = 0;
+            gc.gridy = 8 ;
+            add(new JLabel("Search Book Title :",SwingConstants.RIGHT),gc);
 
             gc.gridx = 1;
             gc.gridy = 8 ;
