@@ -18,9 +18,10 @@ object Bubble {
             for (i in 1 until n)  {
                 ticks += 1
 //                var firstAuthor = my_array[i-1].
-                val firstName = my_array[i-1].AUTHOR.split(" ")[1]
-                val secondName = my_array[i].AUTHOR.split(" ")[1]
-                if (firstName > secondName) {
+//                val firstName = my_array[i-1].AUTHOR.split(" ")[1]
+//                val secondName = my_array[i].AUTHOR.split(" ")[1]
+//                if (firstName > secondName) {
+                if (my_array[i-1].AUTHOR > my_array[i].AUTHOR) {
                     val tmp = my_array[i-1]
                     my_array[i-1]=my_array[i]
                     my_array[i] = tmp
@@ -31,8 +32,8 @@ object Bubble {
            println("TMP bubble1:$my_array")
             n = newn
         }  while (n>1)
-//        for (i in my_array)     println(i.AGE)
-//        println("----")
+        for (i in my_array)     println(i.AUTHOR)
+        println("----")
 
         return ticks
     }
