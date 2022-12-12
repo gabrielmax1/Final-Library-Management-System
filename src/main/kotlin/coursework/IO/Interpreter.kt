@@ -66,7 +66,7 @@ object Interpreter {
                         var n = 0
                         when (choice) {
                             1 -> {
-                                n = Bubble.sort(scrambled)
+                                n = Bubble.sortAuthorName(scrambled)
                                 scrambled.forEach { book ->
                                     println(book.toRow())
                                 }
@@ -81,7 +81,7 @@ object Interpreter {
 //                            }
 
                             3 -> {
-                                n = QuickSort.sort(scrambled)
+                                n = QuickSort.sort_author(scrambled)
                                 scrambled.forEach { book ->
                                     println(book.toRow())
                                 }

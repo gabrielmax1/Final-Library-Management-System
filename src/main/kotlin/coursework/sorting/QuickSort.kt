@@ -4,45 +4,91 @@ import coursework.database.BOOK
 
 object QuickSort {
     var tick = 0
-    fun sort(scrambled: ArrayList<BOOK>) : Int
+    fun sort_author(unsortList: ArrayList<BOOK>) : Int
     {
         // Inmmersion
-        fun sort_g(scrambled: ArrayList<BOOK>, inf: Int, sup: Int): Int {
+        fun sort_g(unsortList: ArrayList<BOOK>, inf: Int, sup: Int): Int {
             if (sup - inf <= 1) {
 
             } else {
-                val h = partition(scrambled, inf, sup)
+                val half = partition_author(unsortList, inf, sup)
                 // Swap to reduce quota,
-                val tmp = scrambled[inf]
-                scrambled[inf] = scrambled[h - 1]
-                scrambled[h - 1] = tmp
+                val tmp = unsortList[inf]
+                unsortList[inf] = unsortList[half - 1]
+                unsortList[half - 1] = tmp
                 //
-                assert(((h - 1) - inf < sup - inf) && (sup - h < sup - inf))
-                sort_g(scrambled, inf, h - 1)
-                sort_g(scrambled, h, sup)
+                assert(((half - 1) - inf < sup - inf) && (sup - half < sup - inf))
+                sort_g(unsortList, inf, half - 1)
+                sort_g(unsortList, half, sup)
             }
             return tick
         }
-        return sort_g(scrambled,0,scrambled.size)
+        return sort_g(unsortList,0,unsortList.size)
     }
 
 
 
-    // We cannot use slices of scrambled, since we modify the parameter itself.
-    private fun partition(scrambled: ArrayList<BOOK>, inf: Int, sup: Int): Int {
-        var h = inf + 1
+    // We cannot use slices of unsortedList, since we modify the parameter itself.
+    private fun partition_author(unsortList: ArrayList<BOOK>, inf: Int, sup: Int): Int {
+        var half = inf + 1
         assert(sup - inf > 1)
         for (n in inf + 1 until sup) {
             tick+=1
-            if (scrambled[n].YEAR_OF_PUBLICATION <= scrambled[inf].YEAR_OF_PUBLICATION) {
-                val tmp = scrambled[h]
-                scrambled[h] = scrambled[n]
-                scrambled[n] = tmp
-                h += 1
+            if (unsortList[n].AUTHOR <= unsortList[inf].AUTHOR) {
+                val tmp = unsortList[half]
+                unsortList[half] = unsortList[n]
+                unsortList[n] = tmp
+                half += 1
             }
         }
-        assert(inf < h && inf <= sup)
-        return h
+        assert(inf < half && inf <= sup)
+        return half
     }
+    fun sort_title(unsortList: ArrayList<BOOK>) : Int
+    {
+        // Inmmersion
+        fun sort_g(unsortList: ArrayList<BOOK>, inf: Int, sup: Int): Int {
+            if (sup - inf <= 1) {
+
+            } else {
+                val half = partition_title(unsortList, inf, sup)
+                // Swap to reduce quota,
+                val tmp = unsortList[inf]
+                unsortList[inf] = unsortList[half - 1]
+                unsortList[half - 1] = tmp
+                //
+                assert(((half - 1) - inf < sup - inf) && (sup - half < sup - inf))
+                sort_g(unsortList, inf, half - 1)
+                sort_g(unsortList, half, sup)
+            }
+            return tick
+        }
+        return sort_g(unsortList,0,unsortList.size)
+    }
+
+
+
+    // We cannot use slices of unsortedList, since we modify the parameter itself.
+    private fun partition_title(unsortList: ArrayList<BOOK>, inf: Int, sup: Int): Int {
+        var half = inf + 1
+        assert(sup - inf > 1)
+        for (n in inf + 1 until sup) {
+            tick+=1
+            if (unsortList[n].TITLE <= unsortList[inf].TITLE) {
+                val tmp = unsortList[half]
+                unsortList[half] = unsortList[n]
+                unsortList[n] = tmp
+                half += 1
+            }
+        }
+        assert(inf < half && inf <= sup)
+        return half
+    }
+
+
+
 }
+
+
+
 
