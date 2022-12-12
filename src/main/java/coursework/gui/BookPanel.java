@@ -54,16 +54,35 @@ public class BookPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String title = titleTextField.getText();
-                    String author = year_of_publicationTextField.getText();
-                    String year_of_publication = authorTextField.getText();
+                    String author = authorTextField.getText();
+                    String year_of_publication = year_of_publicationTextField.getText();
                     String publisher = publisherTextField.getText();
                     String subject = subjectTextField.getText();
                     Controller.INSTANCE.add_book(title, author, Long.parseLong(year_of_publication), publisher, subject,
                            Long.valueOf(1), Long.valueOf(1));
                 }
             });
-
+//            editButton.addActionListener(new ActionListener() {
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+//
+//                }
+//            });
+//            deleteButton.addActionListener(new ActionListener() {
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+//                    // Selected book
+//                }
+//            })
+//            searchButton.addActionListener(new ActionListener()
+//            {
+//                public void actionPerformed(ActionEvent e)
+//                {
+//                    String name = JOptionPane.showInputDialog("Wat wil je zoeken?");
+//                }
+//            });
         }
+
 
         private void createUILayout() {
             setLayout(new GridBagLayout());

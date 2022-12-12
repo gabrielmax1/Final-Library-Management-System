@@ -7,7 +7,7 @@ import coursework.database.BOOK
 object Bubble {
 
     fun sort(my_array : ArrayList<BOOK>): Int {
-        var n:Int=my_array.size
+        var n: Int = my_array.size // length of array
         var ticks = 0
         // Q: n=min p : 0 <= p <= N and p<N-2 -> A[p]>A[p+1]: p
         // quota : n >= 0
@@ -66,13 +66,13 @@ object Bubble {
 
 }
 
-//fun main() {
-//    val left = ArrayList(arrayListOf("Liam", "Olivia","Bebe","Harpez", "Noah", "Emma", "Oliver", "Charlotte", "Elijah", "Amelia", "James", "Ava",
-//        "William", "Sophia", "Benjamin", "Isabella", "Lucas", "Mia", "Henry", "Evelyn", "Theodore", "Harper"))
-//    val i = Bubble.sortString(left)
-//    println(i)
-//    println(left)
-////    a.forEach({ println(it)}
-//
-//
-//}
+fun main() {
+    val test = ArrayList(arrayListOf("Liam", "Olivia","Bebe","Harpez", "Noah", "Emma", "Oliver", "Charlotte", "Elijah", "Amelia", "James", "Ava",
+        "William", "Sophia", "Benjamin", "Isabella", "Lucas", "Mia", "Henry", "Evelyn", "Theodore", "Harper"))
+    val result = Bubble.sortString(test)
+    println(result)
+    println(test)
+//    a.forEach({ println(it)}
+
+
+}

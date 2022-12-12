@@ -11,18 +11,13 @@
     <show-object-properties value="true" />
     <loaded-nodes />
   </component>
-  <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="3bd330ef-168d-4165-b308-1f5b7e8ff3a2">
-      <console name="Library" type="STANDARD" schema="main" session="Main" />
-    </connection>
-  </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files>
       <object connection-id="3bd330ef-168d-4165-b308-1f5b7e8ff3a2" object-ref="schemas/main/tables/AUTHOR" />
-      <object connection-id="3bd330ef-168d-4165-b308-1f5b7e8ff3a2" object-ref="schemas/main/tables/BOOK" />
+      <object connection-id="3bd330ef-168d-4165-b308-1f5b7e8ff3a2" object-ref="schemas/main/tables/PUBLISHER" />
     </open-files>
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
@@ -71,7 +66,7 @@
           <port value="" />
           <database value="" />
           <files>
-            <file path="C:\Users\gc9561r\OneDrive - University of Greenwich\Uni\Year3\COMP 1815 JVM Programming Languages M01-2022-23\CW\CW_JVM\src\main\resources\library.sqlite" schema="main" />
+            <file path="C:\Users\Gab\IdeaProjects\Final-Library-Management-System\src\main\resources\library.sqlite" schema="main" />
           </files>
           <type value="NONE" />
           <user value="" />
@@ -269,12 +264,18 @@
           <content-type name="DTD" enabled="true" />
           <content-type name="HTML" enabled="true" />
           <content-type name="XHTML" enabled="true" />
+          <content-type name="CSS" enabled="true" />
           <content-type name="Java" enabled="true" />
           <content-type name="SQL" enabled="true" />
           <content-type name="PL/SQL" enabled="true" />
+          <content-type name="JavaScript" enabled="true" />
           <content-type name="JSON" enabled="true" />
           <content-type name="JSON5" enabled="true" />
+          <content-type name="JSP" enabled="true" />
+          <content-type name="JSPx" enabled="true" />
           <content-type name="Groovy" enabled="true" />
+          <content-type name="FTL" enabled="true" />
+          <content-type name="VTL" enabled="true" />
           <content-type name="AIDL" enabled="true" />
           <content-type name="YAML" enabled="true" />
           <content-type name="Manifest" enabled="true" />

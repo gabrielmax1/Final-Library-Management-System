@@ -4,6 +4,10 @@ import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.sqlite.driver.asJdbcDriver
 import com.zaxxer.hikari.HikariDataSource
 import coursework.database.*
+import coursework.database.Database
+import coursework.database.AUTHOR
+import coursework.database.BOOK
+import coursework.database.PUBLISHER
 
 
 object DDBB {

@@ -121,8 +121,8 @@ public class SortPanel extends JPanel {
         sortRadioGroup.add(mergeSortRadioButon);
 
 
-        bookTitleSortRadioButton = new JRadioButton("Title : ");
-        authorNameSortRadioButton = new JRadioButton("aName : ");
+        bookTitleSortRadioButton = new JRadioButton("BookTitle : ");
+        authorNameSortRadioButton = new JRadioButton("AuthorName : ");
         bookTitleSortRadioButton.setSelected(true);
 
         sortFieldGroup = new ButtonGroup();
