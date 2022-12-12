@@ -3,6 +3,7 @@ package coursework.IO
 import coursework.database.AUTHOR
 import coursework.database.BOOK
 import coursework.database.Book_by_Author
+import coursework.database.*
 import coursework.database.PUBLISHER
 import coursework.model.DDBB
 import coursework.sorting.Bubble
@@ -96,6 +97,11 @@ object Interpreter {
                         DDBB.booksByAuthor(id.toLong()).forEach {
                             println(it.toRow())
                         }
+                    }
+
+                    8 -> {
+                        val scrambled = ArrayList(DDBB.getBooks())
+
                     }
 
                     0 -> println("Bye!")

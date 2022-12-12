@@ -31,6 +31,7 @@ public class BookPanel extends JPanel {
         private final JButton searchButton;
         private final JComboBox authorComboBox;
         private final JComboBox publisherComboBox; // Check with original repository
+        private final JTextField searchTextField;
 
         public BookFormPanel() {
 
@@ -43,6 +44,7 @@ public class BookPanel extends JPanel {
             editButton = new JButton("EDIT");
             deleteButton = new JButton("DELETE");
             searchButton = new JButton("SEARCH");
+            searchTextField = new JTextField();
             final AuthorComboBoxModel authorComboBoxModel = new AuthorComboBoxModel(Controller.INSTANCE.getAuthorList());
             authorComboBox = new JComboBox(authorComboBoxModel);
             authorComboBox.setEditable(false);
@@ -80,13 +82,16 @@ public class BookPanel extends JPanel {
 //                    // Selected book
 //                }
 //            })
-//            searchButton.addActionListener(new ActionListener()
-//            {
-//                public void actionPerformed(ActionEvent e)
-//                {
-//                    String name = JOptionPane.showInputDialog("Wat wil je zoeken?");
-//                }
-//            });
+            searchButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e)
+                {
+                    String searchWord = searchTextField.getText();
+                    Controller.INSTANCE.getSearchBooks(searchWord);
+                    //System.out.println(Controller.INSTANCE.getSearchBooks("Barone"));
+
+                }
+            });
         }
 
 

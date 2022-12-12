@@ -9,6 +9,7 @@ import coursework.database.BOOK
 import coursework.database.PUBLISHER
 import coursework.model.DDBB.getAuthors
 import coursework.model.DDBB.getBooks
+import scala.None
 import java.beans.PropertyChangeListener
 import java.beans.PropertyChangeSupport
 
@@ -42,10 +43,25 @@ object Controller {
             pcs.firePropertyChange("publisherList", old, field)
         }
 
+//    var searchList: List<BOOK> = getSearchBooks(TITLE = word)
+//        get() = field
+//        private set(value) {
+//            val old = field
+//            field = value
+//            pcs.firePropertyChange("searchList", old, field)
+//        }
+
+
     private fun getBooks(): List<BOOK> {
         val database = Database(getSqlDriver(path))
         val sqlQueries = database.cWQueries
         return sqlQueries.allBooks().executeAsList()
+    }
+
+    fun getSearchBooks(word: String): List<BOOK> {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        return sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
     }
 
     private fun getSqlDriver(path: String ): SqlDriver {
