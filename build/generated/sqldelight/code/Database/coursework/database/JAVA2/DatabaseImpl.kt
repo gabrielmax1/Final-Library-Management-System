@@ -87,6 +87,8 @@ private class CWQueriesImpl(
 
   internal val book_by_Publisher: MutableList<Query<*>> = copyOnWriteList()
 
+  internal val Search_Book_by_Title: MutableList<Query<*>> = copyOnWriteList()
+
   public override fun <T : Any> allBooks(mapper: (
     id: Long,
     TITLE: String,
@@ -221,6 +223,43 @@ private class CWQueriesImpl(
     )
   }
 
+  public override fun <T : Any> Search_Book_by_Title(TITLE: String, mapper: (
+    id: Long,
+    TITLE: String,
+    AUTHOR: String,
+    YEAR_OF_PUBLICATION: Long,
+    PUBLISHER: String,
+    SUBJECT: String?,
+    AUTHOR_ID: Long?,
+    PUBLISHER_ID: Long?
+  ) -> T): Query<T> = Search_Book_by_TitleQuery(TITLE) { cursor ->
+    mapper(
+      cursor.getLong(0)!!,
+      cursor.getString(1)!!,
+      cursor.getString(2)!!,
+      cursor.getLong(3)!!,
+      cursor.getString(4)!!,
+      cursor.getString(5),
+      cursor.getLong(6),
+      cursor.getLong(7)
+    )
+  }
+
+  public override fun Search_Book_by_Title(TITLE: String): Query<BOOK> =
+      Search_Book_by_Title(TITLE) { id, TITLE_, AUTHOR, YEAR_OF_PUBLICATION, PUBLISHER, SUBJECT,
+      AUTHOR_ID, PUBLISHER_ID ->
+    BOOK(
+      id,
+      TITLE_,
+      AUTHOR,
+      YEAR_OF_PUBLICATION,
+      PUBLISHER,
+      SUBJECT,
+      AUTHOR_ID,
+      PUBLISHER_ID
+    )
+  }
+
   public override fun insertBook(
     TITLE: String,
     AUTHOR: String,
@@ -241,7 +280,8 @@ private class CWQueriesImpl(
       bindLong(6, AUTHOR_ID)
       bindLong(7, PUBLISHER_ID)
     }
-    notifyQueries(-507489727, {database.cWQueries.book_by_Author + database.cWQueries.allBooks +
+    notifyQueries(-507489727, {database.cWQueries.book_by_Author +
+        database.cWQueries.Search_Book_by_Title + database.cWQueries.allBooks +
         database.cWQueries.book_by_Publisher})
   }
 
@@ -290,10 +330,10 @@ private class CWQueriesImpl(
     public override fun execute(): SqlCursor = driver.executeQuery(null, """
     |SELECT
     |    BOOK.TITLE,
-    |        BOOK.AUTHOR,
-    |        BOOK.YEAR_OF_PUBLICATION,
-    |        BOOK.PUBLISHER,
-    |        BOOK.SUBJECT
+    |    BOOK.AUTHOR,
+    |    BOOK.YEAR_OF_PUBLICATION,
+    |    BOOK.PUBLISHER,
+    |    BOOK.SUBJECT
     |    FROM BOOK
     |    INNER JOIN PUBLISHER
     |    ON BOOK.PUBLISHER_ID = PUBLISHER.id
@@ -303,5 +343,19 @@ private class CWQueriesImpl(
     }
 
     public override fun toString(): String = "CW.sq:book_by_Publisher"
+  }
+
+  private inner class Search_Book_by_TitleQuery<out T : Any>(
+    public val TITLE: String,
+    mapper: (SqlCursor) -> T
+  ) : Query<T>(Search_Book_by_Title, mapper) {
+    public override fun execute(): SqlCursor = driver.executeQuery(-9733938, """
+    |SELECT * FROM BOOK
+    |WHERE TITLE LIKE ?
+    """.trimMargin(), 1) {
+      bindString(1, TITLE)
+    }
+
+    public override fun toString(): String = "CW.sq:Search_Book_by_Title"
   }
 }

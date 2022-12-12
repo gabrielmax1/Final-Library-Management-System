@@ -52,7 +52,7 @@ object Interpreter {
                         val subject = Utilities.prompt_String("\t Subject : ")
 //                        val author_id= Utilities.prompt_String("\t author_id : ")
 //                        val publisher_id = Utilities.prompt_String("\t publisher_id : ")
-                        DDBB.add_book(title, author, year_of_publication, publisher, subject)
+                        DDBB.addBook(title, author, year_of_publication, publisher, subject)
                     }
 
                     5 -> {

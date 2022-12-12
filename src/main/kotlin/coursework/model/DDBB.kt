@@ -3,6 +3,7 @@ package coursework.model
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.sqlite.driver.asJdbcDriver
 import com.zaxxer.hikari.HikariDataSource
+import coursework.controller.Controller
 import coursework.database.*
 import coursework.database.Database
 import coursework.database.AUTHOR
@@ -20,7 +21,11 @@ object DDBB {
         val sqlQueries = database.cWQueries
         return sqlQueries.book_by_Author(id).executeAsList()
     }
-
+//    fun FindBookbyTitle(word: String): List<Search_Book_by_Title> {
+//        val database = Database(getSqlDriver(path))
+//        val searchQueries = database.cWQueries
+//        return searchQueries.Search_Book_by_Title(word).executeAsList()
+//    }
 
     fun getBooks(): List<BOOK> {
         val database = Database(getSqlDriver(path))
@@ -28,7 +33,7 @@ object DDBB {
         return sqlQueries.allBooks().executeAsList()
     }
 
-    fun add_book(title: String, author: String, year_of_publication: Long, publisher: String, subject: String, author_id: Long?=null, publisher_id: Long?=null) {
+    fun addBook(title: String, author: String, year_of_publication: Long, publisher: String, subject: String, author_id: Long?=null, publisher_id: Long?=null) {
         val database = Database(getSqlDriver(path))
         val sqlQueries = database.cWQueries
         sqlQueries.insertBook(title, author, year_of_publication, publisher, subject, author_id, publisher_id)

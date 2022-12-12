@@ -164,6 +164,17 @@ public class BookPanel extends JPanel {
             gc.fill = GridBagConstraints.NONE;
             add(addButton,gc);
 
+            gc.gridx = 2;
+            gc.gridy = 7 ;
+            gc.fill = GridBagConstraints.NONE;
+            add(searchButton,gc);
+
+            gc.gridx = 1;
+            gc.gridy = 8 ;
+            gc.fill = GridBagConstraints.NONE;
+            add(searchTextField,gc);
+
+
         }
     }
 
