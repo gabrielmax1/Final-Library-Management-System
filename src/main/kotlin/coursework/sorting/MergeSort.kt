@@ -16,16 +16,16 @@ object MergeSort {
             val leftScrambled = ArrayList(unsortList.slice(0 until half))
             val rightScrambled = ArrayList(unsortList.slice(half until unsortList.size))
 
-            val (leftSorted, _) = sort(leftScrambled)
-            val (rightSorted, _)= sort(rightScrambled)
+            val (leftSorted, _) = sort_author(leftScrambled)
+            val (rightSorted, _) = sort_author(rightScrambled)
 
-            merge_rec(leftSorted, rightSorted, res)
+            merge_rec_1(leftSorted, rightSorted, res)
 
             return Pair(res, tick)
         }
     }
 
-    fun merge_rec(
+    fun merge_rec_1(
         leftSorted: ArrayList<BOOK>,
         rightSorted: ArrayList<BOOK>,
         res: ArrayList<BOOK>,
