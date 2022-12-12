@@ -57,14 +57,14 @@ public class AuthorTableModel extends AbstractTableModel implements PropertyChan
 
     @Override
     public Object getValueAt(int row, int column) {
-        final AUTHOR lecturer = authorList.get(row);
+        final AUTHOR book = authorList.get(row);
         switch (column) {
             case 0:
-                return lecturer.getId();
+                return book.getId();
             case 1:
-                return lecturer.getFIRSTNAME();
+                return book.getFIRSTNAME();
             case 2:
-                return lecturer.getSURNAME();
+                return book.getSURNAME();
             default:
                 return "ERROR";
         }

@@ -26,7 +26,9 @@ object Bubble {
                     my_array[i] = tmp
                     newn = i
                 }
+
             }
+           println("TMP bubble1:$my_array")
             n = newn
         }  while (n>1)
 //        for (i in my_array)     println(i.AGE)

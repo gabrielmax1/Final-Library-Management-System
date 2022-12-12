@@ -26,6 +26,9 @@ public class BookPanel extends JPanel {
         private final JTextField publisherTextField;
         private final JTextField subjectTextField;
         private final JButton addButton;
+        private final JButton deleteButton;
+        private final JButton editButton;
+        private final JButton searchButton;
         private final JComboBox authorComboBox;
         private final JComboBox publisherComboBox; // Check with original repository
 
@@ -37,6 +40,9 @@ public class BookPanel extends JPanel {
             publisherTextField = new JTextField();
             subjectTextField = new JTextField();
             addButton = new JButton("ADD");
+            editButton = new JButton("EDIT");
+            deleteButton = new JButton("DELETE");
+            searchButton = new JButton("SEARCH");
             final AuthorComboBoxModel authorComboBoxModel = new AuthorComboBoxModel(Controller.INSTANCE.getAuthorList());
             authorComboBox = new JComboBox(authorComboBoxModel);
             authorComboBox.setEditable(false);
