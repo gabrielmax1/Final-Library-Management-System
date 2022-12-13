@@ -10,17 +10,31 @@ import java.util.List;
 
 public class BookTableModel extends AbstractTableModel implements PropertyChangeListener {
 
+    private List<BOOK> bookList;
+    private List<BOOK> searchList;
+
     // explictly adding data.
     public void setBookList(List<BOOK> bookList) {
         this.bookList = bookList;
         fireTableDataChanged();
     }
 
-    private List<BOOK> bookList;
+    public List<BOOK> setBookSearchList() {
+        return searchList;
+    }
+
 
     public BookTableModel(List<BOOK> bookList) {
         this.bookList = bookList;
+//        this.searchList = searchList;
     }
+
+    public void getBookSearchList(List<BOOK> searchList) {
+        this.searchList = bookList;
+        fireTableDataChanged();
+    }
+
+
 
 
     @Override
@@ -51,6 +65,7 @@ public class BookTableModel extends AbstractTableModel implements PropertyChange
     public int getRowCount() {
         return bookList.size();
     }
+
 
     @Override
     public int getColumnCount() {

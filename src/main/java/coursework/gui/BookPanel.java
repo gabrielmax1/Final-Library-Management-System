@@ -83,7 +83,7 @@ public class BookPanel extends JPanel {
             Controller.INSTANCE.addPropertyChangeListener(authorComboBoxModel);
 
             final PublisherComboBoxModel publisherComboBoxModel = new PublisherComboBoxModel(Controller.INSTANCE.getPublisherList());
-            publisherComboBox = new JComboBox(authorComboBoxModel);
+            publisherComboBox = new JComboBox(publisherComboBoxModel);
             publisherComboBox.setEditable(false);
             Controller.INSTANCE.addPropertyChangeListener(publisherComboBoxModel);
 

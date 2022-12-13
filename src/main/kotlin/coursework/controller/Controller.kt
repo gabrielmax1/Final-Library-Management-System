@@ -55,10 +55,17 @@ object Controller {
         return sqlQueries.allBooks().executeAsList()
     }
 
-    fun SearchBooks(word: String?){
+    fun getSearchBooks(word: String?): List<BOOK> {
         val database = Database(getSqlDriver(path))
         val sqlQueries = database.cWQueries
         return sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
+    }
+
+    fun SearchBooks(word: String?){
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
+        searchList = getSearchBooks(word)
     }
 
     private fun getSqlDriver(path: String ): SqlDriver {
