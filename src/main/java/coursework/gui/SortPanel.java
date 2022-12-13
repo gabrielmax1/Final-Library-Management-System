@@ -5,6 +5,7 @@ import coursework.database.BOOK;
 import coursework.sorting.Bubble;
 import coursework.sorting.MergeSort;
 import coursework.sorting.QuickSort;
+import coursework.sorting.Radix_kt;
 import kotlin.Pair;
 
 
@@ -20,6 +21,8 @@ public class SortPanel extends JPanel {
     private final JRadioButton bubbleSortRadioButton;
     private final JRadioButton quickSortRadioButton;
     private final JRadioButton mergeSortRadioButon;
+
+    private final JRadioButton radixSortRadioButton;
     private final ButtonGroup sortRadioGroup;
     private final ButtonGroup sortFieldGroup;
     private final JRadioButton bookTitleSortRadioButton;
@@ -42,6 +45,7 @@ public class SortPanel extends JPanel {
             panelSort.add(quickSortRadioButton);
             panelSort.add(mergeSortRadioButon);
             panelSort.add(bubbleSortRadioButton);
+            panelSort.add(radixSortRadioButton);
 
 
             JPanel panelField = new JPanel();
@@ -114,12 +118,14 @@ public class SortPanel extends JPanel {
         bubbleSortRadioButton = new JRadioButton("BubbleSort");
         quickSortRadioButton = new JRadioButton("QuickSort");
         mergeSortRadioButon = new JRadioButton("MergeSort");
+        radixSortRadioButton = new JRadioButton("RadixSort");
         mergeSortRadioButon.setSelected(true);
 
         sortRadioGroup = new ButtonGroup();
         sortRadioGroup.add(bubbleSortRadioButton);
         sortRadioGroup.add(quickSortRadioButton);
         sortRadioGroup.add(mergeSortRadioButon);
+        sortRadioGroup.add(radixSortRadioButton);
 
 
         bookTitleSortRadioButton = new JRadioButton("BookTitle : ");
@@ -162,7 +168,8 @@ public class SortPanel extends JPanel {
                     }
 
                 }
-                else if (mergeSortRadioButon.isSelected()) { // MergeSort is not in-memory result.
+                else if (mergeSortRadioButon.isSelected()) {
+                    // MergeSort is not in-memory result.
                     // so we have to update explicitly the TableModel
                     if (authorNameSortRadioButton.isSelected()) {
                         Pair<ArrayList<BOOK>, Integer> pair = MergeSort.INSTANCE.sort_author((ArrayList<BOOK>) bookList);
@@ -176,7 +183,13 @@ public class SortPanel extends JPanel {
                         ticks = pair.component2();
                     }
                 }
-
+                else if (radixSortRadioButton.isSelected()){
+                    if(authorNameSortRadioButton.isSelected()){
+                        ticks = Radix_kt.INSTANCE.sortByAuthor((ArrayList<BOOK>) bookList);
+                    }else{
+                        ticks = Radix_kt.INSTANCE.sortByTitle((ArrayList<BOOK>) bookList);
+                    }
+                }
                 // Refreshing explictly the Table Model. (not from controller).
                 bookTableModel.setBookList(bookList);
                 ticksTextField.setText(Integer.toString(ticks));
