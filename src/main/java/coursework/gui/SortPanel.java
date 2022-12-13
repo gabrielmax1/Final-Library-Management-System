@@ -7,6 +7,7 @@ import coursework.sorting.MergeSort;
 import coursework.sorting.QuickSort;
 import kotlin.Pair;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -121,8 +122,8 @@ public class SortPanel extends JPanel {
         sortRadioGroup.add(mergeSortRadioButon);
 
 
-        bookTitleSortRadioButton = new JRadioButton("Title : ");
-        authorNameSortRadioButton = new JRadioButton("aName : ");
+        bookTitleSortRadioButton = new JRadioButton("BookTitle : ");
+        authorNameSortRadioButton = new JRadioButton("AuthorName : ");
         bookTitleSortRadioButton.setSelected(true);
 
         sortFieldGroup = new ButtonGroup();
@@ -143,16 +144,36 @@ public class SortPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 List<BOOK> bookList = Controller.INSTANCE.getBookList();
                 int ticks = 0;
-                if (bubbleSortRadioButton.isSelected())
-                    ticks = Bubble.INSTANCE.sort((ArrayList<BOOK>) bookList);
-                else if (quickSortRadioButton.isSelected())
-                    ticks = QuickSort.INSTANCE.sort((ArrayList<BOOK>) bookList);
-                else if (mergeSortRadioButon.isSelected()) {
-                    // MergeSort is not in-memory result.
-                    // so we have to update explictly the TableModel
-                    Pair<ArrayList<BOOK>, Integer> pair = MergeSort.INSTANCE.sort((ArrayList<BOOK>) bookList);
-                    bookList = pair.component1();
-                    ticks = pair.component2();
+                if (bubbleSortRadioButton.isSelected()) {
+                    if (authorNameSortRadioButton.isSelected()) {
+                        ticks = Bubble.INSTANCE.sortAuthorName((ArrayList<BOOK>) bookList);
+                    } else {
+                        ticks = Bubble.INSTANCE.sortBookTitle((ArrayList<BOOK>) bookList);
+                    }
+                }
+                else if (quickSortRadioButton.isSelected()){
+                    if (authorNameSortRadioButton.isSelected()) {
+                        ticks = QuickSort.INSTANCE.sort_author((ArrayList<BOOK>) bookList);
+                    }
+                    else
+                    {
+                        ticks = QuickSort.INSTANCE.sort_title((ArrayList<BOOK>) bookList);
+                    }
+
+                }
+                else if (mergeSortRadioButon.isSelected()) { // MergeSort is not in-memory result.
+                    // so we have to update explicitly the TableModel
+                    if (authorNameSortRadioButton.isSelected()) {
+                        Pair<ArrayList<BOOK>, Integer> pair = MergeSort.INSTANCE.sort_author((ArrayList<BOOK>) bookList);
+                        bookList = pair.component1();
+                        ticks = pair.component2();
+                    }
+                    else
+                    {
+                        Pair<ArrayList<BOOK>, Integer> pair = MergeSort.INSTANCE.sort_title((ArrayList<BOOK>) bookList);
+                        bookList = pair.component1();
+                        ticks = pair.component2();
+                    }
                 }
 
                 // Refreshing explictly the Table Model. (not from controller).

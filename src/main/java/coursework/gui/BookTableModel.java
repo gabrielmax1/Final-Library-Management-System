@@ -7,7 +7,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
+
 public class BookTableModel extends AbstractTableModel implements PropertyChangeListener {
+
+    private List<BOOK> bookList;
 
     // explictly adding data.
     public void setBookList(List<BOOK> bookList) {
@@ -15,12 +18,11 @@ public class BookTableModel extends AbstractTableModel implements PropertyChange
         fireTableDataChanged();
     }
 
-    private List<BOOK> bookList;
 
     public BookTableModel(List<BOOK> bookList) {
         this.bookList = bookList;
-    }
 
+    }
 
     @Override
     public String getColumnName(int column) {
@@ -40,7 +42,7 @@ public class BookTableModel extends AbstractTableModel implements PropertyChange
             case 6:
                 return "AUTHOR_ID";
             case 7:
-                return "SUBJECT_ID";
+                return "PUBLISHER_ID";
             default:
                 return "ERROR";
         }
@@ -51,41 +53,47 @@ public class BookTableModel extends AbstractTableModel implements PropertyChange
         return bookList.size();
     }
 
+
     @Override
     public int getColumnCount() {
-        return 6;
+        return 8;
     }
 
     @Override
     public Object getValueAt(int row, int column) {
-        final BOOK lecturer = bookList.get(row);
+        final BOOK book = bookList.get(row);
         switch (column) {
             case 0:
-                return lecturer.getId();
+                return book.getId();
             case 1:
-                return lecturer.getTITLE();
+                return book.getTITLE();
             case 2:
-                return lecturer.getAUTHOR();
+                return book.getAUTHOR();
             case 3:
-                return lecturer.getYEAR_OF_PUBLICATION();
+                return book.getYEAR_OF_PUBLICATION();
             case 4:
-                return lecturer.getPUBLISHER();
+                return book.getPUBLISHER();
             case 5:
-                return lecturer.getSUBJECT();
+                return book.getSUBJECT();
             case 6:
-                return lecturer.getAUTHOR_ID();
+                return book.getAUTHOR_ID();
             case 7:
-                return lecturer.getPUBLISHER_ID();
+                return book.getPUBLISHER_ID();
             default:
                 return "ERROR";
         }
     }
 
-    @Override
+    @Override                            // LAMBDA
     public void propertyChange(PropertyChangeEvent evt) {
         System.out.println(this + ":" + evt.toString());
-        if (evt.getPropertyName() == "lecturerList") {
+        if (evt.getPropertyName() == "bookList") {
             setBookList((List<BOOK>) evt.getNewValue());
+//        } else if (evt.getPropertyName() == "searchList") {
+//            getBookSearchList((List<BOOK>) evt.getNewValue());
         }
+
+
     }
+
 }

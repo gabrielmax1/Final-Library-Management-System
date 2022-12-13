@@ -27,6 +27,14 @@ CREATE TABLE if not exists PUBLISHER (
  NAME TEXT NOT NULL
  );
 
+SELECT * FROM BOOK
+WHERE TITLE like "Il%"
+
+SELECT * FROM BOOK WHERE UPPER(TITLE) LIKE ?
+
+
+
+
 
 --drop table LECTURER
 --drop table FACULTY

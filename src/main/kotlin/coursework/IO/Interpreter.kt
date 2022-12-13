@@ -3,10 +3,12 @@ package coursework.IO
 import coursework.database.AUTHOR
 import coursework.database.BOOK
 import coursework.database.Book_by_Author
+import coursework.database.*
 import coursework.database.PUBLISHER
 import coursework.model.DDBB
 import coursework.sorting.Bubble
 import coursework.sorting.QuickSort
+import coursework.sorting.MergeSort
 
 object Interpreter {
 
@@ -52,7 +54,7 @@ object Interpreter {
                         val subject = Utilities.prompt_String("\t Subject : ")
 //                        val author_id= Utilities.prompt_String("\t author_id : ")
 //                        val publisher_id = Utilities.prompt_String("\t publisher_id : ")
-                        DDBB.add_book(title, author, year_of_publication, publisher, subject)
+                        DDBB.addBook(title, author, year_of_publication, publisher, subject)
                     }
 
                     5 -> {
@@ -66,22 +68,22 @@ object Interpreter {
                         var n = 0
                         when (choice) {
                             1 -> {
-                                n = Bubble.sort(scrambled)
+                                n = Bubble.sortAuthorName(scrambled)
                                 scrambled.forEach { book ->
                                     println(book.toRow())
                                 }
                             }
-                                //TODO Finish MergeSort.
-//                            2 -> {
-//                                val pair = MergeSort.sort(scrambled)
-//                                n = pair.second
-//                                pair.first.forEach { lec ->
-//                                    println(lec.toRow())
-//                                }
-//                            }
+
+                            2 -> {
+                                val pair = MergeSort.sort_title(scrambled)
+                                n = pair.second
+                                pair.first.forEach { lec ->
+                                    println(lec.toRow())
+                                }
+                            }
 
                             3 -> {
-                                n = QuickSort.sort(scrambled)
+                                n = QuickSort.sort_author(scrambled)
                                 scrambled.forEach { book ->
                                     println(book.toRow())
                                 }
@@ -96,6 +98,11 @@ object Interpreter {
                         DDBB.booksByAuthor(id.toLong()).forEach {
                             println(it.toRow())
                         }
+                    }
+
+                    8 -> {
+                        val scrambled = ArrayList(DDBB.getBooks())
+
                     }
 
                     0 -> println("Bye!")

@@ -7,17 +7,44 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 
 public class BookPanel extends JPanel {
+    // Moved from Constructor to Class attribute
+    final BookTableModel bookTableModel = new BookTableModel(Controller.INSTANCE.getBookList());
+    private final JTable booksTable = new JTable(bookTableModel);
+    private BookFormPanel bookForm = new BookFormPanel();
+
 
     public BookPanel() {
         setLayout(new GridLayout(1,2));
-        add(new BookFormPanel());
-        final BookTableModel bookTableModel = new BookTableModel(Controller.INSTANCE.getBookList());
-        Controller.INSTANCE.addPropertyChangeListener(bookTableModel);
-        add(new JScrollPane(new JTable(bookTableModel)));
+        add(bookForm);
+        Controller.INSTANCE.addPropertyChangeListener(bookTableModel);        
+        add(new JScrollPane(booksTable));
+
+        booksTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int idx = booksTable.getSelectedRow();
+                int rowNumber = idx+1;
+                String title = bookTableModel.getValueAt(idx, 1).toString();
+                String author = bookTableModel.getValueAt(idx, 2).toString();
+                String yearOfPublication = bookTableModel.getValueAt(idx, 3).toString();
+                String publisher = bookTableModel.getValueAt(idx, 4).toString();
+                String subject = bookTableModel.getValueAt(idx, 5).toString();
+                bookForm.titleTextField.setText(title);
+                bookForm.authorTextField.setText(author);
+                bookForm.year_of_publicationTextField.setText(yearOfPublication);
+                bookForm.publisherTextField.setText(publisher);
+                bookForm.subjectTextField.setText(subject);
+                System.out.println("Row number: " + rowNumber + "\nTitle: " + title);
+            }
+        });
 
     }
+
 
     public static class BookFormPanel extends JPanel {
         private final JTextField titleTextField;
@@ -26,8 +53,12 @@ public class BookPanel extends JPanel {
         private final JTextField publisherTextField;
         private final JTextField subjectTextField;
         private final JButton addButton;
+        private final JButton deleteButton;
+        private final JButton editButton;
+        private final JButton searchButton;
         private final JComboBox authorComboBox;
         private final JComboBox publisherComboBox; // Check with original repository
+        private final JTextField searchTextField;
 
         public BookFormPanel() {
 
@@ -36,26 +67,31 @@ public class BookPanel extends JPanel {
             year_of_publicationTextField = new JTextField();
             publisherTextField = new JTextField();
             subjectTextField = new JTextField();
+            searchTextField = new JTextField();
             addButton = new JButton("ADD");
+            editButton = new JButton("EDIT");
+            deleteButton = new JButton("DELETE");
+            searchButton = new JButton("SEARCH");
+            // ComboBox for Author
             final AuthorComboBoxModel authorComboBoxModel = new AuthorComboBoxModel(Controller.INSTANCE.getAuthorList());
             authorComboBox = new JComboBox(authorComboBoxModel);
             authorComboBox.setEditable(false);
             Controller.INSTANCE.addPropertyChangeListener(authorComboBoxModel);
-
+            // ComboBox for Publisher
             final PublisherComboBoxModel publisherComboBoxModel = new PublisherComboBoxModel(Controller.INSTANCE.getPublisherList());
-            publisherComboBox = new JComboBox(authorComboBoxModel);
+            publisherComboBox = new JComboBox(publisherComboBoxModel);
             publisherComboBox.setEditable(false);
             Controller.INSTANCE.addPropertyChangeListener(publisherComboBoxModel);
 
             createUILayout();
 
-            //
+            // Add Button Listener
             addButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String title = titleTextField.getText();
-                    String author = year_of_publicationTextField.getText();
-                    String year_of_publication = authorTextField.getText();
+                    String author = authorTextField.getText();
+                    String year_of_publication = year_of_publicationTextField.getText();
                     String publisher = publisherTextField.getText();
                     String subject = subjectTextField.getText();
                     Controller.INSTANCE.add_book(title, author, Long.parseLong(year_of_publication), publisher, subject,
@@ -63,8 +99,35 @@ public class BookPanel extends JPanel {
                 }
             });
 
+            // Edit Button Listener
+            editButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                }
+            });
+
+            // Delete Button Listener
+            deleteButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Selected book
+                }
+            });
+
+            // Search Button Listener
+            searchButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e)
+                {
+                    String searchWord = searchTextField.getText();
+                    Controller.INSTANCE.SearchBooks(searchWord);
+                }
+            });
         }
 
+    // Creating the GUI using GridBagContraints, which uses a grid to order the ui objects
+    // using values such as x & y panes, is like using Tkinter grid() geometry manager rows and columns
         private void createUILayout() {
             setLayout(new GridBagLayout());
             setBorder(BorderFactory.createTitledBorder("Book"));
@@ -117,7 +180,6 @@ public class BookPanel extends JPanel {
             gc.gridy = 4 ;
             add(subjectTextField,gc);
 
-
             gc.gridx = 0;
             gc.gridy = 5 ;
             add(new JLabel("Author_ID :",SwingConstants.RIGHT),gc);
@@ -138,6 +200,35 @@ public class BookPanel extends JPanel {
             gc.gridy = 7 ;
             gc.fill = GridBagConstraints.NONE;
             add(addButton,gc);
+
+            gc.gridx = 2;
+            gc.gridy = 7 ;
+            gc.fill = GridBagConstraints.NONE;
+            add(editButton,gc);
+
+            gc.gridx = 3;
+            gc.gridy = 7 ;
+            gc.fill = GridBagConstraints.NONE;
+            add(deleteButton,gc);
+
+            gc.gridx = 0;
+            gc.gridy = 8 ;
+            add(new JLabel("Search Book Title :",SwingConstants.RIGHT),gc);
+
+            gc.gridx = 1;
+            gc.gridy = 8 ;
+            gc.fill = GridBagConstraints.HORIZONTAL;
+            add(searchTextField,gc);
+
+            gc.gridx = 2;
+            gc.gridy = 8 ;
+            gc.fill = GridBagConstraints.NONE;
+            add(searchButton,gc);
+
+
+
+
+
 
         }
     }
