@@ -2,11 +2,8 @@ package coursework.gui;
 
 import coursework.controller.Controller;
 import coursework.database.BOOK;
-import coursework.sorting.Bubble;
-import coursework.sorting.MergeSort;
-import coursework.sorting.QuickSort;
+import coursework.sorting.*;
 import kotlin.Pair;
-
 
 import javax.swing.*;
 import java.awt.*;
@@ -146,7 +143,12 @@ public class SortPanel extends JPanel {
                 int ticks = 0;
                 if (bubbleSortRadioButton.isSelected()) {
                     if (authorNameSortRadioButton.isSelected()) {
-                        ticks = Bubble.INSTANCE.sortAuthorName((ArrayList<BOOK>) bookList);
+//                        ticks = Bubble.INSTANCE.sortAuthorName((ArrayList<BOOK>) bookList);
+                        ticks = Radix_kt.INSTANCE.sortByAuthor((ArrayList<BOOK>) bookList);
+//                        RadixJava t = new RadixJava();
+//                        ticks = t.sortByAuthor((ArrayList<BOOK>) bookList, 1);
+
+
                     } else {
                         ticks = Bubble.INSTANCE.sortBookTitle((ArrayList<BOOK>) bookList);
                     }
