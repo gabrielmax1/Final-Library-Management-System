@@ -39,6 +39,7 @@ public class BookPanel extends JPanel {
                 String yearOfPublication = bookTableModel.getValueAt(idx, 3).toString();
                 String publisher = bookTableModel.getValueAt(idx, 4).toString();
                 String subject = bookTableModel.getValueAt(idx, 5).toString();
+                String id = bookTableModel.getValueAt(idx, 0).toString();
                 bookForm.titleTextField.setText(title);
                 bookForm.authorTextField.setText(author);
                 bookForm.year_of_publicationTextField.setText(yearOfPublication);
@@ -48,7 +49,6 @@ public class BookPanel extends JPanel {
                 System.out.println("Row number: " + rowNumber + "\nTitle: " + title);
             }
         });
-
     }
 
     public static class BookFormPanel extends JPanel {
@@ -64,6 +64,8 @@ public class BookPanel extends JPanel {
         private final JComboBox authorComboBox;
         private final JComboBox publisherComboBox; // Check with original repository
         private final JTextField searchTextField;
+
+        public String id;
 
         public BookFormPanel() {
 
@@ -110,7 +112,16 @@ public class BookPanel extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     // If entry selected then display text in text fields
                     // If change text in textfield and click edit, update entry.
+                    String title = titleTextField.getText();
+                    String author = authorTextField.getText();
+                    String year_of_publication = year_of_publicationTextField.getText();
+                    String publisher = publisherTextField.getText();
+                    String subject = subjectTextField.getText();
+                    String searchWord = searchTextField.getText();
 
+                    Controller.INSTANCE.editBooks(title, author, Long.parseLong(year_of_publication), publisher, subject,
+                            Long.parseLong(id));
+                    System.out.println(id);
 
                 }
             });
@@ -134,6 +145,14 @@ public class BookPanel extends JPanel {
                     Controller.INSTANCE.searchBooks(searchWord);
                 }
             });
+        }
+
+        public String getId(){
+            return id;
+        }
+
+        public void setId(String newID){
+            id = newID;
         }
 
     // Creating the GUI using GridBagContraints, which uses a grid to order the ui objects
