@@ -17,12 +17,15 @@ public class SortPanel extends JPanel {
     private final JRadioButton bubbleSortRadioButton;
     private final JRadioButton quickSortRadioButton;
     private final JRadioButton mergeSortRadioButon;
+    private final JRadioButton radixSortRadioButton;
     private final ButtonGroup sortRadioGroup;
     private final ButtonGroup sortFieldGroup;
     private final JRadioButton bookTitleSortRadioButton;
     private final JRadioButton authorNameSortRadioButton;
     private final BookTableModel bookTableModel;
     private final JTextField ticksTextField;
+
+
 
     private void createUILayout() {
         {
@@ -39,6 +42,7 @@ public class SortPanel extends JPanel {
             panelSort.add(quickSortRadioButton);
             panelSort.add(mergeSortRadioButon);
             panelSort.add(bubbleSortRadioButton);
+            panelSort.add(radixSortRadioButton);
 
 
             JPanel panelField = new JPanel();
@@ -111,12 +115,14 @@ public class SortPanel extends JPanel {
         bubbleSortRadioButton = new JRadioButton("BubbleSort");
         quickSortRadioButton = new JRadioButton("QuickSort");
         mergeSortRadioButon = new JRadioButton("MergeSort");
+        radixSortRadioButton = new JRadioButton("RadixSort");
         mergeSortRadioButon.setSelected(true);
 
         sortRadioGroup = new ButtonGroup();
         sortRadioGroup.add(bubbleSortRadioButton);
         sortRadioGroup.add(quickSortRadioButton);
         sortRadioGroup.add(mergeSortRadioButon);
+        sortRadioGroup.add(radixSortRadioButton);
 
 
         bookTitleSortRadioButton = new JRadioButton("BookTitle : ");
@@ -143,10 +149,8 @@ public class SortPanel extends JPanel {
                 int ticks = 0;
                 if (bubbleSortRadioButton.isSelected()) {
                     if (authorNameSortRadioButton.isSelected()) {
-//                        ticks = Bubble.INSTANCE.sortAuthorName((ArrayList<BOOK>) bookList);
-                        ticks = Radix_kt.INSTANCE.sortByAuthor((ArrayList<BOOK>) bookList);
-//                        RadixJava t = new RadixJava();
-//                        ticks = t.sortByAuthor((ArrayList<BOOK>) bookList, 1);
+                        ticks = Bubble.INSTANCE.sortAuthorName((ArrayList<BOOK>) bookList);
+
 
 
                     } else {
@@ -175,6 +179,13 @@ public class SortPanel extends JPanel {
                         Pair<ArrayList<BOOK>, Integer> pair = MergeSort.INSTANCE.sort_title((ArrayList<BOOK>) bookList);
                         bookList = pair.component1();
                         ticks = pair.component2();
+                    }
+                }
+                else if(radixSortRadioButton.isSelected()){
+                    if(authorNameSortRadioButton.isSelected()){
+                        ticks = Radix_kt.INSTANCE.sortByAuthor((ArrayList<BOOK>) bookList);
+                    }else{
+                        ticks = Radix_kt.INSTANCE.sortByTitle((ArrayList<BOOK>) bookList);
                     }
                 }
 
