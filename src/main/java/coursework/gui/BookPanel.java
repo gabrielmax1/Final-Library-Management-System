@@ -13,14 +13,6 @@ public class BookPanel extends JPanel {
     final BookTableModel bookTableModel = new BookTableModel(Controller.INSTANCE.getBookList());
     private final JTable booksTable = new JTable(bookTableModel);
     private BookFormPanel bookForm = new BookFormPanel();
-    private MouseListener mouseListener;
-
-//    String title = "bookTableModel.getValueAt(idx, 1).toString()";
-//    String author = bookTableModel.getValueAt(idx, 2).toString();
-//    String yearOfPublication = bookTableModel.getValueAt(idx, 3).toString();
-//    String publisher = bookTableModel.getValueAt(idx, 4).toString();
-//    String subject = bookTableModel.getValueAt(idx, 5).toString();
-//    public String id;
 
 
     public BookPanel() {

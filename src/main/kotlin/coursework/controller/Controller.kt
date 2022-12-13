@@ -115,7 +115,7 @@ object Controller {
         authorList = getAuthors()
     }
 
-    private fun getPublisher(): List<PUBLISHER> {
+    fun getPublisher(): List<PUBLISHER> {
         val database = Database(getSqlDriver(path))
         val publisherQueries = database.cWQueries
         return publisherQueries.allPublisher().executeAsList()

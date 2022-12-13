@@ -66,6 +66,14 @@ public interface CWQueries : Transacter {
 
   public fun Search_Book_by_Title(TITLE: String): Query<BOOK>
 
+  public fun <T : Any> Search_Author_by_Name(FIRSTNAME: String, mapper: (
+    id: Long,
+    FIRSTNAME: String,
+    SURNAME: String
+  ) -> T): Query<T>
+
+  public fun Search_Author_by_Name(FIRSTNAME: String): Query<AUTHOR>
+
   public fun insertBook(
     TITLE: String,
     AUTHOR: String,
@@ -89,5 +97,13 @@ public interface CWQueries : Transacter {
     id: Long
   ): Unit
 
+  public fun EditAuthorEntry(
+    FIRSTNAME: String,
+    SURNAME: String,
+    id: Long
+  ): Unit
+
   public fun DeleteBookByID(id: Long): Unit
+
+  public fun DeleteAuthorByID(id: Long): Unit
 }
