@@ -71,8 +71,22 @@ Search_Book_by_Title:
 SELECT * FROM BOOK
 WHERE TITLE LIKE ?;
 
+EditBookbyEntry:
+UPDATE BOOK
+SET
+    TITLE = ?,
+    AUTHOR = ?,
+    YEAR_OF_PUBLICATION = ?,
+    PUBLISHER = ?,
+    SUBJECT = ?
+WHERE AUTHOR_ID = ?;
 
-
+-- EditAuthorbyEntry:
+-- UPDATE AUTHOR
+-- SET
+--     FIRSTNAME = ?,
+--     SURNAME = ?
+-- WHERE  = ?;
 
 -- public data class BOOK(
    --   public val id: Long,

@@ -21,7 +21,7 @@ public class BookPanel extends JPanel {
     public BookPanel() {
         setLayout(new GridLayout(1,2));
         add(bookForm);
-        Controller.INSTANCE.addPropertyChangeListener(bookTableModel);        
+        Controller.INSTANCE.addPropertyChangeListener(bookTableModel);
         add(new JScrollPane(booksTable));
 
         booksTable.addMouseListener(new MouseAdapter() {
@@ -94,7 +94,7 @@ public class BookPanel extends JPanel {
                     String year_of_publication = year_of_publicationTextField.getText();
                     String publisher = publisherTextField.getText();
                     String subject = subjectTextField.getText();
-                    Controller.INSTANCE.add_book(title, author, Long.parseLong(year_of_publication), publisher, subject,
+                    Controller.INSTANCE.addBook(title, author, Long.parseLong(year_of_publication), publisher, subject,
                            Long.valueOf(1), Long.valueOf(1));
                 }
             });
@@ -103,6 +103,9 @@ public class BookPanel extends JPanel {
             editButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    // If entry selected then display text in text fields
+                    // If change text in textfield and click edit, update entry.
+
 
                 }
             });
@@ -112,6 +115,7 @@ public class BookPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // Selected book
+                    // If book selected, and delete button is pressed then delete entry.
                 }
             });
 
@@ -121,7 +125,7 @@ public class BookPanel extends JPanel {
                 public void actionPerformed(ActionEvent e)
                 {
                     String searchWord = searchTextField.getText();
-                    Controller.INSTANCE.SearchBooks(searchWord);
+                    Controller.INSTANCE.searchBooks(searchWord);
                 }
             });
         }

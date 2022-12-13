@@ -79,4 +79,13 @@ public interface CWQueries : Transacter {
   public fun insertAuthors(FIRSTNAME: String, SURNAME: String): Unit
 
   public fun insertPublisher(NAME: String): Unit
+
+  public fun EditBookbyEntry(
+    TITLE: String,
+    AUTHOR: String,
+    YEAR_OF_PUBLICATION: Long,
+    PUBLISHER: String,
+    SUBJECT: String?,
+    AUTHOR_ID: Long?
+  ): Unit
 }

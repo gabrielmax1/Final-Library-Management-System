@@ -47,6 +47,15 @@ object Controller {
 //            field = value
 //            pcs.firePropertyChange("searchList", old, field)
 //        }
+    // SQLDriver will be our "bridge" for the sql queries called as functions
+    private fun getSqlDriver(path: String ): SqlDriver {
+        val ds = HikariDataSource()
+        ds.jdbcUrl = "jdbc:sqlite:" + path
+        ds.driverClassName = "org.sqlite.JDBC"
+        ds.username = ""
+        ds.password = ""
+        return ds.asJdbcDriver()
+    }
 
     private fun getBooks(): List<BOOK> {
         val database = Database(getSqlDriver(path))
@@ -60,24 +69,8 @@ object Controller {
 //        return sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
 //    }
 
-    fun SearchBooks(word: String?)
-    {
-        val database = Database(getSqlDriver(path))
-        val sqlQueries = database.cWQueries
-        bookList = sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
-    }
-
-    private fun getSqlDriver(path: String ): SqlDriver {
-        val ds = HikariDataSource()
-        ds.jdbcUrl = "jdbc:sqlite:" + path
-        ds.driverClassName = "org.sqlite.JDBC"
-        ds.username = ""
-        ds.password = ""
-        return ds.asJdbcDriver()
-    }
-
-    fun add_book(title: String, author: String, year_of_publication: Long, publisher: String,
-                 subject: String, author_id: Long?=null, publisher_id: Long?=null)
+    fun addBook(title: String, author: String, year_of_publication: Long, publisher: String,
+                subject: String, author_id: Long?=null, publisher_id: Long?=null)
     {
         val database = Database(getSqlDriver(path))
         val sqlQueries = database.cWQueries
@@ -85,6 +78,16 @@ object Controller {
         bookList = getBooks()
     }
 
+    fun searchBooks(word: String?)
+    {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        bookList = sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
+    }
+
+    fun editBooks(){
+
+    }
 
     private fun getAuthors(): List<AUTHOR> {
         val database = Database(getSqlDriver(path))
