@@ -39,12 +39,12 @@ public class BookPanel extends JPanel {
                 bookForm.year_of_publicationTextField.setText(yearOfPublication);
                 bookForm.publisherTextField.setText(publisher);
                 bookForm.subjectTextField.setText(subject);
+                bookForm.id = id;
                 System.out.println("Row number: " + rowNumber + "\nTitle: " + title);
             }
         });
 
     }
-
 
     public static class BookFormPanel extends JPanel {
         private final JTextField titleTextField;
@@ -116,6 +116,7 @@ public class BookPanel extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     // Selected book
                     // If book selected, and delete button is pressed then delete entry.
+                    Controller.INSTANCE.deleteBooks(Long.parseLong(id));
                 }
             });
 
@@ -228,9 +229,6 @@ public class BookPanel extends JPanel {
             gc.gridy = 8 ;
             gc.fill = GridBagConstraints.NONE;
             add(searchButton,gc);
-
-
-
 
 
 

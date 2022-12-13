@@ -85,8 +85,21 @@ object Controller {
         bookList = sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
     }
 
-    fun editBooks(){
-
+    fun editBooks(title: String, author: String, year_of_publication: Long, publisher: String,
+                  subject: String, id: Long)
+    {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        sqlQueries.EditBookbyEntry(title, author, year_of_publication, publisher, subject, id)
+        bookList = getBooks()
+    }
+//
+    fun deleteBooks(id: Long)
+    {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        sqlQueries.DeleteBookByID(id)
+        bookList = getBooks()
     }
 
     private fun getAuthors(): List<AUTHOR> {

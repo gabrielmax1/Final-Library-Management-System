@@ -86,6 +86,8 @@ public interface CWQueries : Transacter {
     YEAR_OF_PUBLICATION: Long,
     PUBLISHER: String,
     SUBJECT: String?,
-    AUTHOR_ID: Long?
+    id: Long
   ): Unit
+
+  public fun DeleteBookByID(id: Long): Unit
 }

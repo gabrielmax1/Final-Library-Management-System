@@ -269,9 +269,10 @@ private class CWQueriesImpl(
     AUTHOR_ID: Long?,
     PUBLISHER_ID: Long?
   ): Unit {
-    driver.execute(-507489727,
-        """INSERT INTO BOOK ( TITLE, AUTHOR, YEAR_OF_PUBLICATION, PUBLISHER, SUBJECT, AUTHOR_ID, PUBLISHER_ID) VALUES ( ?, ?, ?, ?,?, ?, ?)""",
-        7) {
+    driver.execute(-507489727, """
+    |INSERT INTO BOOK ( TITLE, AUTHOR, YEAR_OF_PUBLICATION, PUBLISHER, SUBJECT, AUTHOR_ID, PUBLISHER_ID)
+    |VALUES ( ?, ?, ?, ?,?, ?, ?)
+    """.trimMargin(), 7) {
       bindString(1, TITLE)
       bindString(2, AUTHOR)
       bindLong(3, YEAR_OF_PUBLICATION)
@@ -298,6 +299,45 @@ private class CWQueriesImpl(
       bindString(1, NAME)
     }
     notifyQueries(1972658596, {database.cWQueries.allPublisher +
+        database.cWQueries.book_by_Publisher})
+  }
+
+  public override fun EditBookbyEntry(
+    TITLE: String,
+    AUTHOR: String,
+    YEAR_OF_PUBLICATION: Long,
+    PUBLISHER: String,
+    SUBJECT: String?,
+    id: Long
+  ): Unit {
+    driver.execute(1807257897, """
+    |UPDATE BOOK
+    |SET
+    |    TITLE = ?,
+    |    AUTHOR = ?,
+    |    YEAR_OF_PUBLICATION = ?,
+    |    PUBLISHER = ?,
+    |    SUBJECT = ?
+    |WHERE id = ?
+    """.trimMargin(), 6) {
+      bindString(1, TITLE)
+      bindString(2, AUTHOR)
+      bindLong(3, YEAR_OF_PUBLICATION)
+      bindString(4, PUBLISHER)
+      bindString(5, SUBJECT)
+      bindLong(6, id)
+    }
+    notifyQueries(1807257897, {database.cWQueries.book_by_Author +
+        database.cWQueries.Search_Book_by_Title + database.cWQueries.allBooks +
+        database.cWQueries.book_by_Publisher})
+  }
+
+  public override fun DeleteBookByID(id: Long): Unit {
+    driver.execute(-2079943003, """DELETE FROM BOOK WHERE id = ?""", 1) {
+      bindLong(1, id)
+    }
+    notifyQueries(-2079943003, {database.cWQueries.book_by_Author +
+        database.cWQueries.Search_Book_by_Title + database.cWQueries.allBooks +
         database.cWQueries.book_by_Publisher})
   }
 
