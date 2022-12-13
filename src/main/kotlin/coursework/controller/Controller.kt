@@ -85,6 +85,13 @@ object Controller {
         bookList = sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
     }
 
+    fun searchAuthor(name: String?)
+    {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        authorList = sqlQueries.Search_Author_by_Name(FIRSTNAME = "%$name%").executeAsList()
+    }
+
     fun editBooks(title: String, author: String, year_of_publication: Long, publisher: String,
                   subject: String, id: Long)
     {
@@ -93,6 +100,14 @@ object Controller {
         sqlQueries.EditBookbyEntry(title, author, year_of_publication, publisher, subject, id)
         bookList = getBooks()
     }
+
+    fun editAuthor(firstname: String, surname: String, id: Long)
+    {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        sqlQueries.EditAuthorEntry(firstname, surname, id)
+        authorList = getAuthors()
+    }
 //
     fun deleteBooks(id: Long)
     {
@@ -100,6 +115,14 @@ object Controller {
         val sqlQueries = database.cWQueries
         sqlQueries.DeleteBookByID(id)
         bookList = getBooks()
+    }
+
+    fun deleteAuthor(id: Long)
+    {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        sqlQueries.DeleteAuthorByID(id)
+        authorList = getAuthors()
     }
 
     private fun getAuthors(): List<AUTHOR> {

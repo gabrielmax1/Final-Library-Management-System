@@ -7,22 +7,46 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class AuthorPanel extends JPanel {
+    // Moved from Constructor to Class attribute
+    final AuthorTableModel authorTableModel = new AuthorTableModel(Controller.INSTANCE.getAuthorList());
+    private final JTable authorTable = new JTable(authorTableModel);
+    private AuthorFormPanel authorForm = new AuthorFormPanel();
+
 
     public AuthorPanel() {
-        super(new GridLayout(1,2));
-
-        add(new AuthorFormPanel());
-
-        AuthorTableModel authorTableModel = new AuthorTableModel(Controller.INSTANCE.getAuthorList());
+        setLayout(new GridLayout(1,2));
+        add(authorForm);
         Controller.INSTANCE.addPropertyChangeListener(authorTableModel);
-        add(new JScrollPane(new JTable(authorTableModel)));
+        add(new JScrollPane(authorTable));
+
+        authorTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int idx = authorTable.getSelectedRow();
+                int rowNumber = idx+1;
+                String name = authorTableModel.getValueAt(idx, 1).toString();
+                String id = authorTableModel.getValueAt(idx, 0).toString();
+                authorForm.nameTextField.setText(name);
+                authorForm.id = id;
+                System.out.println("Row number: " + rowNumber + "\nTitle: " + name);
+            }
+        });
     }
 
     public static class AuthorFormPanel extends JPanel {
         private  final JTextField nameTextField;
-        private  final JButton addButton;
+        private  final JButton addAuthorButton;
+        private  final JTextField searchAuthorTextField;
+        private  final JButton searchAuthorButton;
+        private  final JButton editAuthorButton;
+        private  final JButton deleteAuthor;
+
+        public String id;
+
 
         public AuthorFormPanel() {
             nameTextField = new JTextField();
@@ -129,12 +153,21 @@ public class AuthorPanel extends JPanel {
 //            gc.anchor = GridBagConstraints.NONE;
             add(searchAuthorTextField,gc);
 
-        public AuthorFormPanel() {
-            nameTextField = new JTextField();
-            addButton = new JButton("ADD");
+            gc.gridx = 2;
+            gc.gridy = 1;
+            gc.fill = GridBagConstraints.NONE;
+//            gc.anchor = GridBagConstraints.NONE;
+            add(searchAuthorButton,gc);
 
-            createGUI();
+            gc.gridx = 3;
+            gc.gridy = 1;
+            gc.fill = GridBagConstraints.NONE;
+//            gc.anchor = GridBagConstraints.NONE;
+            add(editAuthorButton,gc);
+
         }
+
+
     }
 
 }
