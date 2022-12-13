@@ -13,17 +13,19 @@ object Radix_kt {
 
         for(i in arr.indices){
             if(arr[i].TITLE.filter { it.isLetter() }.length > maxLen) {
-                maxLen = arr[i].AUTHOR.length
+                maxLen = arr[i].TITLE.filter { it.isLetter() }.length
             }
         }
         return maxLen
-    }private fun findMaxLengthAuthor(arr: ArrayList<BOOK>) : Int {
+    }
+
+    private fun findMaxLengthAuthor(arr: ArrayList<BOOK>) : Int {
 
         var maxLen = 0
 
         for(i in arr.indices){
             if(arr[i].AUTHOR.filter { it.isLetter() }.length > maxLen) {
-                maxLen = arr[i].AUTHOR.length
+                maxLen = arr[i].AUTHOR.filter { it.isLetter() }.length
             }
         }
         return maxLen
@@ -35,8 +37,10 @@ object Radix_kt {
         val buckets : MutableList<ArrayList<BOOK>> = mutableListOf()
 
 
-        var maxLen = findMaxLengthAuthor(arr)
+        val maxLen = findMaxLengthAuthor(arr)
         var place = 1
+
+        val re = Regex("[^A-Za-z]")
 
         while(place < maxLen){
 
@@ -46,11 +50,11 @@ object Radix_kt {
 
             for(book in arr){
 
-                val author = book.TITLE.filter { it.isLetter() }
+                val author = re.replace(book.AUTHOR, "")
 
                 if(author.length > place){
 
-
+                    println(author[author.length-place].code)
                     buckets[author[author.length-place].uppercaseChar().code -65].add(book)
                 }else{
                     buckets[author[0].uppercaseChar().code-65].add(book)
@@ -84,6 +88,7 @@ object Radix_kt {
 
         var maxLen = findMaxLengthTitle(arr)
         var place = 1
+        val re = Regex("[^A-Za-z]")
 
         while(place < maxLen){
 
@@ -93,12 +98,11 @@ object Radix_kt {
 
             for(book in arr){
 
-                val author = book.TITLE.filter { it.isLetter() }
+                val author = re.replace(book.TITLE, "")
 
                 if(author.length > place){
 
-                    println(
-                        author[author.length-place].uppercaseChar())
+
                     buckets[author[author.length-place].uppercaseChar().code -65].add(book)
                 }else{
                     buckets[author[0].uppercaseChar().code-65].add(book)
