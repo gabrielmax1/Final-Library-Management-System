@@ -6,6 +6,7 @@ object QuickSort {
     var tick = 0
     fun sort_author(unsortList: ArrayList<BOOK>) : Int
     {
+        tick = 0
         // Inmmersion
         fun sort_g(unsortList: ArrayList<BOOK>, inf: Int, sup: Int): Int {
             if (sup - inf <= 1) {
@@ -46,6 +47,7 @@ object QuickSort {
     }
     fun sort_title(unsortList: ArrayList<BOOK>) : Int
     {
+        tick = 0
         // Inmmersion
         fun sort_g(unsortList: ArrayList<BOOK>, inf: Int, sup: Int): Int {
             if (sup - inf <= 1) {

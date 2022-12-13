@@ -7,6 +7,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
+
 public class BookTableModel extends AbstractTableModel implements PropertyChangeListener {
 
     // explictly adding data.
@@ -86,6 +87,11 @@ public class BookTableModel extends AbstractTableModel implements PropertyChange
         System.out.println(this + ":" + evt.toString());
         if (evt.getPropertyName() == "bookList") {
             setBookList((List<BOOK>) evt.getNewValue());
+        } else if (evt.getPropertyName() == "searchList") {
+            getBookSearchList((List<BOOK>) evt.getNewValue());
         }
+
+
     }
+
 }

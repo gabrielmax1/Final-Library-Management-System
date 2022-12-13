@@ -7,9 +7,6 @@ import coursework.database.Database
 import coursework.database.AUTHOR
 import coursework.database.BOOK
 import coursework.database.PUBLISHER
-import coursework.model.DDBB.getAuthors
-import coursework.model.DDBB.getBooks
-import scala.None
 import java.beans.PropertyChangeListener
 import java.beans.PropertyChangeSupport
 
@@ -43,13 +40,13 @@ object Controller {
             pcs.firePropertyChange("publisherList", old, field)
         }
 
-//    var searchList: List<BOOK> = getSearchBooks(TITLE = word)
-//        get() = field
-//        private set(value) {
-//            val old = field
-//            field = value
-//            pcs.firePropertyChange("searchList", old, field)
-//        }
+    var searchList: List<BOOK> = getSearchBooks(null)
+        get() = field
+        private set(value) {
+            val old = field
+            field = value
+            pcs.firePropertyChange("searchList", old, field)
+        }
 
 
     private fun getBooks(): List<BOOK> {
@@ -58,7 +55,7 @@ object Controller {
         return sqlQueries.allBooks().executeAsList()
     }
 
-    fun getSearchBooks(word: String): List<BOOK> {
+    fun SearchBooks(word: String?){
         val database = Database(getSqlDriver(path))
         val sqlQueries = database.cWQueries
         return sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
@@ -99,8 +96,8 @@ object Controller {
 
     private fun getPublisher(): List<PUBLISHER> {
         val database = Database(getSqlDriver(path))
-        val authorQueries = database.cWQueries
-        return authorQueries.allPublisher().executeAsList()
+        val publisherQueries = database.cWQueries
+        return publisherQueries.allPublisher().executeAsList()
     }
 
     fun addPublisher(name: String) {
@@ -124,12 +121,16 @@ object Controller {
 
 }
 
-fun main() {
-    Controller.bookList.forEach { it ->
-        println(it)
-    }
-    Controller.add_book("Percy Jackson","Rick Riordan",2011,"Mondadori","Fantasy", null, null)
-    Controller.bookList.forEach { it ->
-        println(it)
-    }
-}
+//fun main() {
+//////    Controller.bookList.forEach { it ->
+//////        println(it)
+//////    }
+//////    Controller.add_book("Percy Jackson","Rick Riordan",2011,"Mondadori","Fantasy", null, null)
+//////    Controller.bookList.forEach { it ->
+//////        println(it)
+//////    }
+//    Controller.getSearchBooks("Prague")
+//    Controller.searchList.forEach {
+//        println(it)
+//    }
+//}

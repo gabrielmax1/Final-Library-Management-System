@@ -21,11 +21,6 @@ object DDBB {
         val sqlQueries = database.cWQueries
         return sqlQueries.book_by_Author(id).executeAsList()
     }
-//    fun FindBookbyTitle(word: String): List<Search_Book_by_Title> {
-//        val database = Database(getSqlDriver(path))
-//        val searchQueries = database.cWQueries
-//        return searchQueries.Search_Book_by_Title(word).executeAsList()
-//    }
 
     fun getBooks(): List<BOOK> {
         val database = Database(getSqlDriver(path))
@@ -44,7 +39,6 @@ object DDBB {
         val sqlQueries = database.cWQueries
         sqlQueries.insertBook(title, author, year_of_publication, publisher, subject, author_id, publisher_id)
     }
-
 
     private fun getSqlDriver(path: String ): SqlDriver {
         val ds = HikariDataSource()

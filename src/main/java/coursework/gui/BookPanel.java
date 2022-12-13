@@ -7,17 +7,49 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 
 public class BookPanel extends JPanel {
 
+    final BookTableModel bookTableModel = new BookTableModel(Controller.INSTANCE.getBookList());
+    final BookTableModel bookTableModel1 = new BookTableModel(Controller.INSTANCE.getSearchList());
+    private final JTable booksTable = new JTable(bookTableModel);
+    private final JTable booksTable1 = new JTable(bookTableModel1);
+    private BookFormPanel bookForm = new BookFormPanel();
+
     public BookPanel() {
         setLayout(new GridLayout(1,2));
-        add(new BookFormPanel());
-        final BookTableModel bookTableModel = new BookTableModel(Controller.INSTANCE.getBookList());
+        add(bookForm);
         Controller.INSTANCE.addPropertyChangeListener(bookTableModel);
-        add(new JScrollPane(new JTable(bookTableModel)));
+        add(new JScrollPane(booksTable));
+
+        booksTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int idx = booksTable.getSelectedRow();
+                int rowNumber = idx+1;
+                String title = bookTableModel.getValueAt(idx, 1).toString();
+                String author = bookTableModel.getValueAt(idx, 2).toString();
+                String yearOfPublication = bookTableModel.getValueAt(idx, 3).toString();
+                String publisher = bookTableModel.getValueAt(idx, 4).toString();
+                String subject = bookTableModel.getValueAt(idx, 5).toString();
+                bookForm.titleTextField.setText(title);
+                bookForm.authorTextField.setText(author);
+                bookForm.year_of_publicationTextField.setText(yearOfPublication);
+                bookForm.publisherTextField.setText(publisher);
+                bookForm.subjectTextField.setText(subject);
+
+                System.out.println("Row number: " + rowNumber + "\nTitle: " + title);
+            }
+        });
+
+
 
     }
+
+
 
     public static class BookFormPanel extends JPanel {
         private final JTextField titleTextField;
@@ -87,8 +119,12 @@ public class BookPanel extends JPanel {
                 public void actionPerformed(ActionEvent e)
                 {
                     String searchWord = searchTextField.getText();
-                    Controller.INSTANCE.getSearchBooks(searchWord);
-                    System.out.println(Controller.INSTANCE.getSearchBooks(searchWord)); // Test prinitng in console
+//                    Controller.INSTANCE.getSearchBooks(searchWord);
+//                    System.out.println("LA PRIMA VOLTA?");
+
+                    var Celafai = Controller.INSTANCE.getSearchBooks(searchWord);
+                    System.out.println(Celafai);
+//                    System.out.println(searchList); // Test prinitng in console
 //                    System.out.println(Controller.INSTANCE.getSearchBooks("Barone"));
 
                 }
