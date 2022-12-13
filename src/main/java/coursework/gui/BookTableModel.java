@@ -11,7 +11,6 @@ import java.util.List;
 public class BookTableModel extends AbstractTableModel implements PropertyChangeListener {
 
     private List<BOOK> bookList;
-    private List<BOOK> searchList;
 
     // explictly adding data.
     public void setBookList(List<BOOK> bookList) {
@@ -19,23 +18,11 @@ public class BookTableModel extends AbstractTableModel implements PropertyChange
         fireTableDataChanged();
     }
 
-    public List<BOOK> setBookSearchList() {
-        return searchList;
-    }
-
 
     public BookTableModel(List<BOOK> bookList) {
         this.bookList = bookList;
-//        this.searchList = searchList;
+
     }
-
-    public void getBookSearchList(List<BOOK> searchList) {
-        this.searchList = bookList;
-        fireTableDataChanged();
-    }
-
-
-
 
     @Override
     public String getColumnName(int column) {
@@ -102,8 +89,8 @@ public class BookTableModel extends AbstractTableModel implements PropertyChange
         System.out.println(this + ":" + evt.toString());
         if (evt.getPropertyName() == "bookList") {
             setBookList((List<BOOK>) evt.getNewValue());
-        } else if (evt.getPropertyName() == "searchList") {
-            getBookSearchList((List<BOOK>) evt.getNewValue());
+//        } else if (evt.getPropertyName() == "searchList") {
+//            getBookSearchList((List<BOOK>) evt.getNewValue());
         }
 
 

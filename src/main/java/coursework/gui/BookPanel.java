@@ -12,17 +12,16 @@ import java.awt.event.MouseEvent;
 
 
 public class BookPanel extends JPanel {
-
+    // Moved from Constructor to Class attribute
     final BookTableModel bookTableModel = new BookTableModel(Controller.INSTANCE.getBookList());
-    final BookTableModel bookTableModel1 = new BookTableModel(Controller.INSTANCE.getSearchList());
     private final JTable booksTable = new JTable(bookTableModel);
-    private final JTable booksTable1 = new JTable(bookTableModel1);
     private BookFormPanel bookForm = new BookFormPanel();
+
 
     public BookPanel() {
         setLayout(new GridLayout(1,2));
         add(bookForm);
-        Controller.INSTANCE.addPropertyChangeListener(bookTableModel);
+        Controller.INSTANCE.addPropertyChangeListener(bookTableModel);        
         add(new JScrollPane(booksTable));
 
         booksTable.addMouseListener(new MouseAdapter() {
@@ -40,15 +39,11 @@ public class BookPanel extends JPanel {
                 bookForm.year_of_publicationTextField.setText(yearOfPublication);
                 bookForm.publisherTextField.setText(publisher);
                 bookForm.subjectTextField.setText(subject);
-
                 System.out.println("Row number: " + rowNumber + "\nTitle: " + title);
             }
         });
 
-
-
     }
-
 
 
     public static class BookFormPanel extends JPanel {
@@ -72,16 +67,17 @@ public class BookPanel extends JPanel {
             year_of_publicationTextField = new JTextField();
             publisherTextField = new JTextField();
             subjectTextField = new JTextField();
+            searchTextField = new JTextField();
             addButton = new JButton("ADD");
             editButton = new JButton("EDIT");
             deleteButton = new JButton("DELETE");
             searchButton = new JButton("SEARCH");
-            searchTextField = new JTextField();
+            // ComboBox for Author
             final AuthorComboBoxModel authorComboBoxModel = new AuthorComboBoxModel(Controller.INSTANCE.getAuthorList());
             authorComboBox = new JComboBox(authorComboBoxModel);
             authorComboBox.setEditable(false);
             Controller.INSTANCE.addPropertyChangeListener(authorComboBoxModel);
-
+            // ComboBox for Publisher
             final PublisherComboBoxModel publisherComboBoxModel = new PublisherComboBoxModel(Controller.INSTANCE.getPublisherList());
             publisherComboBox = new JComboBox(publisherComboBoxModel);
             publisherComboBox.setEditable(false);
@@ -89,7 +85,7 @@ public class BookPanel extends JPanel {
 
             createUILayout();
 
-            //
+            // Add Button Listener
             addButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -102,36 +98,36 @@ public class BookPanel extends JPanel {
                            Long.valueOf(1), Long.valueOf(1));
                 }
             });
-//            editButton.addActionListener(new ActionListener() {
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//
-//                }
-//            });
-//            deleteButton.addActionListener(new ActionListener() {
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//                    // Selected book
-//                }
-//            })
+
+            // Edit Button Listener
+            editButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                }
+            });
+
+            // Delete Button Listener
+            deleteButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Selected book
+                }
+            });
+
+            // Search Button Listener
             searchButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e)
                 {
                     String searchWord = searchTextField.getText();
-//                    Controller.INSTANCE.getSearchBooks(searchWord);
-//                    System.out.println("LA PRIMA VOLTA?");
-
-                    var Celafai = Controller.INSTANCE.getSearchBooks(searchWord);
-                    System.out.println(Celafai);
-//                    System.out.println(searchList); // Test prinitng in console
-//                    System.out.println(Controller.INSTANCE.getSearchBooks("Barone"));
-
+                    Controller.INSTANCE.SearchBooks(searchWord);
                 }
             });
         }
 
-
+    // Creating the GUI using GridBagContraints, which uses a grid to order the ui objects
+    // using values such as x & y panes, is like using Tkinter grid() geometry manager rows and columns
         private void createUILayout() {
             setLayout(new GridBagLayout());
             setBorder(BorderFactory.createTitledBorder("Book"));
@@ -184,7 +180,6 @@ public class BookPanel extends JPanel {
             gc.gridy = 4 ;
             add(subjectTextField,gc);
 
-
             gc.gridx = 0;
             gc.gridy = 5 ;
             add(new JLabel("Author_ID :",SwingConstants.RIGHT),gc);
@@ -207,9 +202,14 @@ public class BookPanel extends JPanel {
             add(addButton,gc);
 
             gc.gridx = 2;
-            gc.gridy = 8 ;
+            gc.gridy = 7 ;
             gc.fill = GridBagConstraints.NONE;
-            add(searchButton,gc);
+            add(editButton,gc);
+
+            gc.gridx = 3;
+            gc.gridy = 7 ;
+            gc.fill = GridBagConstraints.NONE;
+            add(deleteButton,gc);
 
             gc.gridx = 0;
             gc.gridy = 8 ;
@@ -221,14 +221,15 @@ public class BookPanel extends JPanel {
             add(searchTextField,gc);
 
             gc.gridx = 2;
-            gc.gridy = 7 ;
+            gc.gridy = 8 ;
             gc.fill = GridBagConstraints.NONE;
-            add(editButton,gc);
+            add(searchButton,gc);
 
-            gc.gridx = 3;
-            gc.gridy = 7 ;
-            gc.fill = GridBagConstraints.NONE;
-            add(deleteButton,gc);
+
+
+
+
+
         }
     }
 

@@ -40,14 +40,13 @@ object Controller {
             pcs.firePropertyChange("publisherList", old, field)
         }
 
-    var searchList: List<BOOK> = getSearchBooks(null)
-        get() = field
-        private set(value) {
-            val old = field
-            field = value
-            pcs.firePropertyChange("searchList", old, field)
-        }
-
+//    var searchList: List<BOOK> = getSearchBooks(null)
+//        get() = field
+//        private set(value) {
+//            val old = field
+//            field = value
+//            pcs.firePropertyChange("searchList", old, field)
+//        }
 
     private fun getBooks(): List<BOOK> {
         val database = Database(getSqlDriver(path))
@@ -55,17 +54,17 @@ object Controller {
         return sqlQueries.allBooks().executeAsList()
     }
 
-    fun getSearchBooks(word: String?): List<BOOK> {
-        val database = Database(getSqlDriver(path))
-        val sqlQueries = database.cWQueries
-        return sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
-    }
+//    fun getSearchBooks(word: String?): List<BOOK> {
+//        val database = Database(getSqlDriver(path))
+//        val sqlQueries = database.cWQueries
+//        return sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
+//    }
 
-    fun SearchBooks(word: String?){
+    fun SearchBooks(word: String?)
+    {
         val database = Database(getSqlDriver(path))
         val sqlQueries = database.cWQueries
-        sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
-        searchList = getSearchBooks(word)
+        bookList = sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
     }
 
     private fun getSqlDriver(path: String ): SqlDriver {
@@ -93,7 +92,6 @@ object Controller {
         return authorQueries.allAuthors().executeAsList()
     }
 
-
     fun addAuthor(firstname: String, surname: String) {
         val database = Database(getSqlDriver(path))
         val sqlQueries = database.cWQueries
@@ -114,8 +112,6 @@ object Controller {
         publisherList = getPublisher()
     }
 
-
-
     fun addPropertyChangeListener(pcl: PropertyChangeListener?) {
         pcs.addPropertyChangeListener(pcl)
     }
@@ -123,7 +119,6 @@ object Controller {
     fun removePropertyChangeListener(pcl: PropertyChangeListener?) {
         pcs.removePropertyChangeListener(pcl)
     }
-
 
 
 }
