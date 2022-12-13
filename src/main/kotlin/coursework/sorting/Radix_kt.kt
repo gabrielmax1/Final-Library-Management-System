@@ -46,7 +46,7 @@ object Radix_kt {
 
             for(book in arr){
 
-                val author = book.AUTHOR.filter { it.isLetter() }
+                val author = book.TITLE.filter { it.isLetter() }
 
                 if(author.length > place){
 
