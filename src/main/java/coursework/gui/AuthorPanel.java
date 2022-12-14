@@ -158,14 +158,13 @@ public class AuthorPanel extends JPanel {
 //            gc.anchor = GridBagConstraints.NONE;
             add(searchAuthorButton,gc);
 
-            gc.gridx = 3;
-            gc.gridy = 1    ;
-            gc.fill = GridBagConstraints.NONE;
-            gc.anchor = GridBagConstraints.SOUTHWEST;
-            add(editAuthorButton,gc);
+            gc.gridx = 0;
+            gc.gridy = 2;
+            gc.anchor = GridBagConstraints.EAST;
+            add(new JLabel("Edit or Delete Author: ",SwingConstants.RIGHT),gc);
 
-            gc.gridx = 2;
-            gc.gridy = 3;
+            gc.gridx = 1;
+            gc.gridy = 2;
             gc.fill = GridBagConstraints.HORIZONTAL;
 //            gc.anchor = GridBagConstraints.NONE;
             add(editAuthorTextField,gc);

@@ -98,14 +98,8 @@ object Controller {
         bookList = getBooks()
     }
 
-    fun deleteAuthor(id: Long)
-    {
-        val database = Database(getSqlDriver(path))
-        val sqlQueries = database.cWQueries
-        sqlQueries.DeleteAuthorByID(id)
-        authorList = getAuthors()
-    }
 
+    // ============ Author Controller ==============================
     private fun getAuthors(): List<AUTHOR> {
         val database = Database(getSqlDriver(path))
         val authorQueries = database.cWQueries
@@ -155,6 +149,28 @@ object Controller {
         publisherList = getPublisher()
     }
 
+    fun searchPublisher(name: String?){
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        publisherList = sqlQueries.Search_Publisher_by_Name(NAME = "%$name%").executeAsList()
+    }
+
+    fun editPublisher(name: String, id: Long) {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        sqlQueries.EditPublisherEntry(name, id)
+        publisherList = getPublisher()
+    }
+
+    fun deletePublisher(id: Long) {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        sqlQueries.DeletePublisherByID(id)
+        publisherList = getPublisher()
+    }
+
+
+    // ======================== Property Change listener =======================
     fun addPropertyChangeListener(pcl: PropertyChangeListener?) {
         pcs.addPropertyChangeListener(pcl)
     }

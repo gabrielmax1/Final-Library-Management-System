@@ -76,6 +76,10 @@ Search_Author_by_Name:
 SELECT * FROM AUTHOR
 WHERE FIRSTNAME LIKE ?;
 
+Search_Publisher_by_Name:
+SELECT * FROM PUBLISHER
+WHERE NAME LIKE ?;
+
 EditBookbyEntry:
 UPDATE BOOK
 SET
@@ -94,11 +98,20 @@ SET
 
 WHERE id = ?;
 
+EditPublisherEntry:
+UPDATE PUBLISHER
+SET
+    NAME = ?
+WHERE id = ?;
+
 DeleteBookByID:
 DELETE FROM BOOK WHERE id = ?;
 
 DeleteAuthorByID:
 DELETE FROM AUTHOR WHERE id = ?;
+
+DeletePublisherByID:
+DELETE FROM PUBLISHER WHERE id = ?;
 
 -- UpdtID:
 -- DROP TABLE BOOK;

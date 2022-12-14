@@ -7,16 +7,33 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PublisherPanel extends JPanel {
+    // Moved from Constructor to Class attribute
+    final PublisherTableModel publisherTableModel = new PublisherTableModel(Controller.INSTANCE.getPublisherList());
+    private final JTable publisherTable = new JTable(publisherTableModel);
+    private PublisherFormPanel publisherForm = new PublisherFormPanel();
 
     public PublisherPanel() {
-        super(new GridLayout(1,2));
-        add(new PublisherFormPanel());
-
-        PublisherTableModel publisherTableModel = new PublisherTableModel(Controller.INSTANCE.getPublisherList());
+        setLayout(new GridLayout(1,2));
+        add(publisherForm);
         Controller.INSTANCE.addPropertyChangeListener(publisherTableModel);
-        add(new JScrollPane(new JTable(publisherTableModel)));
+        add(new JScrollPane(publisherTable));
+
+        publisherTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int idx = publisherTable.getSelectedRow();
+                int rowNumber = idx + 1;
+                String name = publisherTableModel.getValueAt(idx, 1).toString();
+                String id = publisherTableModel.getValueAt(idx, 0).toString();
+                publisherForm.editPublisherTextField.setText(name);
+                publisherForm.id = id;
+                System.out.println("Row number: " + rowNumber + "\nTitle: " + name);
+            }
+        });
     }
 
     public static class PublisherFormPanel extends JPanel {
@@ -54,8 +71,8 @@ public class PublisherPanel extends JPanel {
             searchPublisherButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String name = pubNameTextField.getText();
-                    Controller.INSTANCE.getPublisher();
+                    String name = searchPublisherTextField.getText();
+                    Controller.INSTANCE.searchPublisher(name);
                 }
             });
 
@@ -76,6 +93,11 @@ public class PublisherPanel extends JPanel {
             });
 
         }
+
+        public String getId(){ return id; }
+
+        public void setId(String newID){id = newID;}
+
         private void createGUI() {
 
             setBorder(BorderFactory.createTitledBorder("Publisher"));
@@ -122,6 +144,19 @@ public class PublisherPanel extends JPanel {
             gc.fill = GridBagConstraints.NONE;
 //            gc.anchor = GridBagConstraints.NONE;
             add(searchPublisherButton,gc);
+
+            gc.gridx = 0;
+            gc.gridy = 2;
+//            gc.anchor = GridBagConstraints.WEST;
+            add(new JLabel("Edit or Delete Publisher : ",SwingConstants.RIGHT),gc);
+
+            gc.gridx = 1;
+            gc.gridy = 2;
+//            gc.ipadx = 50;
+//            gc.gridwidth = 1;
+            gc.fill = GridBagConstraints.HORIZONTAL;
+//            gc.anchor = GridBagConstraints.NONE;
+            add(editPublisherTextField,gc);
 
             gc.gridx = 2;
             gc.gridy = 2;
