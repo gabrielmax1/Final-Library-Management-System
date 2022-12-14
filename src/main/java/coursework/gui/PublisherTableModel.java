@@ -16,15 +16,6 @@ public class PublisherTableModel extends AbstractTableModel implements PropertyC
         fireTableDataChanged();
     }
 
-    // implicitly addomg data (non event)
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println(this + ":" + evt.toString());
-        if (evt.getPropertyName() == "authorList") {
-            setPublisherList((List<PUBLISHER>) evt.getNewValue());
-        }
-    }
-
     private List<PUBLISHER> publisherList;
 
     public PublisherTableModel(List<PUBLISHER> publisherList) {
@@ -66,5 +57,12 @@ public class PublisherTableModel extends AbstractTableModel implements PropertyC
         }
     }
 
-
+    // implicitly addomg data (non event)
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        System.out.println(this + ":" + evt.toString());
+        if (evt.getPropertyName() == "publisherList") {
+            setPublisherList((List<PUBLISHER>) evt.getNewValue());
+        }
+    }
 }

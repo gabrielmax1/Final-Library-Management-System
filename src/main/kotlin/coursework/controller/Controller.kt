@@ -16,6 +16,7 @@ object Controller {
 
     private val pcs = PropertyChangeSupport(this)
 
+    // ============== LIST ===============
     var bookList: List<BOOK> = getBooks()
         get() = field
         private set(value) {
@@ -56,18 +57,12 @@ object Controller {
         ds.password = ""
         return ds.asJdbcDriver()
     }
-
+    // ============ Book Controller ==============================
     private fun getBooks(): List<BOOK> {
         val database = Database(getSqlDriver(path))
         val sqlQueries = database.cWQueries
         return sqlQueries.allBooks().executeAsList()
     }
-
-//    fun getSearchBooks(word: String?): List<BOOK> {
-//        val database = Database(getSqlDriver(path))
-//        val sqlQueries = database.cWQueries
-//        return sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
-//    }
 
     fun addBook(title: String, author: String, year_of_publication: Long, publisher: String,
                 subject: String, author_id: Long?=null, publisher_id: Long?=null)
@@ -85,12 +80,6 @@ object Controller {
         bookList = sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
     }
 
-    fun searchAuthor(name: String?)
-    {
-        val database = Database(getSqlDriver(path))
-        val sqlQueries = database.cWQueries
-        authorList = sqlQueries.Search_Author_by_Name(FIRSTNAME = "%$name%").executeAsList()
-    }
 
     fun editBooks(title: String, author: String, year_of_publication: Long, publisher: String,
                   subject: String, id: Long)
@@ -101,14 +90,6 @@ object Controller {
         bookList = getBooks()
     }
 
-    fun editAuthor(firstname: String, surname: String, id: Long)
-    {
-        val database = Database(getSqlDriver(path))
-        val sqlQueries = database.cWQueries
-        sqlQueries.EditAuthorEntry(firstname, surname, id)
-        authorList = getAuthors()
-    }
-//
     fun deleteBooks(id: Long)
     {
         val database = Database(getSqlDriver(path))
@@ -138,6 +119,29 @@ object Controller {
         authorList = getAuthors()
     }
 
+    fun searchAuthor(name: String?){
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        authorList = sqlQueries.Search_Author_by_Name(FIRSTNAME = "%$name%").executeAsList() // Only FIRSTNAME for now
+    }
+
+    fun editAuthor(firstname: String, surname: String, id: Long)
+    {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        sqlQueries.EditAuthorEntry(firstname, surname, id)
+        authorList = getAuthors()
+    }
+
+    fun deleteAuthor(id: Long)
+    {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        sqlQueries.DeleteAuthorByID(id)
+        authorList = getAuthors()
+    }
+
+    // ============ Publisher Controller ==============================
     fun getPublisher(): List<PUBLISHER> {
         val database = Database(getSqlDriver(path))
         val publisherQueries = database.cWQueries

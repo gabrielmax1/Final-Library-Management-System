@@ -27,11 +27,10 @@ public class AuthorPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int idx = authorTable.getSelectedRow();
-                int rowNumber = idx+1;
+                int rowNumber = idx + 1;
                 String name = authorTableModel.getValueAt(idx, 1).toString();
                 String surname = authorTableModel.getValueAt(idx, 2).toString();
                 String id = authorTableModel.getValueAt(idx, 0).toString();
-                authorForm.nameTextField.setText(name +" " + surname);
                 authorForm.editAuthorTextField.setText(name +" " + surname);
                 authorForm.id = id;
                 System.out.println("Row number: " + rowNumber + "\nTitle: " + name);
@@ -40,14 +39,13 @@ public class AuthorPanel extends JPanel {
     }
 
     public static class AuthorFormPanel extends JPanel {
-        private  final JTextField nameTextField;
+        private final JTextField nameTextField;
         private final JTextField editAuthorTextField;
-        private  final JTextField searchAuthorTextField;
-        private  final JButton addAuthorButton;
-        private  final JButton searchAuthorButton;
-        private  final JButton editAuthorButton;
-        private  final JButton deleteAuthorButton;
-
+        private final JTextField searchAuthorTextField;
+        private final JButton addAuthorButton;
+        private final JButton searchAuthorButton;
+        private final JButton editAuthorButton;
+        private final JButton deleteAuthorButton;
 
         public String id;
 
@@ -123,7 +121,7 @@ public class AuthorPanel extends JPanel {
             gc.weighty = 1;
             gc.weightx = 1;
             gc.fill = GridBagConstraints.HORIZONTAL;
-            gc.insets = new Insets(4, 4, 4, 5);
+            gc.insets = new Insets(0, 6, 0, 5);
             gc.anchor = GridBagConstraints.LINE_END;
 
             gc.gridx = 0;
@@ -145,7 +143,7 @@ public class AuthorPanel extends JPanel {
 
             gc.gridx = 0;
             gc.gridy = 1;
-//            gc.anchor = GridBagConstraints.WEST;
+            gc.anchor = GridBagConstraints.EAST;
             add(new JLabel("Search Author : ",SwingConstants.RIGHT),gc);
 
             gc.gridx = 1;
@@ -172,12 +170,17 @@ public class AuthorPanel extends JPanel {
 //            gc.anchor = GridBagConstraints.NONE;
             add(editAuthorTextField,gc);
 
+            gc.gridx = 2;
+            gc.gridy = 2    ;
+            gc.fill = GridBagConstraints.NONE;
+            //gc.anchor = GridBagConstraints.SOUTHWEST;
+            add(editAuthorButton,gc);
+
             gc.gridx = 3;
-            gc.gridy = 3;
+            gc.gridy = 2;
             gc.fill = GridBagConstraints.NONE;
 //            gc.anchor = GridBagConstraints.NONE;
             add(deleteAuthorButton,gc);
-
         }
 
 

@@ -20,17 +20,21 @@ public class PublisherPanel extends JPanel {
     }
 
     public static class PublisherFormPanel extends JPanel {
-        private  final JTextField pubNameTextField;
-        private  final JButton addPublisherButton;
-        private  final JTextField searchPublisherTextField;
-        private  final JButton searchPublisherButton;
-        private  final JButton editPublisherButton;
-        private  final JButton deletePublisherButton;
+        private final JTextField pubNameTextField;
+        private final JButton addPublisherButton;
+        private final JTextField searchPublisherTextField;
+        private final JTextField editPublisherTextField;
+        private final JButton searchPublisherButton;
+        private final JButton editPublisherButton;
+        private final JButton deletePublisherButton;
+
+        public String id;
 
 
         public PublisherFormPanel() {
             pubNameTextField = new JTextField();
             searchPublisherTextField = new JTextField();
+            editPublisherTextField = new JTextField();
             addPublisherButton = new JButton("ADD");
             searchPublisherButton = new JButton("SEARCH");
             editPublisherButton = new JButton("EDIT");
@@ -59,21 +63,16 @@ public class PublisherPanel extends JPanel {
             editPublisherButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-//                    String fullname = nameTextField.getText();
-//                    String surname = fullname.split(" ")[fullname.split(" ").length-1];
-//                    String firstname = fullname.substring(0, fullname.length() - surname.length());
-//                    Controller.INSTANCE.addAuthor(firstname, surname);
+                    String name = editPublisherTextField.getText();
+                    Controller.INSTANCE.editPublisher(name, Long.parseLong(id));
                 }
             });
 
             deletePublisherButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-//                    String fullname = nameTextField.getText();
-//                    String surname = fullname.split(" ")[fullname.split(" ").length-1];
-//                    String firstname = fullname.substring(0, fullname.length() - surname.length());
-//                    Controller.INSTANCE.addAuthor(firstname, surname);
-                }
+                    Controller.INSTANCE.deletePublisher(Long.parseLong(id));
+                  }
             });
 
         }
@@ -84,8 +83,8 @@ public class PublisherPanel extends JPanel {
 
 
             GridBagConstraints gc = new GridBagConstraints();
-            gc.weighty = 1;
-            gc.weightx = 1;
+            gc.weighty = 5;
+            gc.weightx = 5;
             gc.fill = GridBagConstraints.HORIZONTAL;
             gc.insets = new Insets(4, 4, 4, 5);
             gc.anchor = GridBagConstraints.LINE_END;
@@ -93,7 +92,7 @@ public class PublisherPanel extends JPanel {
             gc.gridx = 0;
             gc.gridy = 0;
 //            gc.anchor = GridBagConstraints.WEST;
-            add(new JLabel("Name : ",SwingConstants.RIGHT),gc);
+            add(new JLabel("Publisher Name : ",SwingConstants.RIGHT),gc);
 
             gc.gridx = 1;
             gc.gridy = 0;
@@ -124,11 +123,19 @@ public class PublisherPanel extends JPanel {
 //            gc.anchor = GridBagConstraints.NONE;
             add(searchPublisherButton,gc);
 
-            gc.gridx = 3;
-            gc.gridy = 1;
+            gc.gridx = 2;
+            gc.gridy = 2;
+//            gc.weightx = 0.5;
             gc.fill = GridBagConstraints.NONE;
 //            gc.anchor = GridBagConstraints.NONE;
             add(editPublisherButton,gc);
+
+            gc.gridx = 2;
+            gc.gridy = 3;
+//            gc.weightx = 0.5;
+            gc.fill = GridBagConstraints.EAST;
+//            gc.anchor = GridBagConstraints.NONE;
+            add(deletePublisherButton,gc);
 
         }
 
