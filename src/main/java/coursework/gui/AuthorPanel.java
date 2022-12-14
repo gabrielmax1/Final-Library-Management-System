@@ -162,7 +162,7 @@ public class AuthorPanel extends JPanel {
             gc.gridx = 3;
             gc.gridy = 1;
             gc.fill = GridBagConstraints.NONE;
-//            gc.anchor = GridBagConstraints.NONE;
+            gc.anchor = GridBagConstraints.SOUTHWEST;
             add(editAuthorButton,gc);
 
         }
