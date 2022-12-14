@@ -28,7 +28,8 @@ public class SortPanel extends JPanel {
     private final JRadioButton bookTitleSortRadioButton;
     private final JRadioButton authorNameSortRadioButton;
     private final BookTableModel bookTableModel;
-    private final JTextField ticksTextField;
+    private final JLabel ticksTextField;
+
 
     private void createUILayout() {
         {
@@ -115,10 +116,10 @@ public class SortPanel extends JPanel {
 
         sortButton = new JButton("Sort");
         sortButton.setPreferredSize(sortButton.getMinimumSize());
-        bubbleSortRadioButton = new JRadioButton("BubbleSort");
-        quickSortRadioButton = new JRadioButton("QuickSort");
-        mergeSortRadioButon = new JRadioButton("MergeSort");
-        radixSortRadioButton = new JRadioButton("RadixSort");
+        bubbleSortRadioButton = new JRadioButton("Bubble Sort");
+        quickSortRadioButton = new JRadioButton("Quick Sort");
+        mergeSortRadioButon = new JRadioButton("Merg eSort");
+        radixSortRadioButton = new JRadioButton("Radix Sort");
         mergeSortRadioButon.setSelected(true);
 
         sortRadioGroup = new ButtonGroup();
@@ -128,8 +129,8 @@ public class SortPanel extends JPanel {
         sortRadioGroup.add(radixSortRadioButton);
 
 
-        bookTitleSortRadioButton = new JRadioButton("BookTitle : ");
-        authorNameSortRadioButton = new JRadioButton("AuthorName : ");
+        bookTitleSortRadioButton = new JRadioButton("Book Title : ");
+        authorNameSortRadioButton = new JRadioButton("Author Name : ");
         bookTitleSortRadioButton.setSelected(true);
 
         sortFieldGroup = new ButtonGroup();
@@ -138,7 +139,7 @@ public class SortPanel extends JPanel {
 
         bookTableModel = new BookTableModel(Controller.INSTANCE.getBookList());
 
-        ticksTextField = new JTextField();
+        ticksTextField = new JLabel();
 //        ticksTextField.setEditable(false);
         ticksTextField.setEnabled(false);
         ticksTextField.setHorizontalAlignment(JTextField.RIGHT);
