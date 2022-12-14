@@ -13,17 +13,19 @@ object Radix_kt {
 
         for(i in arr.indices){
             if(arr[i].TITLE.filter { it.isLetter() }.length > maxLen) {
-                maxLen = arr[i].AUTHOR.length
+                maxLen = arr[i].TITLE.filter { it.isLetter() }.length
             }
         }
         return maxLen
-    }private fun findMaxLengthAuthor(arr: ArrayList<BOOK>) : Int {
+    }
+
+    private fun findMaxLengthAuthor(arr: ArrayList<BOOK>) : Int {
 
         var maxLen = 0
 
         for(i in arr.indices){
             if(arr[i].AUTHOR.filter { it.isLetter() }.length > maxLen) {
-                maxLen = arr[i].AUTHOR.length
+                maxLen = arr[i].AUTHOR.filter { it.isLetter() }.length
             }
         }
         return maxLen
@@ -35,8 +37,10 @@ object Radix_kt {
         val buckets : MutableList<ArrayList<BOOK>> = mutableListOf()
 
 
-        var maxLen = findMaxLengthAuthor(arr)
+        val maxLen = findMaxLengthAuthor(arr)
         var place = 1
+
+        val re = Regex("[^A-Za-z]")
 
         while(place < maxLen){
 
@@ -46,10 +50,9 @@ object Radix_kt {
 
             for(book in arr){
 
-                val author = book.TITLE.filter { it.isLetter() }
+                val author = re.replace(book.AUTHOR, "")
 
                 if(author.length > place){
-
 
                     buckets[author[author.length-place].uppercaseChar().code -65].add(book)
                 }else{
@@ -58,7 +61,6 @@ object Radix_kt {
                 ticks++
             }
             arr.clear()
-            println(buckets)
             for(list in buckets){
                 if(list.isNotEmpty()){
                     arr.addAll(list)
@@ -84,6 +86,7 @@ object Radix_kt {
 
         var maxLen = findMaxLengthTitle(arr)
         var place = 1
+        val re = Regex("[^A-Za-z]")
 
         while(place < maxLen){
 
@@ -93,12 +96,9 @@ object Radix_kt {
 
             for(book in arr){
 
-                val author = book.TITLE.filter { it.isLetter() }
+                val author = re.replace(book.TITLE, "")
 
                 if(author.length > place){
-
-                    println(
-                        author[author.length-place].uppercaseChar())
                     buckets[author[author.length-place].uppercaseChar().code -65].add(book)
                 }else{
                     buckets[author[0].uppercaseChar().code-65].add(book)
@@ -106,7 +106,6 @@ object Radix_kt {
                 ticks++
             }
             arr.clear()
-            println(buckets)
             for(list in buckets){
                 if(list.isNotEmpty()){
                     arr.addAll(list)
@@ -123,4 +122,85 @@ object Radix_kt {
 
         return ticks
     }
+
+
+
+    fun sortRecursiveAuthor(arr: ArrayList<BOOK>, place:Int = 1, ticks:Int = 0): Int {
+
+        val maxLen = findMaxLengthAuthor(arr)
+
+        if (place >= maxLen ) {
+            return ticks
+        }
+
+        val buckets: MutableList<ArrayList<BOOK>> = mutableListOf()
+        for (i in 0 until 28) {
+            buckets.add(java.util.ArrayList())
+        }
+
+        val re = Regex("[^A-Za-z]")
+
+        if (place < maxLen) {
+            for (book in arr) {
+                val author = re.replace(book.AUTHOR, "")
+
+                if (author.length > place) {
+                    buckets[author[author.length - place].uppercaseChar().code - 65].add(book)
+                } else {
+                    buckets[author[0].uppercaseChar().code - 65].add(book)
+                }
+            }
+        }
+
+        arr.clear()
+        for (list in buckets) {
+            if (list.isNotEmpty()) {
+                arr.addAll(list)
+            }
+        }
+        println(arr)
+
+        return ticks + sortRecursiveAuthor(arr, place + 1, ticks + 1)
+    }
+
+
+    fun sortRecursiveTitle(arr: ArrayList<BOOK>, place:Int = 1, ticks:Int = 0): Int {
+
+        val maxLen = findMaxLengthTitle(arr)
+
+        if (place >= maxLen ) {
+            return ticks
+        }
+
+        val buckets: MutableList<ArrayList<BOOK>> = mutableListOf()
+        for (i in 0 until 28) {
+            buckets.add(java.util.ArrayList())
+        }
+
+        val re = Regex("[^A-Za-z]")
+
+
+        for (book in arr) {
+            val title = re.replace(book.TITLE, "")
+
+            if (title.length > place) {
+                buckets[title[title.length - place].uppercaseChar().code - 65].add(book)
+            } else {
+                buckets[title[0].uppercaseChar().code - 65].add(book)
+            }
+        }
+
+        arr.clear()
+        for (list in buckets) {
+            if (list.isNotEmpty()) {
+                arr.addAll(list)
+            }
+        }
+        println(arr)
+
+        return ticks + sortRecursiveTitle(arr, place + 1, ticks + 1)
+    }
+
+
 }
+
