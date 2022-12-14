@@ -29,8 +29,10 @@ public class AuthorPanel extends JPanel {
                 int idx = authorTable.getSelectedRow();
                 int rowNumber = idx+1;
                 String name = authorTableModel.getValueAt(idx, 1).toString();
+                String surname = authorTableModel.getValueAt(idx, 2).toString();
                 String id = authorTableModel.getValueAt(idx, 0).toString();
-                authorForm.nameTextField.setText(name);
+                authorForm.nameTextField.setText(name +" " + surname);
+                authorForm.editAuthorTextField.setText(name +" " + surname);
                 authorForm.id = id;
                 System.out.println("Row number: " + rowNumber + "\nTitle: " + name);
             }
@@ -39,11 +41,13 @@ public class AuthorPanel extends JPanel {
 
     public static class AuthorFormPanel extends JPanel {
         private  final JTextField nameTextField;
-        private  final JButton addAuthorButton;
+        private final JTextField editAuthorTextField;
         private  final JTextField searchAuthorTextField;
+        private  final JButton addAuthorButton;
         private  final JButton searchAuthorButton;
         private  final JButton editAuthorButton;
-        private  final JButton deleteAuthor;
+        private  final JButton deleteAuthorButton;
+
 
         public String id;
 
@@ -51,11 +55,11 @@ public class AuthorPanel extends JPanel {
         public AuthorFormPanel() {
             nameTextField = new JTextField();
             searchAuthorTextField = new JTextField();
-
+            editAuthorTextField = new JTextField();
             addAuthorButton = new JButton("ADD");
             searchAuthorButton = new JButton("SEARCH");
             editAuthorButton = new JButton("EDIT");
-            deleteAuthor = new JButton("DELETE");
+            deleteAuthorButton = new JButton("DELETE");
 
 
             createGUI();
@@ -73,7 +77,7 @@ public class AuthorPanel extends JPanel {
             searchAuthorButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String fullname = nameTextField.getText();
+                    String fullname = searchAuthorTextField.getText();
                     String surname = fullname.split(" ")[fullname.split(" ").length-1];
                     String firstname = fullname.substring(0, fullname.length() - surname.length());
                     Controller.INSTANCE.searchAuthor(firstname);
@@ -84,20 +88,17 @@ public class AuthorPanel extends JPanel {
             editAuthorButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String fullname = nameTextField.getText();
+                    String fullname = editAuthorTextField.getText();
                     String surname = fullname.split(" ")[fullname.split(" ").length-1];
                     String firstname = fullname.substring(0, fullname.length() - surname.length());
                     Controller.INSTANCE.editAuthor(firstname, surname, Long.parseLong(id));
                 }
             });
 
-            deleteAuthor.addActionListener(new ActionListener() {
+            deleteAuthorButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-//                    String fullname = nameTextField.getText();
-//                    String surname = fullname.split(" ")[fullname.split(" ").length-1];
-//                    String firstname = fullname.substring(0, fullname.length() - surname.length());
-//                    Controller.INSTANCE.addAuthor(firstname, surname);
+                    Controller.INSTANCE.deleteAuthor(Long.parseLong(id));
                 }
             });
 
@@ -160,10 +161,22 @@ public class AuthorPanel extends JPanel {
             add(searchAuthorButton,gc);
 
             gc.gridx = 3;
-            gc.gridy = 1;
+            gc.gridy = 1    ;
             gc.fill = GridBagConstraints.NONE;
             gc.anchor = GridBagConstraints.SOUTHWEST;
             add(editAuthorButton,gc);
+
+            gc.gridx = 2;
+            gc.gridy = 3;
+            gc.fill = GridBagConstraints.HORIZONTAL;
+//            gc.anchor = GridBagConstraints.NONE;
+            add(editAuthorTextField,gc);
+
+            gc.gridx = 3;
+            gc.gridy = 3;
+            gc.fill = GridBagConstraints.NONE;
+//            gc.anchor = GridBagConstraints.NONE;
+            add(deleteAuthorButton,gc);
 
         }
 
