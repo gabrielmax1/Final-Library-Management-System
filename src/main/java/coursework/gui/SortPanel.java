@@ -43,14 +43,20 @@ public class SortPanel extends JPanel {
             JPanel panelSort = new JPanel();
             panelSort.setBorder(BorderFactory.createTitledBorder("Select Algorithm "));
             panelSort.setLayout(new BoxLayout(panelSort, BoxLayout.Y_AXIS));
+//            Box box = Box.createHorizontalBox();
+//            box.add(quickSortRadioButton);
+//            box.add(mergeSortRadioButon);
+//            box.add(bubbleSortRadioButton);
+//            box.add(radixSortRadioButton);
             panelSort.add(quickSortRadioButton);
             panelSort.add(mergeSortRadioButon);
             panelSort.add(bubbleSortRadioButton);
             panelSort.add(radixSortRadioButton);
 
+//            panelSort.add(box);
 
             JPanel panelField = new JPanel();
-            panelField.setBorder(BorderFactory.createTitledBorder("Select Field:"));
+            panelField.setBorder(BorderFactory.createTitledBorder("Sort By"));
             panelField.setLayout(new BoxLayout(panelField, BoxLayout.Y_AXIS));
 
             panelField.add(bookTitleSortRadioButton);
@@ -129,8 +135,9 @@ public class SortPanel extends JPanel {
         sortRadioGroup.add(radixSortRadioButton);
 
 
-        bookTitleSortRadioButton = new JRadioButton("Book Title : ");
-        authorNameSortRadioButton = new JRadioButton("Author Name : ");
+
+        bookTitleSortRadioButton = new JRadioButton("Book Title");
+        authorNameSortRadioButton = new JRadioButton("Author Name");
         bookTitleSortRadioButton.setSelected(true);
 
         sortFieldGroup = new ButtonGroup();
@@ -140,7 +147,6 @@ public class SortPanel extends JPanel {
         bookTableModel = new BookTableModel(Controller.INSTANCE.getBookList());
 
         ticksTextField = new JLabel();
-//        ticksTextField.setEditable(false);
         ticksTextField.setEnabled(false);
         ticksTextField.setHorizontalAlignment(JTextField.RIGHT);
 
@@ -185,12 +191,11 @@ public class SortPanel extends JPanel {
                 }
                 else if (radixSortRadioButton.isSelected()){
                     if(authorNameSortRadioButton.isSelected()){
-                        ticks = Radix_kt.INSTANCE.sortByAuthor((ArrayList<BOOK>) bookList);
+                        ticks = Radix_kt.INSTANCE.sortRecursiveAuthor((ArrayList<BOOK>) bookList, 1, ticks);
                     }else{
-                        ticks = Radix_kt.INSTANCE.sortByTitle((ArrayList<BOOK>) bookList);
+                        ticks = Radix_kt.INSTANCE.sortRecursiveTitle((ArrayList<BOOK>) bookList, 1, ticks);//, 1, ticks);
                     }
                 }
-                // Refreshing explictly the Table Model. (not from controller).
                 bookTableModel.setBookList(bookList);
                 ticksTextField.setText(Integer.toString(ticks));
                 System.out.println("ticks " + ticks);
