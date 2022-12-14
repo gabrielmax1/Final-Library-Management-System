@@ -140,17 +140,17 @@ object Radix_kt {
 
         val re = Regex("[^A-Za-z]")
 
-        if (place < maxLen) {
-            for (book in arr) {
-                val author = re.replace(book.AUTHOR, "")
 
-                if (author.length > place) {
-                    buckets[author[author.length - place].uppercaseChar().code - 65].add(book)
-                } else {
-                    buckets[author[0].uppercaseChar().code - 65].add(book)
-                }
+        for (book in arr) {
+            val author = re.replace(book.AUTHOR, "")
+
+            if (author.length > place) {
+               buckets[author[author.length - place].uppercaseChar().code - 65].add(book)
+            } else {
+               buckets[author[0].uppercaseChar().code - 65].add(book)
             }
         }
+
 
         arr.clear()
         for (list in buckets) {

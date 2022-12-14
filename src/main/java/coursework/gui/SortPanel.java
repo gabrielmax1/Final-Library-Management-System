@@ -146,9 +146,10 @@ public class SortPanel extends JPanel {
                 int ticks = 0;
                 if (bubbleSortRadioButton.isSelected()) {
                     if (authorNameSortRadioButton.isSelected()) {
-                        ticks = Bubble.INSTANCE.sortAuthorName((ArrayList<BOOK>) bookList);
+                        ticks = Bubble.INSTANCE.sortRecursiveAuthor((ArrayList<BOOK>) bookList, bookList.size(), ticks);
                     } else {
-                        ticks = Bubble.INSTANCE.sortBookTitle((ArrayList<BOOK>) bookList);
+//                        ticks = Bubble.INSTANCE.sortBookTitle((ArrayList<BOOK>) bookList);
+                        ticks = Bubble.INSTANCE.sortRecursiveTitle((ArrayList<BOOK>) bookList, bookList.size(), ticks);
                     }
                 }
                 else if (quickSortRadioButton.isSelected()){
