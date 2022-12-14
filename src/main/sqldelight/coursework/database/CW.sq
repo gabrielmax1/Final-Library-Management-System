@@ -35,7 +35,8 @@ SELECT *
 FROM PUBLISHER;
 
 insertBook:
-INSERT INTO BOOK ( TITLE, AUTHOR, YEAR_OF_PUBLICATION, PUBLISHER, SUBJECT, AUTHOR_ID, PUBLISHER_ID) VALUES ( ?, ?, ?, ?,?, ?, ?);
+INSERT INTO BOOK ( TITLE, AUTHOR, YEAR_OF_PUBLICATION, PUBLISHER, SUBJECT, AUTHOR_ID, PUBLISHER_ID)
+VALUES ( ?, ?, ?, ?,?, ?, ?);
 
 insertAuthors:
 INSERT INTO AUTHOR (FIRSTNAME, SURNAME) VALUES (?,?);
@@ -71,8 +72,57 @@ Search_Book_by_Title:
 SELECT * FROM BOOK
 WHERE TITLE LIKE ?;
 
+Search_Author_by_Name:
+SELECT * FROM AUTHOR
+WHERE FIRSTNAME LIKE ?;
 
+Search_Publisher_by_Name:
+SELECT * FROM PUBLISHER
+WHERE NAME LIKE ?;
 
+EditBookbyEntry:
+UPDATE BOOK
+SET
+    TITLE = ?,
+    AUTHOR = ?,
+    YEAR_OF_PUBLICATION = ?,
+    PUBLISHER = ?,
+    SUBJECT = ?
+WHERE id = ?;
+
+EditAuthorEntry:
+UPDATE AUTHOR
+SET
+    FIRSTNAME = ?,
+    SURNAME = ?
+
+WHERE id = ?;
+
+EditPublisherEntry:
+UPDATE PUBLISHER
+SET
+    NAME = ?
+WHERE id = ?;
+
+DeleteBookByID:
+DELETE FROM BOOK WHERE id = ?;
+
+DeleteAuthorByID:
+DELETE FROM AUTHOR WHERE id = ?;
+
+DeletePublisherByID:
+DELETE FROM PUBLISHER WHERE id = ?;
+
+-- UpdtID:
+-- DROP TABLE BOOK;
+-- UpdID2:
+-- ALTER TABLE BOOK AUTOINCREMENT = 1;
+-- EditAuthorbyEntry:
+-- UPDATE AUTHOR
+-- SET
+--     FIRSTNAME = ?,
+--     SURNAME = ?
+-- WHERE  = ?;
 
 -- public data class BOOK(
    --   public val id: Long,

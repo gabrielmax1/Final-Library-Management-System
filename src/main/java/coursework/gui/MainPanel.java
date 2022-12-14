@@ -20,8 +20,11 @@ public class MainPanel extends JPanel {
         appTabbedPane.addTab("AUTHORS", new AuthorPanel());
         appTabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
-        appTabbedPane.addTab("SORTING",new SortPanel());
+        appTabbedPane.addTab("PUBLISHER", new PublisherPanel());
         appTabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
+
+        appTabbedPane.addTab("SORTING",new SortPanel());
+        appTabbedPane.setMnemonicAt(3, KeyEvent.VK_4);
 
 
         add(appTabbedPane);

@@ -5,10 +5,7 @@ import coursework.controller.Controller;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 
 public class BookPanel extends JPanel {
@@ -21,7 +18,7 @@ public class BookPanel extends JPanel {
     public BookPanel() {
         setLayout(new GridLayout(1,2));
         add(bookForm);
-        Controller.INSTANCE.addPropertyChangeListener(bookTableModel);        
+        Controller.INSTANCE.addPropertyChangeListener(bookTableModel);
         add(new JScrollPane(booksTable));
 
         booksTable.addMouseListener(new MouseAdapter() {
@@ -34,17 +31,17 @@ public class BookPanel extends JPanel {
                 String yearOfPublication = bookTableModel.getValueAt(idx, 3).toString();
                 String publisher = bookTableModel.getValueAt(idx, 4).toString();
                 String subject = bookTableModel.getValueAt(idx, 5).toString();
+                String id = bookTableModel.getValueAt(idx, 0).toString();
                 bookForm.titleTextField.setText(title);
                 bookForm.authorTextField.setText(author);
                 bookForm.year_of_publicationTextField.setText(yearOfPublication);
                 bookForm.publisherTextField.setText(publisher);
                 bookForm.subjectTextField.setText(subject);
+                bookForm.id = id;
                 System.out.println("Row number: " + rowNumber + "\nTitle: " + title);
             }
         });
-
     }
-
 
     public static class BookFormPanel extends JPanel {
         private final JTextField titleTextField;
@@ -59,6 +56,8 @@ public class BookPanel extends JPanel {
         private final JComboBox authorComboBox;
         private final JComboBox publisherComboBox; // Check with original repository
         private final JTextField searchTextField;
+
+        public String id;
 
         public BookFormPanel() {
 
@@ -94,7 +93,7 @@ public class BookPanel extends JPanel {
                     String year_of_publication = year_of_publicationTextField.getText();
                     String publisher = publisherTextField.getText();
                     String subject = subjectTextField.getText();
-                    Controller.INSTANCE.add_book(title, author, Long.parseLong(year_of_publication), publisher, subject,
+                    Controller.INSTANCE.addBook(title, author, Long.parseLong(year_of_publication), publisher, subject,
                            Long.valueOf(1), Long.valueOf(1));
                 }
             });
@@ -103,6 +102,18 @@ public class BookPanel extends JPanel {
             editButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    // If entry selected then display text in text fields
+                    // If change text in textfield and click edit, update entry.
+                    String title = titleTextField.getText();
+                    String author = authorTextField.getText();
+                    String year_of_publication = year_of_publicationTextField.getText();
+                    String publisher = publisherTextField.getText();
+                    String subject = subjectTextField.getText();
+                    String searchWord = searchTextField.getText();
+
+                    Controller.INSTANCE.editBooks(title, author, Long.parseLong(year_of_publication), publisher, subject,
+                            Long.parseLong(id));
+                    System.out.println(id);
 
                 }
             });
@@ -112,6 +123,8 @@ public class BookPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // Selected book
+                    // If book selected, and delete button is pressed then delete entry.
+                    Controller.INSTANCE.deleteBooks(Long.parseLong(id));
                 }
             });
 
@@ -121,9 +134,17 @@ public class BookPanel extends JPanel {
                 public void actionPerformed(ActionEvent e)
                 {
                     String searchWord = searchTextField.getText();
-                    Controller.INSTANCE.SearchBooks(searchWord);
+                    Controller.INSTANCE.searchBooks(searchWord);
                 }
             });
+        }
+
+        public String getId(){
+            return id;
+        }
+
+        public void setId(String newID){
+            id = newID;
         }
 
     // Creating the GUI using GridBagContraints, which uses a grid to order the ui objects
@@ -224,9 +245,6 @@ public class BookPanel extends JPanel {
             gc.gridy = 8 ;
             gc.fill = GridBagConstraints.NONE;
             add(searchButton,gc);
-
-
-
 
 
 
