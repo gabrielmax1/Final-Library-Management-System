@@ -39,7 +39,7 @@ object MergeSort {
         }
     }
 
-    //Method used for the actual merging of arrays. It decides which list to compare using the variable byEntry
+    //Method used for the actual merging of arrays using recurssion
     //leftSorter: ArrayList<BOOK> sorted array to be merged
     //rightSorted: ArrayList<BOOK> sorted array to be merged
     //res: ArrayList<BOOk> result array
@@ -61,8 +61,8 @@ object MergeSort {
             byEntry: String
         ) {
 
-            var leftName = ""
-            var rightName = ""
+            var leftName : String
+            var rightName : String
             if (!((l < leftSorted.size) || (r < rightSorted.size))) {
                 assert((l == leftSorted.size) && (r == rightSorted.size))
             } else {
@@ -101,6 +101,11 @@ object MergeSort {
     }
 
 
+    //Iterative methods used for the actual merging of arrays
+    //leftSorted : ArrayList<BOOK> sorted array to be merged
+    //rightSorted : ArrayList<BOOk> sorted array to be merged
+    //byEntry: "TITLE" or "AUTHOR" used to decide which list to sort
+    //returns Pair<ArrayList<B00K>, int> : sorted list and number of ticks
     private fun merge_iterative(leftSorted: ArrayList<BOOK>,
                                 rightSorted: ArrayList<BOOK>,
                                 byEntry: String): Pair<ArrayList<BOOK>, Int>{
@@ -114,6 +119,7 @@ object MergeSort {
         var entryLeft : String
         var entryRight: String
 
+        // Merge the arrays into res
         while(l < leftSorted.size  && r < rightSorted.size ){
 
             //Choose entry to sort by
@@ -137,12 +143,14 @@ object MergeSort {
             ticks++
         }
 
+        //add remaining elements from leftsorted array
         while(l < leftSorted.size-1){
             res.add(leftSorted[l])
             l++
             ticks++
         }
 
+        //add remaining elements from rightsorted array
         while(r < rightSorted.size-1){
             res.add(leftSorted[r])
             r++

@@ -46,8 +46,6 @@ object QuickSort {
         var half = inf + 1
         assert(sup - inf > 1)
 
-        var left = ""
-        var right = ""
         for (n in inf + 1 until sup) {
             tick += 1
 

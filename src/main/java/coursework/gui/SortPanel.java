@@ -138,7 +138,7 @@ public class SortPanel extends JPanel {
         sortButton.setPreferredSize(sortButton.getMinimumSize());
         bubbleSortRadioButton = new JRadioButton("Bubble Sort");
         quickSortRadioButton = new JRadioButton("Quick Sort");
-        mergeSortRadioButon = new JRadioButton("Merg eSort");
+        mergeSortRadioButon = new JRadioButton("Merge Sort");
         radixSortRadioButton = new JRadioButton("Radix Sort");
         mergeSortRadioButon.setSelected(true);
 
