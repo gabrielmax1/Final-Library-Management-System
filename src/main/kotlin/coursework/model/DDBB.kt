@@ -40,18 +40,47 @@ object DDBB {
         val sqlQueries = database.cWQueries
         sqlQueries.insertBook(title, author, year_of_publication, publisher, subject, author_id, publisher_id)
     }
+
+    fun searchBooks(word: String?): List<BOOK>
+    {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        return sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
+    }
+
+    fun editBooks(title: String, author: String, year_of_publication: Long, publisher: String,
+                  subject: String, id: Long)
+    {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        return sqlQueries.EditBookbyEntry(title, author, year_of_publication, publisher, subject, id)
+    }
+
+    fun deleteBooks(id: Long)
+    {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        sqlQueries.DeleteBookByID(id)
+    }
+
     fun booksByAuthor( id: Long): List<Book_by_Author> {
         val database = Database(getSqlDriver(path))
         val sqlQueries = database.cWQueries
         return sqlQueries.book_by_Author(id).executeAsList()
     }
 
-
-
     fun getSearchBooks(word: String): List<BOOK> {
         val database = Database(getSqlDriver(path))
         val sqlQueries = database.cWQueries
         return sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
+    }
+
+    // ============ Author Model ==============================
+
+    fun getAuthors(): List<AUTHOR> {
+        val database = Database(getSqlDriver(path))
+        val authorsQueries = database.cWQueries
+        return authorsQueries.allAuthors().executeAsList()
     }
 
     fun addAuthor(firstname: String, surname: String) {
@@ -60,12 +89,27 @@ object DDBB {
         sqlQueries.insertAuthors(firstname, surname)
     }
 
-    fun getAuthors(): List<AUTHOR> {
+    fun searchAuthor(name: String?): List<AUTHOR>{
         val database = Database(getSqlDriver(path))
-        val authorsQueries = database.cWQueries
-        return authorsQueries.allAuthors().executeAsList()
+        val sqlQueries = database.cWQueries
+        return sqlQueries.Search_Author_by_Name(FIRSTNAME = "%$name%").executeAsList() // Only FIRSTNAME for now
     }
 
+    fun editAuthor(firstname: String, surname: String, id: Long)
+    {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        sqlQueries.EditAuthorEntry(firstname, surname, id)
+    }
+
+    fun deleteAuthor(id: Long)
+    {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        sqlQueries.DeleteAuthorByID(id)
+    }
+
+    // ============ Publisher Model ==============================
     fun getPublishers(): List<PUBLISHER> {
         val database = Database(getSqlDriver(path))
         val publishersQueries = database.cWQueries
@@ -75,7 +119,25 @@ object DDBB {
     fun addPublisher(name: String) {
         val database = Database(getSqlDriver(path))
         val sqlQueries = database.cWQueries
-        sqlQueries.insertPublisher(name)
+        return sqlQueries.insertPublisher(name)
+    }
+
+    fun searchPublisher(name: String?): List<PUBLISHER> {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        return sqlQueries.Search_Publisher_by_Name(NAME = "%$name%").executeAsList()
+    }
+
+    fun editPublisher(name: String, id: Long) {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        return sqlQueries.EditPublisherEntry(name, id)
+    }
+
+    fun deletePublisher(id: Long) {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        return sqlQueries.DeletePublisherByID(id)
     }
 }
 
