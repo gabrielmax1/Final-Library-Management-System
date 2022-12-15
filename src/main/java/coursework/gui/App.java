@@ -17,11 +17,15 @@ public class App {
 
     private static void createAndShowGUI() {
         JFrame frame = new JFrame();
+
+        // Setting the tile of the GUI
         frame.setTitle("Library Management System");
         frame.setContentPane(new MainPanel());
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+        // Add the close function
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }

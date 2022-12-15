@@ -10,19 +10,21 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+// AuthorPanel is the JPanel in which the author list, textfield and functions buttons are used
 public class AuthorPanel extends JPanel {
-    // Moved from Constructor to Class attribute
+
     final AuthorTableModel authorTableModel = new AuthorTableModel(Controller.INSTANCE.getAuthorList());
     private final JTable authorTable = new JTable(authorTableModel);
     private AuthorFormPanel authorForm = new AuthorFormPanel();
 
-
+    // Constructor
     public AuthorPanel() {
         setLayout(new GridLayout(1,2));
         add(authorForm);
         Controller.INSTANCE.addPropertyChangeListener(authorTableModel);
         add(new JScrollPane(authorTable));
 
+        // The listener is used to select the data of the row picked by the mouse
         authorTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -37,7 +39,7 @@ public class AuthorPanel extends JPanel {
             }
         });
     }
-
+    // AuthorFormPanel defines the textfield and the buttons
     public static class AuthorFormPanel extends JPanel {
         private final JTextField nameTextField;
         private final JTextField editAuthorTextField;
@@ -59,9 +61,10 @@ public class AuthorPanel extends JPanel {
             editAuthorButton = new JButton("EDIT");
             deleteAuthorButton = new JButton("DELETE");
 
-
+            // The function instantialise the GUI of the author
             createGUI();
 
+            // Add button to add the author to the database
             addAuthorButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -72,6 +75,7 @@ public class AuthorPanel extends JPanel {
                 }
             });
 
+            // Search button to search the author in the database
             searchAuthorButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -82,7 +86,7 @@ public class AuthorPanel extends JPanel {
                 }
             });
 
-
+            // Edit button to edit the data of given author in the database
             editAuthorButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -92,7 +96,7 @@ public class AuthorPanel extends JPanel {
                     Controller.INSTANCE.editAuthor(firstname, surname, Long.parseLong(id));
                 }
             });
-
+            // Delete button to delete the row of an author
             deleteAuthorButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -103,6 +107,7 @@ public class AuthorPanel extends JPanel {
 
         }
 
+        // Set and get of id
         public String getId(){
             return id;
         }
@@ -111,6 +116,7 @@ public class AuthorPanel extends JPanel {
             id = newID;
         }
 
+        // The GUI define using Grid the position of every element
         private void createGUI() {
 
             setBorder(BorderFactory.createTitledBorder("Author"));

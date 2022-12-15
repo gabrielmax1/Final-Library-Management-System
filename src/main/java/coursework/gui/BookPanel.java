@@ -7,20 +7,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
+// BookPanel is the JPanel in which the book list, textfield and functions buttons are managed and used
 public class BookPanel extends JPanel {
     // Moved from Constructor to Class attribute
     final BookTableModel bookTableModel = new BookTableModel(Controller.INSTANCE.getBookList());
     private final JTable booksTable = new JTable(bookTableModel);
     private BookFormPanel bookForm = new BookFormPanel();
 
-
+    //// Constructor
     public BookPanel() {
         setLayout(new GridLayout(1,2));
         add(bookForm);
         Controller.INSTANCE.addPropertyChangeListener(bookTableModel);
         add(new JScrollPane(booksTable));
 
+        // / The listener is used to select the data of the row picked by the mouse
         booksTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -42,7 +43,7 @@ public class BookPanel extends JPanel {
             }
         });
     }
-
+    // BookFormPanel defines the textfield and the buttons
     public static class BookFormPanel extends JPanel {
         private final JTextField titleTextField;
         private final JTextField authorTextField;
@@ -57,6 +58,7 @@ public class BookPanel extends JPanel {
         private final JComboBox publisherComboBox; // Check with original repository
         private final JTextField searchTextField;
 
+        // ID is initialised for the edit and delete function
         public String id;
 
         public BookFormPanel() {
@@ -82,9 +84,10 @@ public class BookPanel extends JPanel {
             publisherComboBox.setEditable(false);
             Controller.INSTANCE.addPropertyChangeListener(publisherComboBoxModel);
 
+            // The function instantialise the GUI of the book page
             createUILayout();
 
-            // Add Button Listener
+            // Add Button to add the book to the database
             addButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -98,7 +101,7 @@ public class BookPanel extends JPanel {
                 }
             });
 
-            // Edit Button Listener
+            // Edit Button to edit the book data into the database
             editButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -118,7 +121,7 @@ public class BookPanel extends JPanel {
                 }
             });
 
-            // Delete Button Listener
+            // Delete Button to delete the book table selected in the database
             deleteButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -128,7 +131,7 @@ public class BookPanel extends JPanel {
                 }
             });
 
-            // Search Button Listener
+            // Search Button to search the books in the database
             searchButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e)

@@ -7,6 +7,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
+// AuthorTableModel class is used to show in GUI the database of the author list and interact with it
 public class AuthorTableModel extends AbstractTableModel implements PropertyChangeListener {
 
 
@@ -14,15 +15,6 @@ public class AuthorTableModel extends AbstractTableModel implements PropertyChan
     public void setAuthorList(List<AUTHOR> authorList) {
         this.authorList = authorList;
         fireTableDataChanged();
-    }
-
-    // implicitly addomg data (non event)
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println(this + ":" + evt.toString());
-        if (evt.getPropertyName() == "authorList") {
-            setAuthorList((List<AUTHOR>) evt.getNewValue());
-        }
     }
 
     private List<AUTHOR> authorList;

@@ -7,7 +7,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-
+// BookTableModel class is used to show in GUI the database of the author list and interact with it
 public class BookTableModel extends AbstractTableModel implements PropertyChangeListener {
 
     private List<BOOK> bookList;
@@ -84,6 +84,7 @@ public class BookTableModel extends AbstractTableModel implements PropertyChange
         }
     }
 
+    // Implicitly updating data
     @Override                            // LAMBDA
     public void propertyChange(PropertyChangeEvent evt) {
         System.out.println(this + ":" + evt.toString());

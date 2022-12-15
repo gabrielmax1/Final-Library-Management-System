@@ -5,12 +5,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+// MainPanel is used to unify all the JPanel created: Book, Author, Publisher and Sort JPanels.
 public class MainPanel extends JPanel {
 
     private JTabbedPane appTabbedPane;
 
 
     public MainPanel() {
+
+        // Setting of the layout of the JPanel
         super(new GridLayout(1,1));
         this.appTabbedPane = new JTabbedPane();
 

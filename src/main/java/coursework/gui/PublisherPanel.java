@@ -16,12 +16,14 @@ public class PublisherPanel extends JPanel {
     private final JTable publisherTable = new JTable(publisherTableModel);
     private PublisherFormPanel publisherForm = new PublisherFormPanel();
 
+    // Constructor
     public PublisherPanel() {
         setLayout(new GridLayout(1,2));
         add(publisherForm);
         Controller.INSTANCE.addPropertyChangeListener(publisherTableModel);
         add(new JScrollPane(publisherTable));
 
+        // // The listener is used to select the data of the row picked by the mouse
         publisherTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -36,6 +38,7 @@ public class PublisherPanel extends JPanel {
         });
     }
 
+    // AuthorFormPanel defines the textfield and the buttons
     public static class PublisherFormPanel extends JPanel {
         private final JTextField pubNameTextField;
         private final JButton addPublisherButton;
@@ -47,7 +50,6 @@ public class PublisherPanel extends JPanel {
 
         public String id;
 
-
         public PublisherFormPanel() {
             pubNameTextField = new JTextField();
             searchPublisherTextField = new JTextField();
@@ -57,9 +59,10 @@ public class PublisherPanel extends JPanel {
             editPublisherButton = new JButton("EDIT");
             deletePublisherButton = new JButton("DELETE");
 
-
+            // The function instantialise the GUI of the publisher
             createGUI();
 
+            // Add button to add the publisher to the database
             addPublisherButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -67,7 +70,7 @@ public class PublisherPanel extends JPanel {
                     Controller.INSTANCE.addPublisher(name);
                 }
             });
-
+            // Search button to search the publisher in the database
             searchPublisherButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -76,7 +79,7 @@ public class PublisherPanel extends JPanel {
                 }
             });
 
-
+            // Edit button to edit the data of given publisher in the database
             editPublisherButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -84,7 +87,7 @@ public class PublisherPanel extends JPanel {
                     Controller.INSTANCE.editPublisher(name, Long.parseLong(id));
                 }
             });
-
+            // Delete button to delete the row of an author
             deletePublisherButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -94,10 +97,11 @@ public class PublisherPanel extends JPanel {
 
         }
 
+        // Set and get of id
         public String getId(){ return id; }
 
         public void setId(String newID){id = newID;}
-
+        // The GUI define using Grid the position of every element
         private void createGUI() {
 
             setBorder(BorderFactory.createTitledBorder("Publisher"));

@@ -16,7 +16,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+// This class present the sorting algorithms to apply to the book database
 public class SortPanel extends JPanel {
+
+    // All the buttons and textfield are initialised
     private final JButton sortButton;
     private final JRadioButton bubbleSortRadioButton;
     private final JRadioButton quickSortRadioButton;
@@ -30,7 +33,7 @@ public class SortPanel extends JPanel {
     private final BookTableModel bookTableModel;
     private final JLabel ticksTextField;
 
-
+    // The GUI is defined through the following funciton
     private void createUILayout() {
         {
             setLayout(new GridBagLayout());
@@ -117,6 +120,7 @@ public class SortPanel extends JPanel {
 
     }
 
+    // The sort panel present the books in which the sorting will happen
     public SortPanel() {
 
         sortButton = new JButton("Sort");
@@ -149,13 +153,17 @@ public class SortPanel extends JPanel {
         ticksTextField.setEnabled(true);
         ticksTextField.setHorizontalAlignment(JTextField.RIGHT);
 
+        // The GUI is instantiated
         createUILayout();
 
+        // Sort button
         sortButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 List<BOOK> bookList = Controller.INSTANCE.getBookList();
                 int ticks = 0;
+
+                // Bubble radiobutton
                 if (bubbleSortRadioButton.isSelected()) {
                     if (authorNameSortRadioButton.isSelected()) {
                         ticks = Bubble.INSTANCE.sortRecursiveAuthor((ArrayList<BOOK>) bookList, bookList.size(), ticks);

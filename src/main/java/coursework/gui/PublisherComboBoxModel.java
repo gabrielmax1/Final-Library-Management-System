@@ -8,6 +8,8 @@ import javax.swing.event.ListDataListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
+
+// The PublisherComboBoxModel is used to create an author JComboBox for the authors
 public class PublisherComboBoxModel implements ComboBoxModel, PropertyChangeListener {
 
     private PUBLISHER selectedItem;
@@ -52,7 +54,8 @@ public class PublisherComboBoxModel implements ComboBoxModel, PropertyChangeList
 
     }
 
-    @Override
+    // Implicitly updating the data
+    @Override                           // Lambda
     public void propertyChange(PropertyChangeEvent evt) {
         System.out.println(this + ":" + evt.toString());
         if (evt.getPropertyName() == "publisherList") {
