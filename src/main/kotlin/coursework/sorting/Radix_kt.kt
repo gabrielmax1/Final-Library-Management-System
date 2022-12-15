@@ -134,8 +134,9 @@ object Radix_kt {
                 buckets[entry[0].uppercaseChar().code - 65].add(book)
             }
 
-            tick++
+
         }
+        tick++
 
         arr.clear()
         for (list in buckets) {
@@ -144,7 +145,7 @@ object Radix_kt {
             }
         }
 
-        return ticks + sortRecursive(arr, byEntry, place + 1, ticks + tick)
+        return tick + sortRecursive(arr, byEntry, place + 1, 1)
     }
 
 

@@ -137,12 +137,9 @@ object MergeSort {
             if(entryLeft < entryRight) {
 
                 res[k] = leftSorted[l]
-                println(res.size)
                 l++
             }else{
-                print(entryRight)
                 res[k] = rightSorted[r]
-                println(res.size)
                 r++
             }
             k++
