@@ -1,3 +1,7 @@
+-- This Schema is primarely used in the beginning to create the Tables in the Linked Database.
+-- An empty file can be linked to it, In Windows you need to delcare his extension to sql, or sqlite and then by running these Querie
+-- Tables with entries can be created.
+
 CREATE TABLE if not exists BOOK (
  id INTEGER PRIMARY KEY AUTOINCREMENT,
 TITLE TEXT NOT NULL,

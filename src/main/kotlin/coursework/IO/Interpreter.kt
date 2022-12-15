@@ -10,6 +10,7 @@ import coursework.sorting.Bubble
 import coursework.sorting.QuickSort
 import coursework.sorting.MergeSort
 
+// This part should take care of the CLI-Commands, it is linked with utilities, it should be used for Model (DDBB) testing of data;
 object Interpreter {
 
     fun BOOK.toRow(): String =

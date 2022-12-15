@@ -1,3 +1,7 @@
+-- This is an SQLite version of the Queries, however this is primarely used to create the core SQL Queries used as Functions
+-- in our Controller.
+
+
 CREATE TABLE BOOK (
  id INTEGER PRIMARY KEY AUTOINCREMENT,
 TITLE TEXT NOT NULL,
@@ -11,10 +15,6 @@ FOREIGN KEY(AUTHOR_ID) REFERENCES AUTHOR(id),
 FOREIGN KEY(PUBLISHER_ID) REFERENCES PUBLISHER(id)
 );
 
-allBooks:
-SELECT *
-FROM BOOK;
-
 CREATE TABLE AUTHOR (
  id INTEGER PRIMARY KEY AUTOINCREMENT,
  FIRSTNAME TEXT NOT NULL,
@@ -25,6 +25,11 @@ CREATE TABLE PUBLISHER (
  id INTEGER PRIMARY KEY AUTOINCREMENT,
  NAME TEXT NOT NULL
 );
+
+-- =========== SQLite queries for Functions ===========================
+allBooks:
+SELECT *
+FROM BOOK;
 
 allAuthors:
 SELECT *

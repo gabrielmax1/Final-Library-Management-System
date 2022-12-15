@@ -43,11 +43,7 @@ public class SortPanel extends JPanel {
             JPanel panelSort = new JPanel();
             panelSort.setBorder(BorderFactory.createTitledBorder("Select Algorithm "));
             panelSort.setLayout(new BoxLayout(panelSort, BoxLayout.Y_AXIS));
-//            Box box = Box.createHorizontalBox();
-//            box.add(quickSortRadioButton);
-//            box.add(mergeSortRadioButon);
-//            box.add(bubbleSortRadioButton);
-//            box.add(radixSortRadioButton);
+
             panelSort.add(quickSortRadioButton);
             panelSort.add(mergeSortRadioButon);
             panelSort.add(bubbleSortRadioButton);
@@ -103,16 +99,19 @@ public class SortPanel extends JPanel {
 
             gc.gridx = 0;
             gc.gridy = 2;
+            gc.gridheight = GridBagConstraints.BOTH;
+            add(implementField, gc);
+
+            gc.gridx = 0;
+            gc.gridy = 3;
             gc.weighty = 0.5;
             gc.gridheight = GridBagConstraints.BOTH;
             add(performancePanel, gc);
 
             gc.gridx = 0;
-            gc.gridy = 3;
+            gc.gridy = 4;
             gc.fill = GridBagConstraints.NONE;
             add(sortButton,gc);
-
-
 
         }
 
@@ -147,7 +146,7 @@ public class SortPanel extends JPanel {
         bookTableModel = new BookTableModel(Controller.INSTANCE.getBookList());
 
         ticksTextField = new JLabel();
-        ticksTextField.setEnabled(false);
+        ticksTextField.setEnabled(true);
         ticksTextField.setHorizontalAlignment(JTextField.RIGHT);
 
         createUILayout();

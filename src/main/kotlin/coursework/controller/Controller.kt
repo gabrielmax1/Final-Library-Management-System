@@ -10,13 +10,18 @@ import coursework.database.PUBLISHER
 import java.beans.PropertyChangeListener
 import java.beans.PropertyChangeSupport
 
+ // Model–view–controller (MVC) is a software architectural pattern that separates an application into three main logical components: the model / the view / and the controller.
+ // The model represents the data and the business logic of the application,
+ // the view represents the user interface, and the controller manages the flow of data between the model and the view.
+ // This allows for a clear separation of responsibilities, which can make the development and maintenance of an application easier.
+ // For example, the view and the controller can be changed without affecting the model, and the model can be developed and tested independently of the view and the controller.
 object Controller {
 
     val path = "src/main/resources/library.sqlite"
 
     private val pcs = PropertyChangeSupport(this)
 
-    // ============== LIST ===============
+    // ============== LISTS ===============
     var bookList: List<BOOK> = getBooks()
         get() = field
         private set(value) {
@@ -48,6 +53,7 @@ object Controller {
 //            field = value
 //            pcs.firePropertyChange("searchList", old, field)
 //        }
+
     // SQLDriver will be our "bridge" for the sql queries called as functions
     private fun getSqlDriver(path: String ): SqlDriver {
         val ds = HikariDataSource()

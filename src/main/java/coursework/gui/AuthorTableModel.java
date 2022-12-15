@@ -69,6 +69,13 @@ public class AuthorTableModel extends AbstractTableModel implements PropertyChan
                 return "ERROR";
         }
     }
-
+    // implicitly add data (non event)
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        System.out.println(this + ":" + evt.toString());
+        if (evt.getPropertyName() == "authorList") {
+            setAuthorList((List<AUTHOR>) evt.getNewValue());
+        }
+    }
 
 }

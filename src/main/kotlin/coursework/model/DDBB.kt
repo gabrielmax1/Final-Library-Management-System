@@ -10,6 +10,8 @@ import coursework.database.AUTHOR
 import coursework.database.BOOK
 import coursework.database.PUBLISHER
 
+// This is the Model part of the Software Architecture, this part is supposted to rappresent the data and the logic of the program
+// Although it does, it uses it partially, due to the time restriction that we had to implement our solution, therefore half of the functions are effectively used.
 
 object DDBB {
 
