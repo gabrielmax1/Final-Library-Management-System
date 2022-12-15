@@ -84,7 +84,6 @@ object Controller {
         bookList = sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
     }
 
-
     fun editBooks(title: String, author: String, year_of_publication: Long, publisher: String,
                   subject: String, id: Long)
     {
@@ -153,7 +152,7 @@ object Controller {
         publisherList = getPublisher()
     }
 
-    fun searchPublisher(name: String?){
+    fun searchPublisher(name: String?) {
         val database = Database(getSqlDriver(path))
         val sqlQueries = database.cWQueries
         publisherList = sqlQueries.Search_Publisher_by_Name(NAME = "%$name%").executeAsList()
@@ -186,16 +185,16 @@ object Controller {
 
 }
 
-//fun main() {
-//////    Controller.bookList.forEach { it ->
-//////        println(it)
-//////    }
-//////    Controller.add_book("Percy Jackson","Rick Riordan",2011,"Mondadori","Fantasy", null, null)
-//////    Controller.bookList.forEach { it ->
-//////        println(it)
-//////    }
-//    Controller.getSearchBooks("Prague")
+fun main() {
+    Controller.bookList.forEach { it ->
+        println(it)
+    }
+    Controller.addBook("Percy Jackson","Rick Riordan",2011,"Mondadori","Fantasy", null, null)
+    Controller.bookList.forEach { it ->
+        println(it)
+    }
+    Controller.searchBooks("Prague")
 //    Controller.searchList.forEach {
 //        println(it)
 //    }
-//}
+}
