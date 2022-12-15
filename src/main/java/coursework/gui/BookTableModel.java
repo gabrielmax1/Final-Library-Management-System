@@ -91,7 +91,7 @@ public class BookTableModel extends AbstractTableModel implements PropertyChange
     // Can be used to update e.g., a label with the new value of a text field whenever the user types something in the field.
     // In our case is used to Add and refresh data from the List, that comes from the Database
     // Implicitly updating data
-    @Override                            // LAMBDA
+    @Override                            // LAMBDA?
     public void propertyChange(PropertyChangeEvent evt) {
         System.out.println(this + ":" + evt.toString());
         if (evt.getPropertyName() == "bookList") {

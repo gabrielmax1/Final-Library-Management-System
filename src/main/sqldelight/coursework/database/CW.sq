@@ -80,7 +80,11 @@ WHERE TITLE LIKE ?;
 
 Search_Author_by_Name:
 SELECT * FROM AUTHOR
-WHERE FIRSTNAME LIKE ?;
+WHERE FIRSTNAME LIKE ? OR SURNAME LIKE ?;
+
+-- Search_Author_by_Name:
+-- SELECT * FROM AUTHOR
+-- WHERE FIRSTNAME LIKE ? || '%' OR SURNAME LIKE ? || '%';
 
 Search_Publisher_by_Name:
 SELECT * FROM PUBLISHER

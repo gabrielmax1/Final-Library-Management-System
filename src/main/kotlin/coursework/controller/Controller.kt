@@ -119,7 +119,7 @@ object Controller {
     fun searchAuthor(name: String?){
         val database = Database(getSqlDriver(path))
         val sqlQueries = database.cWQueries
-        authorList = sqlQueries.Search_Author_by_Name(FIRSTNAME = "%$name%").executeAsList() // Only FIRSTNAME for now
+        authorList = sqlQueries.Search_Author_by_Name(FIRSTNAME= "%$name%", SURNAME= "%$surname%").executeAsList() // Only FIRSTNAME for now
     }
 
     fun editAuthor(firstname: String, surname: String, id: Long)

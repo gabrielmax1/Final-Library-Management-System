@@ -264,11 +264,15 @@ private class CWQueriesImpl(
     )
   }
 
-  public override fun <T : Any> Search_Author_by_Name(FIRSTNAME: String, mapper: (
-    id: Long,
+  public override fun <T : Any> Search_Author_by_Name(
     FIRSTNAME: String,
-    SURNAME: String
-  ) -> T): Query<T> = Search_Author_by_NameQuery(FIRSTNAME) { cursor ->
+    SURNAME: String,
+    mapper: (
+      id: Long,
+      FIRSTNAME: String,
+      SURNAME: String
+    ) -> T
+  ): Query<T> = Search_Author_by_NameQuery(FIRSTNAME, SURNAME) { cursor ->
     mapper(
       cursor.getLong(0)!!,
       cursor.getString(1)!!,
@@ -276,12 +280,12 @@ private class CWQueriesImpl(
     )
   }
 
-  public override fun Search_Author_by_Name(FIRSTNAME: String): Query<AUTHOR> =
-      Search_Author_by_Name(FIRSTNAME) { id, FIRSTNAME_, SURNAME ->
+  public override fun Search_Author_by_Name(FIRSTNAME: String, SURNAME: String): Query<AUTHOR> =
+      Search_Author_by_Name(FIRSTNAME, SURNAME) { id, FIRSTNAME_, SURNAME_ ->
     AUTHOR(
       id,
       FIRSTNAME_,
-      SURNAME
+      SURNAME_
     )
   }
 
@@ -494,13 +498,15 @@ private class CWQueriesImpl(
 
   private inner class Search_Author_by_NameQuery<out T : Any>(
     public val FIRSTNAME: String,
+    public val SURNAME: String,
     mapper: (SqlCursor) -> T
   ) : Query<T>(Search_Author_by_Name, mapper) {
     public override fun execute(): SqlCursor = driver.executeQuery(-466011145, """
     |SELECT * FROM AUTHOR
-    |WHERE FIRSTNAME LIKE ?
-    """.trimMargin(), 1) {
+    |WHERE FIRSTNAME LIKE ? OR SURNAME LIKE ?
+    """.trimMargin(), 2) {
       bindString(1, FIRSTNAME)
+      bindString(2, SURNAME)
     }
 
     public override fun toString(): String = "CW.sq:Search_Author_by_Name"

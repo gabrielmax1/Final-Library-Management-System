@@ -66,13 +66,17 @@ public interface CWQueries : Transacter {
 
   public fun Search_Book_by_Title(TITLE: String): Query<BOOK>
 
-  public fun <T : Any> Search_Author_by_Name(FIRSTNAME: String, mapper: (
-    id: Long,
+  public fun <T : Any> Search_Author_by_Name(
     FIRSTNAME: String,
-    SURNAME: String
-  ) -> T): Query<T>
+    SURNAME: String,
+    mapper: (
+      id: Long,
+      FIRSTNAME: String,
+      SURNAME: String
+    ) -> T
+  ): Query<T>
 
-  public fun Search_Author_by_Name(FIRSTNAME: String): Query<AUTHOR>
+  public fun Search_Author_by_Name(FIRSTNAME: String, SURNAME: String): Query<AUTHOR>
 
   public fun <T : Any> Search_Publisher_by_Name(NAME: String, mapper: (id: Long,
       NAME: String) -> T): Query<T>
