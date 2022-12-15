@@ -46,7 +46,7 @@ object Radix_kt {
         var place = 1
 
         val re = Regex("[^A-Za-z]")
-        var entry = ""
+        var entry : String
 
         while(place < maxLen){
 
@@ -114,7 +114,7 @@ object Radix_kt {
         }
 
         val re = Regex("[^A-Za-z]")
-        var entry = ""
+        var entry : String
         var tick = 0
         for (book in arr) {
 
@@ -133,6 +133,7 @@ object Radix_kt {
             } else {
                 buckets[entry[0].uppercaseChar().code - 65].add(book)
             }
+
             tick++
         }
 
@@ -143,7 +144,7 @@ object Radix_kt {
             }
         }
 
-        return tick + sortRecursive(arr, byEntry, place + 1, ticks + 1)
+        return ticks + sortRecursive(arr, byEntry, place + 1, ticks + tick)
     }
 
 

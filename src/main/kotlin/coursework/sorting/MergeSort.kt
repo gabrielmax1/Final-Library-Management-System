@@ -31,7 +31,8 @@ object MergeSort {
                 merge_recursive(leftSorted, rightSorted, res, byEntry)
                 return Pair(res, tick)
             }else{
-                 var pair : Pair<java.util.ArrayList<BOOK>, Int> = merge_iterative(leftSorted, rightSorted, byEntry)
+
+                var pair : Pair<java.util.ArrayList<BOOK>, Int> = merge_iterative(leftSorted, rightSorted, byEntry)
                 return Pair(pair.first, pair.second)
             }
 
@@ -101,9 +102,9 @@ object MergeSort {
     }
 
 
-    //Iterative methods used for the actual merging of arrays
+    //Iterative methods used for the acutal merging of arrays
     //leftSorted : ArrayList<BOOK> sorted array to be merged
-    //rightSorted : ArrayList<BOOk> sorted array to be merged
+    //rightSorted : ArrayList<BOOk> sortd array to be merged
     //byEntry: "TITLE" or "AUTHOR" used to decide which list to sort
     //returns Pair<ArrayList<B00K>, int> : sorted list and number of ticks
     private fun merge_iterative(leftSorted: ArrayList<BOOK>,
@@ -111,6 +112,7 @@ object MergeSort {
                                 byEntry: String): Pair<ArrayList<BOOK>, Int>{
 
         val res : MutableList<BOOK> = mutableListOf()
+        res.clear()
         var l = 0
         var r = 0
 
@@ -118,8 +120,7 @@ object MergeSort {
 
         var entryLeft : String
         var entryRight: String
-
-        // Merge the arrays into res
+//        print(leftSorted + " " + rightSorted)
         while(l < leftSorted.size  && r < rightSorted.size ){
 
             //Choose entry to sort by
@@ -134,25 +135,29 @@ object MergeSort {
             }
 
             if(entryLeft < entryRight) {
+
                 res.add(leftSorted[l])
+                println(res.size)
                 l++
             }else{
+                print(entryRight)
                 res.add(leftSorted[l])
+                println(res.size)
                 r++
             }
             ticks++
         }
 
-        //add remaining elements from leftsorted array
         while(l < leftSorted.size-1){
+
             res.add(leftSorted[l])
             l++
             ticks++
         }
 
-        //add remaining elements from rightsorted array
         while(r < rightSorted.size-1){
-            res.add(leftSorted[r])
+
+            res.add(rightSorted[r])
             r++
             ticks++
         }
