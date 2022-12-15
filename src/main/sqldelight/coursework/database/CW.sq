@@ -28,6 +28,7 @@ CREATE TABLE PUBLISHER (
 );
 
 -- =========== SQLite queries for DDBB Functions ===========================
+
 allBooks:
 SELECT *
 FROM BOOK;

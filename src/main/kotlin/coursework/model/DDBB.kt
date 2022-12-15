@@ -38,7 +38,7 @@ object DDBB {
                 author_id: Long?=null, publisher_id: Long?=null) {
         val database = Database(getSqlDriver(path))
         val sqlQueries = database.cWQueries
-        sqlQueries.insertBook(title, author, year_of_publication, publisher, subject, author_id, publisher_id)
+        return sqlQueries.insertBook(title, author, year_of_publication, publisher, subject, author_id, publisher_id)
     }
 
     fun searchBooks(word: String?): List<BOOK>

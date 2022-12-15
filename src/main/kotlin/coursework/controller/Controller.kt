@@ -7,6 +7,7 @@ import coursework.database.Database
 import coursework.database.AUTHOR
 import coursework.database.BOOK
 import coursework.database.PUBLISHER
+import coursework.model.DDBB
 import java.beans.PropertyChangeListener
 import java.beans.PropertyChangeSupport
 
@@ -64,7 +65,7 @@ object Controller {
         return ds.asJdbcDriver()
     }
     // ============ Book Controller ==============================
-    private fun getBooks(): List<BOOK> {
+    private fun getBooks(): List<BOOK> { // Called in the List, then List is get in Panel
         val database = Database(getSqlDriver(path))
         val sqlQueries = database.cWQueries
         return sqlQueries.allBooks().executeAsList()
@@ -76,6 +77,12 @@ object Controller {
         sqlQueries.insertBook(title, author, year_of_publication, publisher, subject, author_id, publisher_id)
         bookList = getBooks()
     }
+
+//     fun add_book(title: String, author: String, year_of_publication: Long, publisher: String, subject: String,
+//                  author_id: Long?=null, publisher_id: Long?=null) {
+//         bookList = DDBB.addBook(title, author, year_of_publication, publisher, subject, author_id, publisher_id).executeAsList()
+//         return bookList
+//     }
 
     fun searchBooks(word: String?)
     {
@@ -103,7 +110,7 @@ object Controller {
 
 
     // ============ Author Controller ==============================
-    private fun getAuthors(): List<AUTHOR> {
+    private fun getAuthors(): List<AUTHOR> { // Called in the List, then List is get in Panel
         val database = Database(getSqlDriver(path))
         val authorQueries = database.cWQueries
         return authorQueries.allAuthors().executeAsList()
@@ -139,7 +146,7 @@ object Controller {
     }
 
     // ============ Publisher Controller ==============================
-    fun getPublisher(): List<PUBLISHER> {
+    private fun getPublisher(): List<PUBLISHER> { // Called in the List, then List is get in Panel
         val database = Database(getSqlDriver(path))
         val publisherQueries = database.cWQueries
         return publisherQueries.allPublisher().executeAsList()
