@@ -28,10 +28,14 @@ public class SortPanel extends JPanel {
     private final JRadioButton radixSortRadioButton;
     private final ButtonGroup sortRadioGroup;
     private final ButtonGroup sortFieldGroup;
+    private final ButtonGroup implementationFieldGroup;
     private final JRadioButton bookTitleSortRadioButton;
     private final JRadioButton authorNameSortRadioButton;
     private final BookTableModel bookTableModel;
     private final JLabel ticksTextField;
+
+    private final JRadioButton iterativeRadioButton;
+    private final JRadioButton recursiveRadioButton;
 
     // The GUI is defined through the following funciton
     private void createUILayout() {
@@ -60,6 +64,13 @@ public class SortPanel extends JPanel {
 
             panelField.add(bookTitleSortRadioButton);
             panelField.add(authorNameSortRadioButton);
+
+            JPanel implementField = new JPanel();
+            implementField.setBorder(BorderFactory.createTitledBorder("Implementation"));
+            implementField.add(recursiveRadioButton);
+            implementField.add(iterativeRadioButton);
+            implementField.setLayout(new BoxLayout(implementField, BoxLayout.Y_AXIS));
+
 
             JPanel performancePanel = new JPanel();
             performancePanel.setBorder(BorderFactory.createTitledBorder("Performance :"));
@@ -147,6 +158,17 @@ public class SortPanel extends JPanel {
         sortFieldGroup.add(authorNameSortRadioButton);
         sortFieldGroup.add(bookTitleSortRadioButton);
 
+
+        iterativeRadioButton = new JRadioButton("Iterative Implementation");
+        recursiveRadioButton = new JRadioButton("Recusive Implementation");
+        recursiveRadioButton.setSelected(true);
+
+        implementationFieldGroup = new ButtonGroup();
+        implementationFieldGroup.add(iterativeRadioButton);
+        implementationFieldGroup.add(recursiveRadioButton);
+
+
+
         bookTableModel = new BookTableModel(Controller.INSTANCE.getBookList());
 
         ticksTextField = new JLabel();
@@ -165,14 +187,30 @@ public class SortPanel extends JPanel {
 
                 // Bubble radiobutton
                 if (bubbleSortRadioButton.isSelected()) {
+
+
                     if (authorNameSortRadioButton.isSelected()) {
-                        ticks = Bubble.INSTANCE.sortRecursiveAuthor((ArrayList<BOOK>) bookList, bookList.size(), ticks);
+
+                        if (recursiveRadioButton.isSelected()) {
+                            ticks = Bubble.INSTANCE.sortRecursiveAuthor((ArrayList<BOOK>) bookList, bookList.size(), ticks);
+                        }else{
+                            ticks = Bubble.INSTANCE.sortAuthorName((ArrayList<BOOK>) bookList);
+                        }
+
                     } else {
-//                        ticks = Bubble.INSTANCE.sortBookTitle((ArrayList<BOOK>) bookList);
-                        ticks = Bubble.INSTANCE.sortRecursiveTitle((ArrayList<BOOK>) bookList, bookList.size(), ticks);
+
+                        if(recursiveRadioButton.isSelected()){
+                            ticks = Bubble.INSTANCE.sortRecursiveTitle((ArrayList<BOOK>) bookList, bookList.size(), ticks);
+                        }else{
+                            ticks = Bubble.INSTANCE.sortBookTitle((ArrayList<BOOK>) bookList);
+                        }
+
                     }
                 }
+            
                 else if (quickSortRadioButton.isSelected()){
+
+
                     if (authorNameSortRadioButton.isSelected()) {
                         ticks = QuickSort.INSTANCE.sort_author((ArrayList<BOOK>) bookList);
                     }
@@ -185,6 +223,8 @@ public class SortPanel extends JPanel {
                 else if (mergeSortRadioButon.isSelected()) {
                     // MergeSort is not in-memory result.
                     // so we have to update explicitly the TableModel
+
+
                     if (authorNameSortRadioButton.isSelected()) {
                         Pair<ArrayList<BOOK>, Integer> pair = MergeSort.INSTANCE.sort_author((ArrayList<BOOK>) bookList);
                         bookList = pair.component1();
@@ -198,19 +238,31 @@ public class SortPanel extends JPanel {
                     }
                 }
                 else if (radixSortRadioButton.isSelected()){
+
                     if(authorNameSortRadioButton.isSelected()){
-                        ticks = Radix_kt.INSTANCE.sortRecursiveAuthor((ArrayList<BOOK>) bookList, 1, ticks);
+
+                        if (recursiveRadioButton.isSelected()) {
+                            ticks = Radix_kt.INSTANCE.sortRecursiveAuthor((ArrayList<BOOK>) bookList, bookList.size(), ticks);
+                        }else{
+                            ticks = Radix_kt.INSTANCE.sortByAuthor((ArrayList<BOOK>) bookList);
+                        }
+
                     }else{
-                        ticks = Radix_kt.INSTANCE.sortRecursiveTitle((ArrayList<BOOK>) bookList, 1, ticks);//, 1, ticks);
+                        if (recursiveRadioButton.isSelected()) {
+                            ticks = Radix_kt.INSTANCE.sortRecursiveTitle((ArrayList<BOOK>) bookList, bookList.size(), ticks);
+                        }else{
+                            ticks = Radix_kt.INSTANCE.sortByAuthor((ArrayList<BOOK>) bookList);
+
+                        }
                     }
+                    bookTableModel.setBookList(bookList);
+                    ticksTextField.setText(Integer.toString(ticks));
+                    System.out.println("ticks " + ticks);
+
                 }
-                bookTableModel.setBookList(bookList);
-                ticksTextField.setText(Integer.toString(ticks));
-                System.out.println("ticks " + ticks);
-
             }
-        });
 
+        });
 
     }
 }

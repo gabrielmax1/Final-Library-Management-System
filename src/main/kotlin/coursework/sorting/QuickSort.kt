@@ -13,11 +13,13 @@ object QuickSort {
 
             } else {
                 val half = partition_author(unsortList, inf, sup)
+
                 // Swap to reduce quota,
                 val tmp = unsortList[inf]
                 unsortList[inf] = unsortList[half - 1]
                 unsortList[half - 1] = tmp
-                //
+
+                //check if indexes are in array bounds
                 assert(((half - 1) - inf < sup - inf) && (sup - half < sup - inf))
                 sort_g(unsortList, inf, half - 1)
                 sort_g(unsortList, half, sup)
@@ -45,6 +47,7 @@ object QuickSort {
         assert(inf < half && inf <= sup)
         return half
     }
+
     fun sort_title(unsortList: ArrayList<BOOK>) : Int
     {
         tick = 0

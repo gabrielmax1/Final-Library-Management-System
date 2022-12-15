@@ -6,6 +6,7 @@ import coursework.database.BOOK
 // TODO : Implement for any type (not just LECTURER) and provide order functional.
 object Bubble {
 
+    //Iterative implementation for Bubble sort on Author
     fun sortAuthorName(my_array : ArrayList<BOOK>): Int {
         var n: Int = my_array.size // length of array
         var ticks = 0
@@ -27,6 +28,8 @@ object Bubble {
 
         return ticks
     }
+
+    //Iterative implementation for Bubble sort on Title
     fun sortBookTitle(my_array : ArrayList<BOOK>): Int {
         var n: Int = my_array.size // length of array
         var ticks = 0
@@ -59,6 +62,7 @@ object Bubble {
         return ticks
     }
 
+    //Recursive implementation for Bubble sort on Title
     fun sortRecursiveTitle(my_array: ArrayList<BOOK>, arr_length : Int , tick : Int): Int{
 
         if(arr_length == 1) {
@@ -79,6 +83,7 @@ object Bubble {
         return tick + sortRecursiveTitle(my_array, arr_length-1, tick+1)
     }
 
+    //Recursive implementation for Bubble sort on Author
     fun sortRecursiveAuthor(my_array: ArrayList<BOOK>, arr_length : Int , tick : Int): Int{
 
         if(arr_length == 1) {
