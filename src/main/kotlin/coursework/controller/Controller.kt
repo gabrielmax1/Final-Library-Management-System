@@ -123,7 +123,7 @@ object Controller {
         authorList = getAuthors()
     }
 
-    fun searchAuthor(name: String?){
+    fun searchAuthor(name: String?, surname: String?){
         val database = Database(getSqlDriver(path))
         val sqlQueries = database.cWQueries
         authorList = sqlQueries.Search_Author_by_Name(FIRSTNAME= "%$name%", SURNAME= "%$surname%").executeAsList() // Only FIRSTNAME for now
