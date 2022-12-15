@@ -212,7 +212,7 @@ public class SortPanel extends JPanel {
                 else if (quickSortRadioButton.isSelected()){
 
                     //Quick sort entry and implemetation choice
-                    if (iterativeRadioButton.isSelected()) {
+                    if (authorNameSortRadioButton.isSelected()) {
                         if(recursiveRadioButton.isSelected()){
                             System.out.println("NOT IMPLEMENTED YET");
                         }

@@ -52,6 +52,7 @@ object QuickSort {
             tick += 1
 
             if (byEntry.uppercase(Locale.getDefault()) == "AUTHOR") {
+
                 if (unsortList[n].AUTHOR <= unsortList[inf].AUTHOR) {
                     val tmp = unsortList[half]
                     unsortList[half] = unsortList[n]
@@ -71,4 +72,7 @@ object QuickSort {
         return half
 
     }
+
+
+
 }

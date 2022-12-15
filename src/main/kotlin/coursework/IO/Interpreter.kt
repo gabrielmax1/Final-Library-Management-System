@@ -69,14 +69,14 @@ object Interpreter {
                         var n = 0
                         when (choice) {
                             1 -> {
-                                n = Bubble.sortAuthorName(scrambled)
+                                n = Bubble.sortIterative(scrambled, "AUTHOR")
                                 scrambled.forEach { book ->
                                     println(book.toRow())
                                 }
                             }
 
                             2 -> {
-                                val pair = MergeSort.sort_title(scrambled)
+                                val pair = MergeSort.sort(scrambled, "TITLE")
                                 n = pair.second
                                 pair.first.forEach { lec ->
                                     println(lec.toRow())
@@ -84,7 +84,7 @@ object Interpreter {
                             }
 
                             3 -> {
-                                n = QuickSort.sort_author(scrambled)
+                                n = QuickSort.sort(scrambled, "AUTHOR")
                                 scrambled.forEach { book ->
                                     println(book.toRow())
                                 }
