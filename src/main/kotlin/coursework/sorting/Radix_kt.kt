@@ -17,7 +17,7 @@ object Radix_kt {
     private fun findMaxLengthEntry(arr: ArrayList<BOOK>, entry: String) : Int {
 
         var maxLen = 0
-        var len = 0
+        var len : Int
         for(i in arr.indices){
 
             //Decide what list to use; entry is sanitized in order to lose special characters
@@ -46,7 +46,7 @@ object Radix_kt {
         var place = 1
 
         val re = Regex("[^A-Za-z]")
-        var entry = ""
+        var entry : String
 
         while(place < maxLen){
 
@@ -57,7 +57,7 @@ object Radix_kt {
 
             for(book in arr){
 
-
+                //Chose entry to sort
                 if (byField.uppercase(Locale.getDefault()) == "AUTHOR"){
                     //Clean string of non-Alphabetical characters
                     entry = re.replace(book.AUTHOR, "")
@@ -66,6 +66,7 @@ object Radix_kt {
                     //Clean string of non-Alphabetical characters
                     entry = re.replace(book.TITLE, "")
                 }
+
                 //Add entry to bucket
                 if(entry.length > place){
                     buckets[entry[entry.length-place].uppercaseChar().code -65].add(book)
@@ -113,18 +114,29 @@ object Radix_kt {
         }
 
         val re = Regex("[^A-Za-z]")
-
+        var entry : String
         var tick = 0
         for (book in arr) {
-            val title = re.replace(book.TITLE, "")
 
-            if (title.length > place) {
-                buckets[title[title.length - place].uppercaseChar().code - 65].add(book)
-            } else {
-                buckets[title[0].uppercaseChar().code - 65].add(book)
+            //Chose entry to sort
+            if (byEntry.uppercase(Locale.getDefault()) == "AUTHOR"){
+                //Clean string of non-Alphabetical characters
+                entry = re.replace(book.AUTHOR, "")
             }
-            tick++
+            else{
+                //Clean string of non-Alphabetical characters
+                entry = re.replace(book.TITLE, "")
+            }
+
+            if (entry.length > place) {
+                buckets[entry[entry.length - place].uppercaseChar().code - 65].add(book)
+            } else {
+                buckets[entry[0].uppercaseChar().code - 65].add(book)
+            }
+
+
         }
+        tick++
 
         arr.clear()
         for (list in buckets) {
@@ -133,7 +145,7 @@ object Radix_kt {
             }
         }
 
-        return tick + sortRecursive(arr, byEntry, place + 1, ticks + 1)
+        return tick + sortRecursive(arr, byEntry, place + 1, 1)
     }
 
 

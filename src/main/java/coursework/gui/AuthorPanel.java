@@ -69,7 +69,7 @@ public class AuthorPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String fullname = nameTextField.getText();
-                    String surname = fullname.split(" ")[fullname.split(" ").length-1];
+                    String surname = fullname.split("")[fullname.split(" ").length-1];
                     String firstname = fullname.substring(0, fullname.length() - surname.length());
                     Controller.INSTANCE.addAuthor(firstname, surname);
                 }
@@ -82,7 +82,7 @@ public class AuthorPanel extends JPanel {
                     String fullname = searchAuthorTextField.getText();
                     String surname = fullname.split(" ")[fullname.split(" ").length-1];
                     String firstname = fullname.substring(0, fullname.length() - surname.length());
-                    Controller.INSTANCE.searchAuthor(firstname);
+                    Controller.INSTANCE.searchAuthor(firstname, surname);
                 }
             });
 

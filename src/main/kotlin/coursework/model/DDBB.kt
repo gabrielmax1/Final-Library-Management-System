@@ -89,10 +89,10 @@ object DDBB {
         sqlQueries.insertAuthors(firstname, surname)
     }
 
-    fun searchAuthor(name: String?): List<AUTHOR>{
+    fun searchAuthor(name: String?, surname: String?): List<AUTHOR>{
         val database = Database(getSqlDriver(path))
         val sqlQueries = database.cWQueries
-        return sqlQueries.Search_Author_by_Name(FIRSTNAME = "%$name%").executeAsList() // Only FIRSTNAME for now
+        return sqlQueries.Search_Author_by_Name(FIRSTNAME = "%$name%", SURNAME = "%$surname%").executeAsList() // Only FIRSTNAME for now
     }
 
     fun editAuthor(firstname: String, surname: String, id: Long)

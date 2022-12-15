@@ -46,12 +46,11 @@ object QuickSort {
         var half = inf + 1
         assert(sup - inf > 1)
 
-        var left = ""
-        var right = ""
         for (n in inf + 1 until sup) {
             tick += 1
 
             if (byEntry.uppercase(Locale.getDefault()) == "AUTHOR") {
+
                 if (unsortList[n].AUTHOR <= unsortList[inf].AUTHOR) {
                     val tmp = unsortList[half]
                     unsortList[half] = unsortList[n]
@@ -71,4 +70,26 @@ object QuickSort {
         return half
 
     }
+
+
+
+
+
+
+        /* A[] --> Array to be sorted,
+    l --> Starting index,
+    h --> Ending index */
+
+
+//    fun sortIteratat(unsortList: ArrayList<BOOK>, byEntry: String, inf: Int, sup: Int){
+//
+//        val stack : MutableList<BOOK> = mutableListOf()
+//
+//        var top : Int = -1
+//
+//        stack[++top] = inf
+//        stack[++top] = sup
+//
+//    }
+
 }
