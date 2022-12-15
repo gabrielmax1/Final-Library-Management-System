@@ -32,7 +32,7 @@ object MergeSort {
                 return Pair(res, tick)
             }else{
 
-                var pair : Pair<java.util.ArrayList<BOOK>, Int> = merge_iterative(leftSorted, rightSorted, byEntry)
+                var pair : Pair<java.util.ArrayList<BOOK>, Int> = merge_iterative(leftSorted, rightSorted, res, byEntry)
                 return Pair(pair.first, pair.second)
             }
 
@@ -109,12 +109,12 @@ object MergeSort {
     //returns Pair<ArrayList<B00K>, int> : sorted list and number of ticks
     private fun merge_iterative(leftSorted: ArrayList<BOOK>,
                                 rightSorted: ArrayList<BOOK>,
+                                res: ArrayList<BOOK>,
                                 byEntry: String): Pair<ArrayList<BOOK>, Int>{
 
-        val res : MutableList<BOOK> = mutableListOf()
-        res.clear()
         var l = 0
         var r = 0
+        var k = 0
 
         var ticks = 0
 
@@ -136,28 +136,30 @@ object MergeSort {
 
             if(entryLeft < entryRight) {
 
-                res.add(leftSorted[l])
+                res[k] = leftSorted[l]
                 println(res.size)
                 l++
             }else{
                 print(entryRight)
-                res.add(leftSorted[l])
+                res[k] = rightSorted[r]
                 println(res.size)
                 r++
             }
+            k++
             ticks++
         }
 
         while(l < leftSorted.size-1){
 
-            res.add(leftSorted[l])
+            res[k] = leftSorted[l]
+            k++
             l++
             ticks++
         }
 
         while(r < rightSorted.size-1){
 
-            res.add(rightSorted[r])
+            res[k] = rightSorted[r]
             r++
             ticks++
         }

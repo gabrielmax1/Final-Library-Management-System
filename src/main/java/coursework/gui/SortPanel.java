@@ -241,8 +241,8 @@ public class SortPanel extends JPanel {
                             bookList = pair.component1();
                             ticks = pair.component2();
                         }else{
-//                            Pair<ArrayList<BOOK>, Integer> pair = MergeSort.INSTANCE.sort((ArrayList<BOOK>) bookList, "AUTHOR","RECURSIVE");
-                            Pair<ArrayList<BOOK>, Integer> pair = MergeSort.INSTANCE.sort((ArrayList<BOOK>) bookList, "AUTHOR","ITERATIVE");
+                            Pair<ArrayList<BOOK>, Integer> pair = MergeSort.INSTANCE.sort((ArrayList<BOOK>) bookList, "AUTHOR","RECURSIVE");
+//                            Pair<ArrayList<BOOK>, Integer> pair = MergeSort.INSTANCE.sort((ArrayList<BOOK>) bookList, "AUTHOR","ITERATIVE");
                             bookList = pair.component1();
                             ticks = pair.component2();
                         }
@@ -255,9 +255,9 @@ public class SortPanel extends JPanel {
                             bookList = pair.component1();
                             ticks = pair.component2();
                         }else{
-//                            Pair<ArrayList<BOOK>, Integer> pair = MergeSort.INSTANCE.sort((ArrayList<BOOK>) bookList, "TITLE","RECURSIVE");
+                            Pair<ArrayList<BOOK>, Integer> pair = MergeSort.INSTANCE.sort((ArrayList<BOOK>) bookList, "TITLE","RECURSIVE");
 
-                            Pair<ArrayList<BOOK>, Integer> pair = MergeSort.INSTANCE.sort((ArrayList<BOOK>) bookList, "TITLE","ITERATIVE");
+//                            Pair<ArrayList<BOOK>, Integer> pair = MergeSort.INSTANCE.sort((ArrayList<BOOK>) bookList, "TITLE","ITERATIVE");
                             bookList = pair.component1();
                             ticks = pair.component2();
                         }
