@@ -70,7 +70,7 @@ object Bubble {
             //Choose what list to sort by
             if(byEntry.uppercase(Locale.getDefault()) == "AUTHOR"){
 
-                if (my_array[i-1].AUTHOR < my_array[i].AUTHOR) {
+                if (my_array[i-1].AUTHOR > my_array[i].AUTHOR) {
                     val tmp = my_array[i-1]
                     my_array[i-1]=my_array[i]
                     my_array[i] = tmp
@@ -79,7 +79,7 @@ object Bubble {
             }
 
             else{
-                if (my_array[i-1].TITLE < my_array[i].TITLE) {
+                if (my_array[i-1].TITLE > my_array[i].TITLE) {
                     val tmp = my_array[i-1]
                     my_array[i-1]=my_array[i]
                     my_array[i] = tmp
