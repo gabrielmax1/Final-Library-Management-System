@@ -234,21 +234,29 @@ public class SortPanel extends JPanel {
 
 
                     if (authorNameSortRadioButton.isSelected()) {
-                        if(iterativeRadioButton.isSelected()){
-                            System.out.println("NOT IMPLEMENTED YET");
+                        if(iterativeRadioButton.isSelected()) {
+
+                            Pair<ArrayList<BOOK>, Integer> pair = MergeSort.INSTANCE.sort((ArrayList<BOOK>) bookList, "AUTHOR","ITERATIVE");
+                            bookList = pair.component1();
+                            ticks = pair.component2();
+                        }else{
+                            Pair<ArrayList<BOOK>, Integer> pair = MergeSort.INSTANCE.sort((ArrayList<BOOK>) bookList, "AUTHOR","RECURSIVE");
+                            bookList = pair.component1();
+                            ticks = pair.component2();
                         }
-                        Pair<ArrayList<BOOK>, Integer> pair = MergeSort.INSTANCE.sort((ArrayList<BOOK>) bookList, "AUTHOR");
-                        bookList = pair.component1();
-                        ticks = pair.component2();
                     }
                     else
                     {
-                        if(iterativeRadioButton.isSelected()){
-                            System.out.println("NOT IMPLEMENTED YET");
+                        if(iterativeRadioButton.isSelected()) {
+
+                            Pair<ArrayList<BOOK>, Integer> pair = MergeSort.INSTANCE.sort((ArrayList<BOOK>) bookList, "TITLE","ITERATIVE");
+                            bookList = pair.component1();
+                            ticks = pair.component2();
+                        }else{
+                            Pair<ArrayList<BOOK>, Integer> pair = MergeSort.INSTANCE.sort((ArrayList<BOOK>) bookList, "TITLE","RECURSIVE");
+                            bookList = pair.component1();
+                            ticks = pair.component2();
                         }
-                        Pair<ArrayList<BOOK>, Integer> pair = MergeSort.INSTANCE.sort((ArrayList<BOOK>) bookList, "TITLE");
-                        bookList = pair.component1();
-                        ticks = pair.component2();
                     }
                 }
                 else if (radixSortRadioButton.isSelected()){
@@ -256,14 +264,14 @@ public class SortPanel extends JPanel {
                     if(authorNameSortRadioButton.isSelected()){
 
                         if (recursiveRadioButton.isSelected()) {
-                            ticks = Radix_kt.INSTANCE.sortRecursive((ArrayList<BOOK>) bookList, "AUTHOR", bookList.size(), ticks);
+                            ticks = Radix_kt.INSTANCE.sortRecursive((ArrayList<BOOK>) bookList, "AUTHOR", 1, ticks);
                         }else{
                             ticks = Radix_kt.INSTANCE.sortIterative((ArrayList<BOOK>) bookList, "AUTHOR");
                         }
 
                     }else{
                         if (recursiveRadioButton.isSelected()) {
-                            ticks = Radix_kt.INSTANCE.sortRecursive((ArrayList<BOOK>) bookList,"TITLE", bookList.size(), ticks);
+                            ticks = Radix_kt.INSTANCE.sortRecursive((ArrayList<BOOK>) bookList,"TITLE", 1, ticks);
                         }else{
                             ticks = Radix_kt.INSTANCE.sortIterative((ArrayList<BOOK>) bookList, "TITLE");
 

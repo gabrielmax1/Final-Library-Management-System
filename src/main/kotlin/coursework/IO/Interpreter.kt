@@ -76,7 +76,7 @@ object Interpreter {
                             }
 
                             2 -> {
-                                val pair = MergeSort.sort(scrambled, "TITLE")
+                                val pair = MergeSort.sort(scrambled, "TITLE", "RECURSIVE")
                                 n = pair.second
                                 pair.first.forEach { lec ->
                                     println(lec.toRow())

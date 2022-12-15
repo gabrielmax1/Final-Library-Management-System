@@ -75,4 +75,23 @@ object QuickSort {
 
 
 
+
+
+
+        /* A[] --> Array to be sorted,
+    l --> Starting index,
+    h --> Ending index */
+
+
+//    fun sortIteratat(unsortList: ArrayList<BOOK>, byEntry: String, inf: Int, sup: Int){
+//
+//        val stack : MutableList<BOOK> = mutableListOf()
+//
+//        var top : Int = -1
+//
+//        stack[++top] = inf
+//        stack[++top] = sup
+//
+//    }
+
 }

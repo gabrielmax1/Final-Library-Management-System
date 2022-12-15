@@ -13,7 +13,7 @@ object MergeSort {
 
 
     //Main method for the Merge sort
-    fun sort(unsortList: ArrayList<BOOK>, byEntry: String): Pair<ArrayList<BOOK>, Int> {
+    fun sort(unsortList: ArrayList<BOOK>, byEntry: String, implementation: String): Pair<ArrayList<BOOK>, Int> {
         tick = 0
         val res = ArrayList(unsortList)
 
@@ -24,12 +24,18 @@ object MergeSort {
             val leftScrambled = ArrayList(unsortList.slice(0 until half))
             val rightScrambled = ArrayList(unsortList.slice(half until unsortList.size))
 
-            val (leftSorted, _) = sort(leftScrambled, byEntry)
-            val (rightSorted, _) = sort(rightScrambled, byEntry)
+            val (leftSorted, _) = sort(leftScrambled, byEntry, implementation)
+            val (rightSorted, _) = sort(rightScrambled, byEntry, implementation)
 
-            merge_rec_1(leftSorted, rightSorted, res, byEntry)
+            if(implementation.uppercase(Locale.getDefault()) == "RECURSIVE") {
+                merge_recursive(leftSorted, rightSorted, res, byEntry)
+                return Pair(res, tick)
+            }else{
+                 var pair : Pair<java.util.ArrayList<BOOK>, Int> = merge_iterative(leftSorted, rightSorted, byEntry)
+                return Pair(pair.first, pair.second)
+            }
 
-            return Pair(res, tick)
+
         }
     }
 
@@ -39,11 +45,15 @@ object MergeSort {
     //res: ArrayList<BOOk> result array
     //byEntry: "TITLE" or "AUTHOR" used to decide which list to sort
     //returns Pair<ArrayList<B00K>, int> : sorted list and number of ticks
-    fun merge_rec_1(leftSorted: ArrayList<BOOK>,
+    private fun merge_recursive(leftSorted: ArrayList<BOOK>,
                     rightSorted: ArrayList<BOOK>,
                     res: ArrayList<BOOK>,
                     byEntry: String){
 
+        // l - index of left array
+        // r - index of left array
+        // res - result array
+        // byEntry - field to sort by
         fun merge_rec_author(
             leftSorted: ArrayList<BOOK>, l: Int,
             rightSorted: ArrayList<BOOK>, r: Int,
@@ -89,6 +99,58 @@ object MergeSort {
         var (l, r, t) = Triple(0, 0, 0)
         merge_rec_author(leftSorted, l, rightSorted, r, res, t, byEntry)  // not B
     }
+
+
+    private fun merge_iterative(leftSorted: ArrayList<BOOK>,
+                                rightSorted: ArrayList<BOOK>,
+                                byEntry: String): Pair<ArrayList<BOOK>, Int>{
+
+        val res : MutableList<BOOK> = mutableListOf()
+        var l = 0
+        var r = 0
+
+        var ticks = 0
+
+        var entryLeft : String
+        var entryRight: String
+
+        while(l < leftSorted.size  && r < rightSorted.size ){
+
+            //Choose entry to sort by
+            if (byEntry.uppercase(Locale.getDefault()) == "AUTHOR"){
+                entryLeft = leftSorted[l].AUTHOR
+                entryRight = rightSorted[r].AUTHOR
+            }
+            else
+            {
+                entryLeft = leftSorted[l].TITLE
+                entryRight = rightSorted[r].TITLE
+            }
+
+            if(entryLeft < entryRight) {
+                res.add(leftSorted[l])
+                l++
+            }else{
+                res.add(leftSorted[l])
+                r++
+            }
+            ticks++
+        }
+
+        while(l < leftSorted.size-1){
+            res.add(leftSorted[l])
+            l++
+            ticks++
+        }
+
+        while(r < rightSorted.size-1){
+            res.add(leftSorted[r])
+            r++
+            ticks++
+        }
+        return Pair((ArrayList(res)), ticks)
+    }
+
 }
 
 
