@@ -146,7 +146,7 @@ object MergeSort {
             ticks++
         }
 
-        while(l < leftSorted.size-1){
+        while(l < leftSorted.size){
 
             res[k] = leftSorted[l]
             k++
@@ -154,7 +154,7 @@ object MergeSort {
             ticks++
         }
 
-        while(r < rightSorted.size-1){
+        while(r < rightSorted.size){
 
             res[k] = rightSorted[r]
             r++

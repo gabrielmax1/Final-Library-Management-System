@@ -54,10 +54,6 @@ object DDBB {
         return sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
     }
 
-
-
-
-
     fun addAuthor(firstname: String, surname: String) {
         val database = Database(getSqlDriver(path))
         val sqlQueries = database.cWQueries
