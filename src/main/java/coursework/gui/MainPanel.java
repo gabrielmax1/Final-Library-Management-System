@@ -10,12 +10,12 @@ public class MainPanel extends JPanel {
 
     private JTabbedPane appTabbedPane;
 
-
+    // Such panels will be coupled in their Panes, e.g., BookPanel and BookTableModel, will be 2 separate Panes in one JPanel.
     public MainPanel() {
 
         // Setting of the layout of the JPanel
-        super(new GridLayout(1,1));
-        this.appTabbedPane = new JTabbedPane();
+        super(new GridLayout(1,1)); // Grid Layout will be using 1 row and 1 column (1 Big Box)
+        this.appTabbedPane = new JTabbedPane(); //
 
         appTabbedPane.addTab("BOOKS", new BookPanel());
         appTabbedPane.setMnemonicAt(0, KeyEvent.VK_1);

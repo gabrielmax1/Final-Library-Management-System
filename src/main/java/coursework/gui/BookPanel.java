@@ -7,19 +7,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-// BookPanel is the JPanel in which the book list, textfield and functions buttons are managed and used
+// BookPanel is mainly the JPanel in which the book list, textfield and functions buttons are managed and used
+// Down below we instantiate the BookTableModel as an object and use it on right side as Database Table
+//
 public class BookPanel extends JPanel {
     // Moved from Constructor to Class attribute
     final BookTableModel bookTableModel = new BookTableModel(Controller.INSTANCE.getBookList());
-    private final JTable booksTable = new JTable(bookTableModel);
+    private final JTable booksTable = new JTable(bookTableModel); // These 2 booksTable and bookForm
     private BookFormPanel bookForm = new BookFormPanel();
 
     //// Constructor
     public BookPanel() {
-        setLayout(new GridLayout(1,2));
+        setLayout(new GridLayout(1,2)); // 1 Row, 2 Columns (left Textfields, buttons, .. Right Table)
         add(bookForm);
-        Controller.INSTANCE.addPropertyChangeListener(bookTableModel);
-        add(new JScrollPane(booksTable));
+        Controller.INSTANCE.addPropertyChangeListener(bookTableModel); // This will allow the table to refresh and show changes such as new entry, deletion, or edits.
+        add(new JScrollPane(booksTable)); // This is mainly used for the mouseClicked
 
         // / The listener is used to select the data of the row picked by the mouse
         booksTable.addMouseListener(new MouseAdapter() {
@@ -62,29 +64,30 @@ public class BookPanel extends JPanel {
         public String id;
 
         public BookFormPanel() {
-
+            // ======= TextFields ===========
             titleTextField = new JTextField();
             authorTextField = new JTextField();
             year_of_publicationTextField = new JTextField();
             publisherTextField = new JTextField();
             subjectTextField = new JTextField();
             searchTextField = new JTextField();
-            addButton = new JButton("ADD");
-            editButton = new JButton("EDIT");
+            // ======= Buttons ===========
+            addButton = new JButton(" ADD ");
+            editButton = new JButton("  EDIT ");
             deleteButton = new JButton("DELETE");
             searchButton = new JButton("SEARCH");
-            // ComboBox for Author
+            // ========= ComboBox for Author ========================
             final AuthorComboBoxModel authorComboBoxModel = new AuthorComboBoxModel(Controller.INSTANCE.getAuthorList());
             authorComboBox = new JComboBox(authorComboBoxModel);
             authorComboBox.setEditable(false);
             Controller.INSTANCE.addPropertyChangeListener(authorComboBoxModel);
-            // ComboBox for Publisher
+            // ========== ComboBox for Publisher ====================
             final PublisherComboBoxModel publisherComboBoxModel = new PublisherComboBoxModel(Controller.INSTANCE.getPublisherList());
             publisherComboBox = new JComboBox(publisherComboBoxModel);
             publisherComboBox.setEditable(false);
             Controller.INSTANCE.addPropertyChangeListener(publisherComboBoxModel);
 
-            // The function instantialise the GUI of the book page
+            // The function instantiates the GUI of the book page
             createUILayout();
 
             // Add Button to add the book to the database
@@ -101,19 +104,27 @@ public class BookPanel extends JPanel {
                 }
             });
 
+            // Search Button to search the books in the database
+            searchButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e)
+                {
+                    String searchWord = searchTextField.getText();
+                    Controller.INSTANCE.searchBooks(searchWord);
+                }
+            });
+
             // Edit Button to edit the book data into the database
             editButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // If entry selected then display text in text fields
-                    // If change text in textfield and click edit, update entry.
+    // If entry selected then display text in text fields. If change text in textfield and click edit, update entry.
                     String title = titleTextField.getText();
                     String author = authorTextField.getText();
                     String year_of_publication = year_of_publicationTextField.getText();
                     String publisher = publisherTextField.getText();
                     String subject = subjectTextField.getText();
                     String searchWord = searchTextField.getText();
-
                     Controller.INSTANCE.editBooks(title, author, Long.parseLong(year_of_publication), publisher, subject,
                             Long.parseLong(id));
                     System.out.println(id);
@@ -125,19 +136,8 @@ public class BookPanel extends JPanel {
             deleteButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // Selected book
-                    // If book selected, and delete button is pressed then delete entry.
+            // Selected book. If book selected, and delete button is pressed then delete entry.
                     Controller.INSTANCE.deleteBooks(Long.parseLong(id));
-                }
-            });
-
-            // Search Button to search the books in the database
-            searchButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    String searchWord = searchTextField.getText();
-                    Controller.INSTANCE.searchBooks(searchWord);
                 }
             });
         }
@@ -151,7 +151,7 @@ public class BookPanel extends JPanel {
         }
 
     // Creating the GUI using GridBagContraints, which uses a grid to order the ui objects
-    // using values such as x & y panes, is like using Tkinter grid() geometry manager rows and columns
+    // using values such as x & y panes, is like using Tkinter (Python) grid() geometry manager rows and columns
         private void createUILayout() {
             setLayout(new GridBagLayout());
             setBorder(BorderFactory.createTitledBorder("Book"));
@@ -162,7 +162,7 @@ public class BookPanel extends JPanel {
             gc.insets = new Insets(0, 4, 0, 5);
             gc.anchor = GridBagConstraints.LINE_END;
 
-
+            // Filling the created Grid with their entries.
             gc.gridx = 0;
             gc.gridy = 0 ;
             add(new JLabel("Title :",SwingConstants.RIGHT),gc);

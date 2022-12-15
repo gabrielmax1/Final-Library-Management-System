@@ -10,37 +10,14 @@ import coursework.database.AUTHOR
 import coursework.database.BOOK
 import coursework.database.PUBLISHER
 
-// This is the Model part of the Software Architecture, this part is supposted to rappresent the data and the logic of the program
+// This is the Model part of the Software Architecture, this part is supposed to represent the data and the logic of the program
 // Although it does, it uses it partially, due to the time restriction that we had to implement our solution, therefore half of the functions are effectively used.
+
+// This is where we exchange between relational format of data and Entity Models for the application. (CW.sq <-> DDBB)
 
 object DDBB {
 
-
     val path = "src/main/resources/library.sqlite"
-
-    fun booksByAuthor( id: Long): List<Book_by_Author> {
-        val database = Database(getSqlDriver(path))
-        val sqlQueries = database.cWQueries
-        return sqlQueries.book_by_Author(id).executeAsList()
-    }
-
-    fun getBooks(): List<BOOK> {
-        val database = Database(getSqlDriver(path))
-        val sqlQueries = database.cWQueries
-        return sqlQueries.allBooks().executeAsList()
-    }
-
-    fun getSearchBooks(word: String): List<BOOK> {
-        val database = Database(getSqlDriver(path))
-        val sqlQueries = database.cWQueries
-        return sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
-    }
-
-    fun addBook(title: String, author: String, year_of_publication: Long, publisher: String, subject: String, author_id: Long?=null, publisher_id: Long?=null) {
-        val database = Database(getSqlDriver(path))
-        val sqlQueries = database.cWQueries
-        sqlQueries.insertBook(title, author, year_of_publication, publisher, subject, author_id, publisher_id)
-    }
 
     private fun getSqlDriver(path: String ): SqlDriver {
         val ds = HikariDataSource()
@@ -50,6 +27,36 @@ object DDBB {
         ds.password = ""
         return ds.asJdbcDriver()
     }
+    // ============ Book Model ==============================
+
+    fun getBooks(): List<BOOK> {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        return sqlQueries.allBooks().executeAsList()
+    }
+    fun addBook(title: String, author: String, year_of_publication: Long, publisher: String, subject: String,
+                author_id: Long?=null, publisher_id: Long?=null) {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        sqlQueries.insertBook(title, author, year_of_publication, publisher, subject, author_id, publisher_id)
+    }
+    fun booksByAuthor( id: Long): List<Book_by_Author> {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        return sqlQueries.book_by_Author(id).executeAsList()
+    }
+
+
+
+    fun getSearchBooks(word: String): List<BOOK> {
+        val database = Database(getSqlDriver(path))
+        val sqlQueries = database.cWQueries
+        return sqlQueries.Search_Book_by_Title(TITLE = "%$word%").executeAsList()
+    }
+
+
+
+
 
     fun addAuthor(firstname: String, surname: String) {
         val database = Database(getSqlDriver(path))

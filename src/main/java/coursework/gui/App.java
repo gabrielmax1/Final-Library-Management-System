@@ -3,7 +3,9 @@ package coursework.gui;
 
 
 import javax.swing.*;
-// This is the critical Class in the View which will instantiate
+
+// This is the critical Class in the View which will instantiate the MainPanel class using setContentPane from javax.swing
+// This will create the MainPanel Window that will "encapsulate" the other classes inside in such UI
 public class App {
     public static void main(String[] args) {
 

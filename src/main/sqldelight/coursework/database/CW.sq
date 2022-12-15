@@ -1,6 +1,7 @@
 -- This is an SQLite version of the Queries, however this is primarely used to create the core SQL Queries used as Functions
--- in our Controller.
+-- in our Model (partially at times we have skipped the Model and used them in the Controller).
 
+--- Relational Model (SQL)
 
 CREATE TABLE BOOK (
  id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -26,7 +27,7 @@ CREATE TABLE PUBLISHER (
  NAME TEXT NOT NULL
 );
 
--- =========== SQLite queries for Functions ===========================
+-- =========== SQLite queries for DDBB Functions ===========================
 allBooks:
 SELECT *
 FROM BOOK;

@@ -2,6 +2,9 @@
 -- An empty file can be linked to it, In Windows you need to delcare his extension to sql, or sqlite and then by running these Querie
 -- Tables with entries can be created.
 
+-- Here SQL is used as schema description for DDBB as well as to build the entity classes in kotlin
+-- This is describing the DDL definition of Database Schema for SQLite file
+
 CREATE TABLE if not exists BOOK (
  id INTEGER PRIMARY KEY AUTOINCREMENT,
 TITLE TEXT NOT NULL,

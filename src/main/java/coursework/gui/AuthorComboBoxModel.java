@@ -8,8 +8,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-// The class make use of ComboBoxModel that provide a data model for components like JComboBox that allows the user to select one item from a list of options.
-// and  ProperTyChangeListener provides support for managing property change events.
+// The class makes use of ComboBoxModel that provide a data model for components like JComboBox that allows the user to select one item from a list of options.
+// and ProperTyChangeListener provides support for managing property change events.
 // The AuthorComboBoxModel is used to create an author JComboBox for the authors
 public class AuthorComboBoxModel implements ComboBoxModel, PropertyChangeListener {
 
